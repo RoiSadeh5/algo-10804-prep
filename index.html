@@ -260,6 +260,8 @@ nav.tabs .th{margin-inline-start:auto;position:sticky;left:0}
 #wrongPanel ul{margin:8px 0 0;padding-inline-start:20px}
 #wrongPanel li{margin-bottom:4px}
 #wrongPanel a{cursor:pointer}
+a.golink{color:var(--accent);cursor:pointer;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+a.golink:hover{opacity:.8}
 </style>
 </head>
 <body>
@@ -1141,7 +1143,7 @@ O(1)→k=0, O(n)→k=1, O(n²)→k=2.</p>
 מיון בועות ומיון הכנסה רקורסיביים.
 </div>
 
-<h2>6 · השאלה האמיתית — 2025 שאלה 1א</h2>
+<h2 id="sol-2025-1a">6 · השאלה האמיתית — 2025 שאלה 1א</h2>
 
 <pre class="c">void f1(int n)
 {
@@ -1515,7 +1517,7 @@ O(log log n). זה הופיע ב-2021 ואף אחד מהדפוסים של 2023�
 כ"מה יודפס".
 </div>
 
-<h2>3 · לכתוב פונקציה רקורסיבית "בלי לולאות"</h2>
+<h2 id="sol-rec-write">3 · לכתוב פונקציה רקורסיבית "בלי לולאות"</h2>
 <p><span class="tag exam">2023 שאלה 4 · 18 נק'</span>
 <span class="tag exam">2024 שאלה 2 · 12 נק'</span></p>
 <p>ההגבלה "<b>אסור שיופיעו לולאות כלשהן בקוד</b>" מופיעה כמעט כל שנה.
@@ -2062,7 +2064,7 @@ if (prev-&gt;next)
 כל הזנב.</p>
 <div id="d03_p1"></div>
 
-<h2>4 · השאלה שממש הופיעה — 2024 שאלה 3</h2>
+<h2 id="sol-2024-3">4 · השאלה שממש הופיעה — 2024 שאלה 3</h2>
 <p><span class="tag exam">12 נקודות · מעקב</span></p>
 <pre class="c">void listQuestion()
 {
@@ -2109,7 +2111,7 @@ if (prev-&gt;next)
 </div>
 </div></details>
 
-<h2>5 · השאלה הקשה — 2025 שאלה 3</h2>
+<h2 id="sol-2025-3">5 · השאלה הקשה — 2025 שאלה 3</h2>
 <p><span class="tag exam">14 נקודות · דו-כיוונית · בלי הקצאת זיכרון</span></p>
 <p><b>"העברה מעגלית"</b>: להעביר את n האיברים <b>האחרונים</b> לתחילת הרשימה,
 בלי לשנות את סדרם הפנימי, ובלי הקצאה או שחרור זיכרון.</p>
@@ -2157,7 +2159,7 @@ if (prev-&gt;next)
 רק <b>הזזת מצביעים</b> על הצמתים הקיימים.</div>
 </div></details>
 
-<h2>6 · 2023 שאלה 6</h2>
+<h2 id="sol-2023-6">6 · 2023 שאלה 6</h2>
 <p><span class="tag exam">18 נקודות · חד-כיוונית</span></p>
 <p><code>void moveDoubleDigitsNumToStart(NODE* node)</code> — מקבלת את
 כתובת ה-head, ומזיזה את כל המספרים <b>הדו-ספרתיים</b> לתחילת הרשימה.
@@ -2495,7 +2497,7 @@ typedef struct {
 </ul>
 </div>
 
-<h2>3 · שחזור עץ מסיורים</h2>
+<h2 id="sol-tree-rebuild">3 · שחזור עץ מסיורים</h2>
 <p><span class="tag exam">2019 שאלה 2 · 20 נק'</span>
 <span class="tag exam">2023 שאלה 5א · 10 נק'</span></p>
 
@@ -2632,7 +2634,7 @@ In-Order:  82, 52, 36, 88, 11, 86, 32, 72, 27, 56, 87</pre>
 יש מוסכמה חלופית (מקסימום של השמאלי) שתיתן תשובה אחרת.
 </div>
 
-<h2>5 · השאלה ההפוכה — 2024 שאלה 4</h2>
+<h2 id="sol-2024-4">5 · השאלה ההפוכה — 2024 שאלה 4</h2>
 <p><span class="tag exam">12 נקודות · חשיבה הפוכה</span></p>
 <p>נתון עץ חיפוש בינארי, וידוע שהפעולה האחרונה הייתה <b>מחיקת 90</b>.
 לצייר <b>שתי אפשרויות</b> לעץ שהיה <b>לפני</b> המחיקה.</p>
@@ -2999,7 +3001,7 @@ BOOL isBST(NODE2* p) {
 </div>
 </div></details></div>
 
-<h2>4 · הנדסה לאחור — הווריאציה הקשה</h2>
+<h2 id="sol-2025-6">4 · הנדסה לאחור — הווריאציה הקשה</h2>
 
 <div class="q"><div class="qh"><b>2025 שאלה 6</b><span class="src">12 נקודות</span></div>
 <p>נתונה ערימת מקסימום: <code>100 98 60 58 70 20</code>
@@ -3034,7 +3036,7 @@ k איברים.</li>
 </div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2023 שאלה 3</b><span class="src">16 נקודות · הכי מתוחכמת</span></div>
+<div class="q" id="sol-2023-3"><div class="qh"><b>2023 שאלה 3</b><span class="src">16 נקודות · הכי מתוחכמת</span></div>
 <p>על ערמת מקסימום הריצו סיור <b>InOrder</b> וקיבלו:
 <code>3, 6, 1, 11, 7, 9, 15, 1, 8, 5</code>
 <br>אחר כך הסירו את השורש. לכתוב את המערך שהתקבל.</p>
@@ -3382,7 +3384,7 @@ Quick Sort הוא O(n log n) בממוצע אבל O(n²) במקרה הגרוע. �
 והכנסה <b>יכולה</b> להשתמש בו.</p>
 </div>
 
-<h2>6 · השאלה המלאה — 2025 שאלה 7ב</h2>
+<h2 id="sol-2025-7">6 · השאלה המלאה — 2025 שאלה 7ב</h2>
 <p><span class="tag exam">8 נקודות</span></p>
 <p>טבלה בגודל 11 · <code>h(x) = x % 11</code> · <code>step(x) = 1 + (x % 3)</code>
 <br>הטבלה שהתקבלה:</p>
@@ -3463,7 +3465,7 @@ Quick Sort הוא O(n log n) בממוצע אבל O(n²) במקרה הגרוע. �
 שהורגת את השאלה הזאת.</div>
 </div></details></div>
 
-<h2>7 · שחזור סדר הכנסה — 2024 שאלה 7</h2>
+<h2 id="sol-2024-7">7 · שחזור סדר הכנסה — 2024 שאלה 7</h2>
 <p><span class="tag exam">12 נקודות · סריקה ליניארית</span></p>
 <p>N = 13 · <code>h(x) = x % 13</code> · מיעון פתוח עם <b>סריקה ליניארית</b>.
 אחרי 10 הכנסות:</p>
@@ -3712,7 +3714,7 @@ BOOL Q_print  (QUEUE* pQue);</pre>
 
 <h2>3 · שלוש שאלות המבחן</h2>
 
-<div class="q"><div class="qh"><b>2024 שאלה 5 — מחסנית</b><span class="src">12 נקודות</span></div>
+<div class="q" id="sol-2024-5"><div class="qh"><b>2024 שאלה 5 — מחסנית</b><span class="src">12 נקודות</span></div>
 <p><code>int countValInStack(STACK* pStack, int val)</code> — כמה פעמים
 <code>val</code> מופיע. <b>המחסנית תישאר ללא שינוי.</b> אסור מבנה עזר.</p>
 <details class="sol"><summary>הפתרון הרשמי של המרצה</summary><div class="body">
@@ -3737,7 +3739,7 @@ BOOL Q_print  (QUEUE* pQue);</pre>
 <p>סיבוכיות: <b>O(n)</b> זמן, <b>O(n)</b> מקום (עומק המחסנית הקריאות).</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2025 שאלה 5 — תור</b><span class="src">12 נקודות · מעקב</span></div>
+<div class="q" id="sol-2025-5"><div class="qh"><b>2025 שאלה 5 — תור</b><span class="src">12 נקודות · מעקב</span></div>
 <pre class="c">int what(QUEUE* pQ)
 {
     int i = Q_deque(pQ);
@@ -3766,7 +3768,7 @@ BOOL Q_print  (QUEUE* pQue);</pre>
 רק "מחזירה את המינימום" תפסיד נקודות, כי ההיפוך הוא תופעת לוואי משמעותית.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2023 שאלה 2 — תור</b><span class="src">16 נקודות · הקשה מכולן</span></div>
+<div class="q" id="sol-2023-2"><div class="qh"><b>2023 שאלה 2 — תור</b><span class="src">16 נקודות · הקשה מכולן</span></div>
 <p><code>void even(QUEUE* pQ)</code> — להדפיס רק את האיברים <b>הזוגיים</b>,
 מהראש לסוף. <b>התור יישאר ללא שינוי.</b>
 <br>אסור לולאות · אסור מבנה עזר · מותרת <b>פונקציית עזר אחת</b>.</p>
@@ -4056,7 +4058,7 @@ enque(4)  →  [3, 4]</pre>
 </ol>
 </div>
 
-<h2>2 · השאלה שהופיעה — 2025 שאלה 8</h2>
+<h2 id="sol-2025-8">2 · השאלה שהופיעה — 2025 שאלה 8</h2>
 
 <div class="q"><div class="qh"><b>א.</b><span class="src">5 נקודות</span></div>
 <p>נתון המערך <code>23 32 45 69 72 73 89 97</code>.
@@ -4157,7 +4159,7 @@ enque(4)  →  [3, 4]</pre>
 מועמד: עובר על המערך ובודק אם הוא "נקודת הפרדה". מי שלא — נפסל מיד.</div>
 </div></details></div>
 
-<h2>4 · מיון מנייה — המעקב הרשמי מ-2024</h2>
+<h2 id="sol-2024-8">4 · מיון מנייה — המעקב הרשמי מ-2024</h2>
 <p><span class="tag exam">שאלה 8 · 12 נקודות</span></p>
 <p>למיין את דגמי המטוסים <b>לפי האות בלבד</b> (A, B, C, F), לפי סדר אלפביתי:
 <br><code>F15 B52 B1 C130 B2 F35 A10 F22 F16 C5</code></p>
@@ -8026,11 +8028,256 @@ swap עם 22 ⑥. סה"כ <b>6</b>.</p>
 </tbody>
 </table></div>
 
-<div class="note">
-<b>ומה עם 2023–2025?</b> שלושת שאלוני ה-X האלה מפורקים לעומק לאורך כל
-הדקים — כל שאלה מופיעה בדק הנושא שלה עם פתרון מלא (מפת המבחן ← "הפירוק
-המדויק — 2025 שאלון X" מקשרת לכולן). שאלוני ה-Y שמורים להדמות.
-</div>
+<h2>מבחן 2023 שאלון X — כל שאלה, קליק אחד מהפתרון</h2>
+<div class="tw"><table>
+<thead><tr><th class="c">ש'</th><th>נושא</th><th class="c">נק'</th><th>הפתרון המלא</th></tr></thead>
+<tbody>
+<tr><td class="c">1</td><td>סיבוכיות — לולאות על log n</td><td class="c">16</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">2</td><td>even — הדפסת זוגיים בתור, בלי לולאות</td><td class="c">16</td>
+<td><a class="golink" onclick="jumpSol('d07','sol-2023-2')">⬅ קפוץ לפתרון המלא</a> · הפתרון הרשמי משתמש בזקיף ‎−1 — מוסבר גם למטה</td></tr>
+<tr><td class="c">3</td><td>ערימה מ-InOrder + הסרת שורש</td><td class="c">16</td>
+<td><a class="golink" onclick="jumpSol('d05','sol-2023-3')">⬅ קפוץ לפתרון המלא</a> — כולל שיטת השלד</td></tr>
+<tr><td class="c">4</td><td>sumPositiveInArray — רקורסיה בלי לולאות</td><td class="c">18</td>
+<td><a class="golink" onclick="jumpSol('d02','sol-rec-write')">⬅ קפוץ לפתרון המלא</a> בדק הרקורסיה</td></tr>
+<tr><td class="c">5</td><td>‏BST: שחזור מ-PreOrder + הוספה ומחיקה</td><td class="c">16</td>
+<td><a class="golink" onclick="jumpSol('d04','sol-tree-rebuild')">⬅ קפוץ לפתרון המלא</a> — השחזור המלא של 100,70,60…</td></tr>
+<tr><td class="c">6</td><td>moveDoubleDigitsNumToStart</td><td class="c">18</td>
+<td><a class="golink" onclick="jumpSol('d03','sol-2023-6')">⬅ קפוץ לפתרון המלא</a></td></tr>
+</tbody>
+</table></div>
+
+<div class="q"><div class="qh"><b>2023 X · שאלה 1 — הפתרון המלא</b><span class="src">16 נק' · לולאות על log n</span></div>
+<pre class="c">int f1(double n)
+{
+    int counter = 0;
+    double i = log(n), j;
+    for (j = log(n); j &gt; 2; j /= 4)      // #1
+        counter++;
+    while (i &gt; 1)                        // #2
+    {
+        for (j = 100; j &lt; n * n; j *= 100)  // #3
+            counter++;
+        i--;
+    }
+    return counter;
+}</pre>
+<details class="sol"><summary>פתרון מוסבר, סעיף-סעיף</summary><div class="body">
+<p><b>#1: O(log log n).</b> מתחילים מ-log n ומחלקים ב-4 — כלומר לולאת
+"חלוקה" שהקלט האפקטיבי שלה הוא log n. מספר צעדים: log₄(log n) =
+<b>O(log log n)</b>. (חלוקה ב-4 במקום 2 = קבוע — נבלע.)</p>
+<p><b>#2 (בלי הפנימית): O(log n).</b> ‏i מתחיל ב-log n ויורד ב-1 כל
+סיבוב → log n איטרציות.</p>
+<p><b>#3: O(log n).</b> מ-100 עד n² בהכפלות של 100: ‏log₁₀₀(n²) =
+‏2·log n / log 100 = <b>O(log n)</b>. שני קבועים שנבלעים.</p>
+<p><b>סה"כ: O(log² n).</b> ‏#2 רץ log n פעמים, וכל סיבוב מריץ את #3
+שהוא log n → מכפלה: <b>log n · log n = log²n</b>. ‏#1 (log log n)
+זניח לעומתם.</p>
+<div class="tip" style="margin-bottom:0"><b>הלקח מהשאלה:</b> כשמשתנה
+הלולאה מתחיל ב-log n, תחשוב על log n כעל "ה-n החדש". כל הכללים
+הרגילים חלים — רק על קלט קטן יותר.</div>
+</div></details></div>
+
+<h2>מבחן 2024 שאלון X — כל שאלה, קליק אחד מהפתרון</h2>
+<div class="tw"><table>
+<thead><tr><th class="c">ש'</th><th>נושא</th><th class="c">נק'</th><th>הפתרון המלא</th></tr></thead>
+<tbody>
+<tr><td class="c">1</td><td>סיבוכיות — 3 סעיפים</td><td class="c">16</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">2</td><td>checkDigits — רקורסיה על ספרות</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d02','sol-rec-write')">⬅ קפוץ לפתרון המלא</a> בדק הרקורסיה</td></tr>
+<tr><td class="c">3</td><td>מעקב listQuestion — האם תעופה?</td><td class="c">12</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">4</td><td>‏BST — שחזור העץ שלפני מחיקה</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d04','sol-2024-4')">⬅ קפוץ לפתרון המלא</a> — כולל שתי התשובות הקבילות</td></tr>
+<tr><td class="c">5</td><td>מחסנית — בלי מבנה עזר</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d07','sol-2024-5')">⬅ קפוץ לפתרון המלא</a></td></tr>
+<tr><td class="c">6</td><td>ערימה — בנייה עם רישום החלפות + הוספה</td><td class="c">12</td>
+<td><b>כאן למטה ⬇</b> + <a class="golink" onclick="jumpSol('d05','sol-2025-6')">שיטת ההנדסה לאחור</a></td></tr>
+<tr><td class="c">7</td><td>ערבול — סדר הכנסה + התנגשויות + מחיקה</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d06','sol-2024-7')">⬅ קפוץ לפתרון המלא</a> · סעיפים ב–ג למטה ⬇</td></tr>
+<tr><td class="c">8</td><td>מיון מנייה על דגמי מטוסים</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d08','sol-2024-8')">⬅ קפוץ לפתרון המלא</a> — המעקב הרשמי המלא</td></tr>
+</tbody>
+</table></div>
+
+<div class="q"><div class="qh"><b>2024 X · שאלה 1 — הפתרון המלא</b><span class="src">16 נק' · 3 סעיפים</span></div>
+<details class="sol"><summary>פתרון מוסבר לכל סעיף</summary><div class="body">
+<p><b>סעיף א — O(n).</b> שתי לולאות while מקוננות, אבל שתיהן מקדמות את
+<b>אותו i</b>! כל איטרציה — של החיצונית או הפנימית — מזיזה את i קדימה,
+ו-i לעולם לא חוזר אחורה. סה"כ הצעדים ≤ n → <b>O(n)</b>.
+(הקוד סופר "רצפים" של ערכים שווים — עוד גרסה של תבנית הרצפים!)</p>
+<p><b>סעיף ב — מסגרת 1: O(log log n).</b> הלולאה רצה עד log n בהכפלות
+של 2 → log(log n). <b>הפונקציה כולה: O(n)</b> — הלולאה השנייה
+(‏i=n; i−=2) היא n/2 צעדים = O(n), שבולע את ה-log log.</p>
+<p><b>סעיף ג — O(n).</b> הנסיגה: <code>T(n) = 2T(n/2) + O(1)</code>
+(שתי קריאות על חצאים + הדפסה). נוסחת האב: a=2, b=2, k=0 →
+‏b^k = 1 &lt; 2 = a → O(n^log₂2) = <b>O(n)</b>.</p>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2024 X · שאלה 3 — מעקב הרשימה המלא</b><span class="src">12 נק' · האם תעופה?</span></div>
+<pre class="c">LIST lst;
+L_init(&amp;lst);
+L_insert(&amp;lst.head, 12);
+NODE* pN = L_insert(&amp;lst.head, 14);
+pN = L_insert(pN, 11);
+L_insert(pN, 19);
+L_insert(pN-&gt;next-&gt;next, 17);
+pN = L_find(&amp;lst.head, 19);
+L_delete(pN);
+L_print(&amp;lst);</pre>
+<details class="sol"><summary>מעקב שורה-שורה</summary><div class="body">
+<div class="tw"><table>
+<thead><tr><th>שורה</th><th>הרשימה אחרי</th><th>הערה</th></tr></thead>
+<tbody>
+<tr><td><code>insert(&amp;head, 12)</code></td><td><code>12</code></td><td>הכנסה אחרי הכותר</td></tr>
+<tr><td><code>pN = insert(&amp;head, 14)</code></td><td><code>14, 12</code></td><td>‏14 נכנס לפני 12 · ‏pN→14</td></tr>
+<tr><td><code>pN = insert(pN, 11)</code></td><td><code>14, 11, 12</code></td><td>אחרי 14 · ‏pN→11</td></tr>
+<tr><td><code>insert(pN, 19)</code></td><td><code>14, 11, 19, 12</code></td><td>אחרי 11</td></tr>
+<tr><td><code>insert(pN-&gt;next-&gt;next, 17)</code></td><td><code>14, 11, 19, 12, 17</code></td><td>‏pN=11 → next=19 → next=12 → הכנסה אחרי 12</td></tr>
+<tr><td><code>pN = find(&amp;head, 19)</code></td><td>—</td><td>‏pN→19</td></tr>
+<tr><td><code>L_delete(pN)</code></td><td><code>14, 11, 19, 17</code></td><td>מוחקת את מי <b>שאחרי</b> 19 — כלומר את 12!</td></tr>
+</tbody>
+</table></div>
+<p><b>תשובה: אין תעופה.</b> הפלט: <code>14, 11, 19, 17</code>.</p>
+<div class="warn" style="margin-bottom:0">שני הרגעים שנועדו להפיל אותך:
+‏<code>pN-&gt;next-&gt;next</code> (לספור בזהירות מאיפה סופרים) —
+ו-<code>L_delete</code> שמוחקת את <b>הבא</b>, לא את הצומת עצמו.
+מי ששכח — ענה שהפלט בלי 19 במקום בלי 12.</div>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2024 X · שאלה 6 — הפתרון המלא + אנימציה</b><span class="src">12 נק' · בניית ערימה</span></div>
+<p>המערך: <code>[85, 22, 120, 0, 89, 12, 1, 35, 13, 70]</code>.
+א) לרשום את כל ההחלפות של MakeHeap. ב) להוסיף 99.</p>
+<details class="sol"><summary>פתרון מלא</summary><div class="body">
+<p><b>סעיף א — ההחלפות לפי סדר</b> (בנייה מלמטה, אינדקסים 5→1):</p>
+<ol>
+<li>‏i=5: ‏89 מול בנו 70 — תקין.</li>
+<li>‏i=4: ‏0 מול 35,13 → <b>(0,35)</b> מוחלפים.</li>
+<li>‏i=3: ‏120 מול 12,1 — תקין.</li>
+<li>‏i=2: ‏22 מול 35,89 → <b>(22,89)</b>, וממשיך:
+מול 70 → <b>(22,70)</b>.</li>
+<li>‏i=1: ‏85 מול 89,120 → <b>(85,120)</b>, וממשיך מול 12,1 — תקין.</li>
+</ol>
+<p><b>המערך אחרי הבנייה:</b>
+<code>[120, 89, 85, 35, 70, 12, 1, 0, 13, 22]</code></p>
+<p><b>סעיף ב — הוספת 99:</b> נכנס לאינדקס 11 (בן של 70 באינדקס 5).
+‏99&gt;70 → מחליפים; ‏99&gt;89 (אינדקס 2) → מחליפים; ‏99&lt;120 → עוצרים:</p>
+<pre>[120, 99, 85, 35, 89, 12, 1, 0, 13, 22, 70]</pre>
+<div class="tip" style="margin-bottom:8px">הפתרון הרשמי רושם את זוגות
+ההחלפות בטבלה — ליד כל swap כתוב מי הוחלף עם מי. שיטת הרישום הזאת
+(ולא "מערך אחרי כל שלב") ייחודית ל-2024 — קרא את ההנחיה בשאלון!</div>
+<p><b>👇 ותראה את זה קורה — אנימציה של אותה בנייה בדיוק</b> (לחץ
+"הבא"):</p>
+<div id="d17_p1"></div>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2024 X · שאלה 7 סעיפים ב–ג — הפתרון המלא</b><span class="src">6 נק' · ערבול</span></div>
+<details class="sol"><summary>פתרון</summary><div class="body">
+<p><b>סעיף ב:</b> מכניסים את 137 לטבלה (סריקה ליניארית, הטבלה מלאה
+מסעיף א'): התשובה הרשמית — <b>7 התנגשויות</b>, נכנס ל<b>תא 1</b>.
+המסלול עובר על כל התאים התפוסים ברצף עד שנמצא חור.</p>
+<p><b>סעיף ג:</b> אם 19 לא הוכנס מעולם — <b>59 היה נכנס לאינדקס 8</b>
+(המקום שהתפנה בשרשרת), ולכן 137 נתקל רק ב-<b>2 התנגשויות</b> ונכנס
+ל<b>אינדקס 9</b>.</p>
+<div class="warn" style="margin-bottom:0"><b>הרעיון שנבחן:</b> בסריקה
+ליניארית, מיקום של ערך תלוי ב<b>היסטוריית</b> ההכנסות — הסרת ערך אחד
+מהסיפור מזיזה את כל השרשרת אחריו. לכן גם מוחקים עם מצבה (DELETED)
+ולא עם "ריק".</div>
+</div></details></div>
+
+<h2>מבחן 2025 שאלון X — כל שאלה, קליק אחד מהפתרון</h2>
+<div class="tw"><table>
+<thead><tr><th class="c">ש'</th><th>נושא</th><th class="c">נק'</th><th>הפתרון המלא</th></tr></thead>
+<tbody>
+<tr><td class="c">1א</td><td>סיבוכיות — רקורסיה משולשת + נוסחת האב</td><td class="c">6</td>
+<td><a class="golink" onclick="jumpSol('d01','sol-2025-1a')">⬅ קפוץ לפתרון המלא</a> — כולל הסתירה בפתרון הרשמי!</td></tr>
+<tr><td class="c">1ב</td><td>סיבוכיות עם n ו-m</td><td class="c">10</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">2</td><td>rec על מחרוזת — פלט + סיבוכיות + 8 מילים</td><td class="c">12</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">3</td><td>moveCircular — דו-כיוונית בלי הקצאה</td><td class="c">14</td>
+<td><a class="golink" onclick="jumpSol('d03','sol-2025-3')">⬅ קפוץ לפתרון המלא</a> — הפתרון הרשמי + 4 השלבים</td></tr>
+<tr><td class="c">4</td><td>isGoremTree — עץ פירוק לגורמים</td><td class="c">12</td><td><b>כאן למטה ⬇</b></td></tr>
+<tr><td class="c">5</td><td>what על תור — מעקב + 15 מילים</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d07','sol-2025-5')">⬅ קפוץ לפתרון</a> + <b>אנימציה למטה ⬇</b></td></tr>
+<tr><td class="c">6</td><td>ערימה — שחזור סדר הכנסה + Del_max</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d05','sol-2025-6')">⬅ קפוץ לפתרון המלא</a> — כולל שתי התשובות הרשמיות</td></tr>
+<tr><td class="c">7</td><td>ערבול — פונקציות צעד חוקיות + התנגשויות</td><td class="c">12</td>
+<td><a class="golink" onclick="jumpSol('d06','sol-2025-7')">⬅ קפוץ לפתרון המלא</a></td></tr>
+<tr><td class="c">8</td><td>מיונים — הכי מעט השוואות + קלט גרוע</td><td class="c">10</td>
+<td><a class="golink" onclick="jumpSol('d08','sol-2025-8')">⬅ קפוץ לפתרון המלא</a></td></tr>
+</tbody>
+</table></div>
+
+<div class="q"><div class="qh"><b>2025 X · שאלה 1ב — הפתרון המלא</b><span class="src">10 נק' · שני משתנים</span></div>
+<pre class="c">void f2(int nArr[], int n, int mArr[], int m)
+{
+    int cnt = 0;
+    for (int i = 0; i &lt; n; i++) {
+        cnt = binarySearch(mArr, m, nArr[i]);   // מסגרת 1
+        if (cnt &lt; 0) cnt = 1;
+
+        int t = cnt;                            // מסגרת 2
+        while (t &gt; 0) { print("*"); t--; }
+    }
+}</pre>
+<details class="sol"><summary>פתרון מוסבר</summary><div class="body">
+<p><b>מסגרת 1: O(log m)</b> — חיפוש בינארי על מערך בגודל m.
+לא log n! המערך שמחפשים בו הוא mArr.</p>
+<p><b>מסגרת 2: O(m)</b> — ‏cnt הוא אינדקס שהוחזר מהחיפוש, כלומר עד
+‏m−1. הלולאה מדפיסה עד m כוכביות.</p>
+<p><b>הכול: O(n·m)</b> — הלולאה החיצונית ×n, ובתוכה
+‏log m + m = O(m). ‏m בולע את הלוג.</p>
+<div class="tip" style="margin-bottom:0">שלוש תשובות, שלוש הזדמנויות
+ליפול על "כתבתי n במקום m". סמן לעצמך על מי רצה כל לולאה
+<b>לפני</b> שאתה כותב.</div>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2025 X · שאלה 2 — הפתרון המלא</b><span class="src">12 נק' · rec על "omgicu"</span></div>
+<details class="sol"><summary>פתרון מוסבר</summary><div class="body">
+<p><b>מה הקוד עושה:</b> לולאה שמחליפה שכנים לא-מסודרים (bubble pass
+אחד), ואז קריאה רקורסיבית על n−1. זה בדיוק... <b>מיון בועות</b>, כשהלולאה
+היא ה"בעבוע" והרקורסיה מחליפה את הלולאה החיצונית.</p>
+<p><b>א. הפלט: <code>cgimou</code></b> — "omgicu" ממוין לקסיקוגרפית.</p>
+<p><b>ב. סיבוכיות: O(n²)</b> — ‏T(n) = T(n−1) + O(n) (מעבר אחד + רקורסיה
+על n−1). נסיגת חיסור — נוסחת האב <b>לא</b> חלה; הסכום n + (n−1) + … = n²/2.</p>
+<p><b>ג. ב-8 מילים (הרשמי בשתיים!):</b> "מיון בועות" — או:
+"ממיינת את המחרוזת בסדר עולה".</p>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2025 X · שאלה 4 — isGoremTree, הפתרון המלא</b><span class="src">12 נק' · עץ פירוק לגורמים</span></div>
+<p>עץ "פרוק לגורמים": לכל צומת שאינו עלה יש שני בנים, ומכפלת כל שני
+אחים = ערך אביהם. לממש <code>BOOL isGoremTree(NODE2* pNode)</code>.</p>
+<details class="sol"><summary>פתרון מלא, שורה-שורה</summary><div class="body">
+<pre class="c">BOOL isGoremTree(NODE2* p)
+{
+    if (p == NULL)
+        return True;                    /* עץ ריק — תקין        */
+
+    if (!p-&gt;left &amp;&amp; !p-&gt;right)
+        return True;                    /* עלה — אין מה לבדוק   */
+
+    if (!p-&gt;left || !p-&gt;right)
+        return False;                   /* בן יחיד — מפר תנאי 1 */
+
+    if (p-&gt;left-&gt;key * p-&gt;right-&gt;key != p-&gt;key)
+        return False;                   /* מכפלת האחים ≠ האב    */
+
+    return isGoremTree(p-&gt;left) &amp;&amp;
+           isGoremTree(p-&gt;right);       /* ותקין בכל תת-עץ      */
+}</pre>
+<p><b>מבנה הפתרון הוא תבנית קבועה לכל "האם העץ מקיים תכונה X":</b>
+ארבע שורות בדיקה בסדר קבוע — ריק ✔ · עלה ✔ · צורה פסולה ✘ · התכונה
+המקומית ✘ — ואז AND על שני הבנים. השווה ל-isFullTree מהמעבדה
+(מאגר, שאלה 6) — אותו שלד בדיוק, תכונה אחרת.</p>
+</div></details></div>
+
+<div class="q"><div class="qh"><b>2025 X · שאלה 5 — האנימציה</b><span class="src">מה what באמת עושה לתור</span></div>
+<p>התור: <code>4, 50, 1, 22, −10, 7</code> (הראש משמאל). הפונקציה
+מוציאה איבר, יורדת ברקורסיה, ומחזירה אותו <b>בדרך חזרה</b>. צפה מה
+קורה לתור, צעד-צעד:</p>
+<div id="d17_p2"></div></div>
+
+<h2>ואיך נראית רשימה מתהפכת? — 2021 שאלה 4 באנימציה</h2>
+<p>מעקב המצביעים הכי חשוב בקורס — היפוך רשימה עם
+<code>prev / current / head</code> — הפעם עם העיניים:</p>
+<div id="d17_p3"></div>
 
 <hr>
 <div class="trk">
@@ -8978,6 +9225,123 @@ tbl('d06_tbl2', [13, null, 67, null, null, 31, 44, 20, 19, 59, 23, 37, 38]);
   }
 
   render();
+})();
+
+/* --- קפיצה ישירה לפתרון בתוך דק אחר --- */
+window.jumpSol = function (sec, id) {
+  location.hash = sec;
+  setTimeout(function () {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+};
+
+/* --- נגני אנימציה לפרק פתרונות המבחנים --- */
+(function () {
+  if (!document.getElementById('d17_p1')) return;
+
+  /* עותק מקומי של מצייר-הערימה (מערך + עץ) */
+  function hview(arr, marks) {
+    marks = marks || {};
+    var n = arr.length - 1, list = [];
+    for (var i = 1; i <= n; i++) list.push({ v: arr[i], c: marks[i] || '' });
+    var html = cells(list, { base: 1 });
+    var W = 400, H = 210, pos = {};
+    (function place(i, x, y, dx) {
+      if (i > n) return;
+      pos[i] = { x: x, y: y };
+      place(2 * i, x - dx, y + 46, dx / 2);
+      place(2 * i + 1, x + dx, y + 46, dx / 2);
+    })(1, W / 2, 24, W / 4);
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+    for (var i = 2; i <= n; i++) {
+      var p = pos[i >> 1], q = pos[i];
+      if (p && q) s += '<line x1="' + p.x + '" y1="' + (p.y + 16) + '" x2="' + q.x + '" y2="' + (q.y - 16) + '" class="edg"/>';
+    }
+    for (var i = 1; i <= n; i++) {
+      var q = pos[i]; if (!q) continue;
+      s += '<circle cx="' + q.x + '" cy="' + q.y + '" r="16" class="nd' +
+           (marks[i] ? ' ' + (marks[i] === 'a' ? 'hot' : marks[i] === 'b' ? 'on' : 'bad') : '') + '"/>';
+      s += '<text x="' + q.x + '" y="' + q.y + '" class="ndt" style="font-size:11.5px">' + arr[i] + '</text>';
+    }
+    return html + s + '</svg>';
+  }
+
+  /* --- נגן 1: בניית ערימה — 2024 שאלה 6 --- */
+  var f1 = [
+    { html: hview([null,85,22,120,0,89,12,1,35,13,70], {}),
+      cap: '<b>המערך ההתחלתי.</b> MakeHeap עובר על הצמתים הפנימיים מהאחרון (אינדקס 5) אל השורש.' },
+    { html: hview([null,85,22,120,0,89,12,1,35,13,70], {5:'b',10:'b'}),
+      cap: '‏i=5: ‏89 מול בנו היחיד 70 — ‏89 גדול, <b>אין החלפה</b>.' },
+    { html: hview([null,85,22,120,0,89,12,1,35,13,70], {4:'a',8:'b',9:'b'}),
+      cap: '‏i=4: ‏0 מול 35 ו-13. הגדול מבין הבנים — 35.' },
+    { html: hview([null,85,22,120,35,89,12,1,0,13,70], {4:'b',8:'a'}),
+      cap: '<b>החלפה ① (0↔35).</b> ‏0 ירד לעלה — אין לו בנים, עוצרים.' },
+    { html: hview([null,85,22,120,35,89,12,1,0,13,70], {3:'b',6:'b',7:'b'}),
+      cap: '‏i=3: ‏120 מול 12 ו-1 — תקין, בלי החלפה.' },
+    { html: hview([null,85,89,120,35,22,12,1,0,13,70], {2:'b',5:'a'}),
+      cap: '‏i=2: ‏22 מול 35 ו-89 → <b>החלפה ② (22↔89)</b>. ‏22 ירד לאינדקס 5 — וממשיכים לבדוק אותו שם!' },
+    { html: hview([null,85,89,120,35,70,12,1,0,13,22], {5:'b',10:'a'}),
+      cap: '‏22 מול בנו 70 → <b>החלפה ③ (22↔70)</b>. עכשיו 22 בעלה — נגמרה השקיעה.' },
+    { html: hview([null,120,89,85,35,70,12,1,0,13,22], {1:'b',3:'a'}),
+      cap: '‏i=1: ‏85 מול 89 ו-120 → <b>החלפה ④ (85↔120)</b>. ‏85 ממשיך מול 12 ו-1 — תקין.' },
+    { html: hview([null,120,89,85,35,70,12,1,0,13,22], {1:'b'}),
+      cap: '<b>ערימת מקסימום מוכנה.</b> ‏[120,89,85,35,70,12,1,0,13,22] — 4 החלפות. שים לב: החלפה יכולה לגרור שקיעה של כמה רמות (ראה 22).' }
+  ];
+  mountPlayer('d17_p1', f1);
+
+  /* --- נגן 2: what על תור — 2025 שאלה 5 --- */
+  function qrow(arr, note) {
+    var list = arr.map(function (v) { return { v: v }; });
+    return '<div style="padding:4px 0"><div style="font-size:12.5px;opacity:.75;margin-bottom:4px">ראש התור ← משמאל</div>' +
+           cells(list, { base: 0 }) +
+           (note ? '<div style="margin-top:8px;font-size:13.5px">' + note + '</div>' : '') + '</div>';
+  }
+  var f2 = [
+    { html: qrow([4,50,1,22,-10,7], ''),
+      cap: '<b>המצב ההתחלתי.</b> כל רמת רקורסיה עושה deque, שומרת את הערך במשתנה מקומי, ויורדת.' },
+    { html: qrow([22,-10,7], 'ביד: 4, 50, 1 — כל אחד ברמת רקורסיה אחרת'),
+      cap: 'שלוש רמות עמוק: ‏4, 50, 1 כבר "תלויים" במחסנית הקריאות. ‏result עוקב אחרי המינימום שנראה.' },
+    { html: qrow([], 'ביד: 4, 50, 1, 22, -10, 7'),
+      cap: '<b>עומק מלא — התור ריק.</b> תנאי העצירה: ‏isEmpty. עכשיו מתחילה הדרך חזרה, וכל רמה עושה enque.' },
+    { html: qrow([7], 'הוחזר עד כה: מינימום 7'),
+      cap: 'הרמה העמוקה ביותר (שהחזיקה את 7) מחזירה אותו <b>ראשון</b> — ‏enque(7).' },
+    { html: qrow([7,-10], ''),
+      cap: 'אחריה הרמה של ‎−10... שימו לב: ‏מי שנכנס אחרון לתור המקורי חוזר <b>ראשון</b>.' },
+    { html: qrow([7,-10,22,1,50,4], '<b>מוחזר: ‎−10</b>'),
+      cap: '<b>הסוף:</b> התור הפוך — ‏[7,−10,22,1,50,4] — והפונקציה מחזירה את המינימום: ‎<b>−10</b>. "מחזירה את המינימום והופכת את סדר התור."' }
+  ];
+  mountPlayer('d17_p2', f2);
+
+  /* --- נגן 3: היפוך רשימה — 2021 שאלה 4 --- */
+  function lrow(chain, labels) {
+    return '<div dir="ltr" style="font-family:var(--mono);font-size:15px;text-align:center;padding:10px 4px">' +
+           '<div style="letter-spacing:.5px">' + chain + '</div>' +
+           '<div style="margin-top:10px;font-size:12.5px;opacity:.8">' + labels + '</div></div>';
+  }
+  var B = function (t, hot) {
+    return '<span style="display:inline-block;border:1.5px solid ' +
+           (hot ? 'var(--red)' : 'var(--line2)') + ';border-radius:7px;padding:4px 12px;margin:0 2px' +
+           (hot ? ';color:var(--red);font-weight:700' : '') + '">' + t + '</span>';
+  };
+  var f3 = [
+    { html: lrow(B('A') + ' → ' + B('B') + ' → ' + B('C') + ' → ∅',
+                 'head→A · prev = NULL'),
+      cap: '<b>המצב ההתחלתי:</b> רשימה של שלושה צמתים.' },
+    { html: lrow(B('A', 1) + ' → ' + B('B') + ' → ' + B('C') + ' → ∅',
+                 'current→A · head קפץ ל-B'),
+      cap: '<code>current = head; head = head→next;</code> — שמרנו את A, וה-head כבר מצביע קדימה.' },
+    { html: lrow('∅ ← ' + B('A', 1) + '&nbsp;&nbsp;&nbsp;' + B('B') + ' → ' + B('C') + ' → ∅',
+                 'prev = A · current, head → B'),
+      cap: '<code>current→next = prev;</code> — <b>A נותק והופנה אחורה</b> (ל-NULL). זה הרגע שבו החץ מתהפך.' },
+    { html: lrow('∅ ← ' + B('A') + ' ← ' + B('B', 1) + '&nbsp;&nbsp;&nbsp;' + B('C') + ' → ∅',
+                 'head → C'),
+      cap: 'אותו משחק על B: ‏<code>current→next = prev</code> — עכשיו ‏B→A. שני חיצים כבר הפוכים.' },
+    { html: lrow('∅ ← ' + B('A') + ' ← ' + B('B') + ' ← ' + B('C', 1),
+                 'head → C'),
+      cap: '<code>head→next = current;</code> — ‏C מצביע ל-B. <b>הרשימה הפוכה: C → B → A.</b> "מה עשתה הפונקציה?" — הפכה את הרשימה.' }
+  ];
+  mountPlayer('d17_p3', f3);
 })();
 </script>
 </body>
