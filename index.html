@@ -6036,6 +6036,18 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 כאן למטה. ~20 דקות למשבצת, כמו במבחן האמיתי.
 </div>
 
+<div class="card" id="d14dash" style="margin:10px 0">
+<h4 style="margin-top:0">📊 הדשבורד שלי</h4>
+<div style="display:flex;gap:10px;flex-wrap:wrap;text-align:center;margin-bottom:8px">
+  <div style="flex:1;min-width:70px;border:1px solid var(--line);border-radius:8px;padding:6px"><b id="ds_total" style="font-size:20px">0</b><br><span style="font-size:12px;opacity:.75">שאלות</span></div>
+  <div style="flex:1;min-width:70px;border:1px solid var(--line);border-radius:8px;padding:6px"><b id="ds_done" style="font-size:20px">0</b><br><span style="font-size:12px;opacity:.75">עניתי</span></div>
+  <div style="flex:1;min-width:70px;border:1px solid var(--accent);border-radius:8px;padding:6px;color:var(--accent)"><b id="ds_right" style="font-size:20px">0</b><br><span style="font-size:12px;opacity:.75">✔ צדקתי</span></div>
+  <div style="flex:1;min-width:70px;border:1px solid var(--red);border-radius:8px;padding:6px;color:var(--red)"><b id="ds_wrong" style="font-size:20px">0</b><br><span style="font-size:12px;opacity:.75">✘ טעיתי</span></div>
+  <div style="flex:1;min-width:70px;border:1px solid var(--line);border-radius:8px;padding:6px"><b id="ds_acc" style="font-size:20px">—</b><br><span style="font-size:12px;opacity:.75">דיוק</span></div>
+</div>
+<div id="ds_topics"></div>
+</div>
+
 <div class="diffbar"><b>סינון לפי רמה:</b>
 <button class="on" data-df="all">הכול</button>
 <button data-df="e">🟢 קל</button>
@@ -6052,6 +6064,25 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <button data-sf="net">🌐 אינטרנט</button>
 <button data-sf="ai">🤖 קלוד</button>
 <button data-sf="cdx">🧠 קודקס</button>
+<span style="flex-basis:100%"></span>
+<b>נושא:</b>
+<button class="on" data-tf="all">הכול</button>
+<button data-tf="1">סיבוכיות</button>
+<button data-tf="2">רקורסיה</button>
+<button data-tf="3">רשימות</button>
+<button data-tf="4">עצים</button>
+<button data-tf="5">מחסנית/תור</button>
+<button data-tf="6">ערימה</button>
+<button data-tf="7">ערבול</button>
+<button data-tf="8">מיונים</button>
+<button data-tf="ב">עיצוב</button>
+<button data-tf="א">אתגרים</button>
+<span style="flex-basis:100%"></span>
+<b>מצב:</b>
+<button class="on" data-mf="all">הכול</button>
+<button data-mf="right">✔ שצדקתי</button>
+<button data-mf="wrong">✘ שטעיתי</button>
+<button data-mf="todo">⭘ שעוד לא עניתי</button>
 </div>
 
 <div class="warn" id="wrongPanel" style="display:none">
@@ -6462,6 +6493,8 @@ O(3^cells). זו רקורסיה קומבינטורית — הקשה ביותר �
 <p>פלט: <b>cgimou</b> · סיבוכיות: <b>O(n²)</b>
 (‏T(n)=T(n−1)+O(n)) · ‏8 מילים: <b>"מיון בועות"</b> — לזהות את המיון
 המוסווה.</p>
+<p><b>🎬 המחרוזת מתמיינת מול העיניים — מעבר אחר מעבר:</b></p>
+<div id="d14_p2"></div>
 <p><a class="golink" onclick="jumpSol('d17','')">⬅ לפתרון המלא והמוסבר</a></p>
 </div></details></div>
 
@@ -7656,6 +7689,8 @@ O(log n) בעץ מאוזן.</li>
 <p><b>שני כללים שמפילים:</b> מספר קצר = ספרה 0 בעמדה החסרה (‏8 מנצח
 את כולם במעבר המאות), והמיון בכל מעבר חייב להיות <b>יציב</b> — הסדר
 מהמעבר הקודם נשמר בתוך כל דלי.</p>
+<p><b>🎬 ותראה את זה קורה — מעבר-מעבר:</b></p>
+<div id="d14_p1"></div>
 </div></details></div>
 
 <div class="q" data-diff="m" data-src="hw"><div class="qh"><b>8.5</b><span class="diff diff-m">בינוני</span><span class="diff srcb">📝 מטלה HW2</span><span class="src">שאלה 3 — countSmallers ב-O(log n)</span></div>
@@ -9922,6 +9957,7 @@ tbl('d06_tbl2', [13, null, 67, null, null, 31, 44, 20, 19, 59, 23, 37, 38]);
       ul.appendChild(li);
     });
     panel.style.display = wrong.length ? '' : 'none';
+    if (window.updateD14Dash) window.updateD14Dash();
   }
 
   render();
@@ -9936,30 +9972,80 @@ window.jumpSol = function (sec, id) {
   }, 80);
 };
 
-/* --- סינון שאלות לפי רמה ומקור (מאגר d14) --- */
+/* --- דשבורד + סינון: נושא, רמה, מקור, מצב (מאגר d14) --- */
 (function () {
   var bar = document.querySelector('.diffbar');
   if (!bar) return;
-  var dBtns = [].slice.call(bar.querySelectorAll('button[data-df]'));
-  var sBtns = [].slice.call(bar.querySelectorAll('button[data-sf]'));
+  var TOPICS = {'1':'סיבוכיות','2':'רקורסיה','3':'רשימות','4':'עצים','5':'מחסנית/תור','6':'ערימה','7':'ערבול','8':'מיונים','ב':'עיצוב','א':'אתגרים'};
   var qs = [].slice.call(document.querySelectorAll('#d14 .q[data-diff]'));
+  qs.forEach(function (q) {
+    var b = q.querySelector('.qh b');
+    var ch = b ? b.textContent.trim().charAt(0) : '';
+    q.setAttribute('data-topic', TOPICS[ch] ? ch : 'x');
+  });
+  var groups = { df: 'all', sf: 'all', tf: 'all', mf: 'all' };
+  function stateOf(q) {
+    return q.classList.contains('q-right') ? 'right' :
+           q.classList.contains('q-wrong') ? 'wrong' : 'todo';
+  }
   var cnt = document.getElementById('diffCount');
-  var df = 'all', sf = 'all';
   function apply() {
     var shown = 0;
     qs.forEach(function (q) {
-      var ok = (df === 'all' || q.getAttribute('data-diff') === df) &&
-               (sf === 'all' || q.getAttribute('data-src') === sf);
+      var ok = (groups.df === 'all' || q.getAttribute('data-diff') === groups.df) &&
+               (groups.sf === 'all' || q.getAttribute('data-src') === groups.sf) &&
+               (groups.tf === 'all' || q.getAttribute('data-topic') === groups.tf) &&
+               (groups.mf === 'all' || stateOf(q) === groups.mf);
       q.classList.toggle('diff-hidden', !ok);
       if (ok) shown++;
     });
-    dBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-df') === df); });
-    sBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-sf') === sf); });
+    ['df','sf','tf','mf'].forEach(function (g) {
+      [].slice.call(bar.querySelectorAll('button[data-' + g + ']')).forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-' + g) === groups[g]);
+      });
+    });
     cnt.textContent = 'מוצגות ' + shown + ' מתוך ' + qs.length + ' שאלות';
   }
-  dBtns.forEach(function (b) { b.onclick = function () { df = b.getAttribute('data-df'); apply(); }; });
-  sBtns.forEach(function (b) { b.onclick = function () { sf = b.getAttribute('data-sf'); apply(); }; });
+  [].slice.call(bar.querySelectorAll('button')).forEach(function (b) {
+    ['df','sf','tf','mf'].forEach(function (g) {
+      var v = b.getAttribute('data-' + g);
+      if (v) b.onclick = function () { groups[g] = v; apply(); };
+    });
+  });
+
+  window.updateD14Dash = function () {
+    var t = qs.length, r = 0, w = 0;
+    var byTopic = {};
+    qs.forEach(function (q) {
+      var tp = q.getAttribute('data-topic');
+      byTopic[tp] = byTopic[tp] || { t: 0, r: 0, w: 0 };
+      byTopic[tp].t++;
+      var st = stateOf(q);
+      if (st === 'right') { r++; byTopic[tp].r++; }
+      if (st === 'wrong') { w++; byTopic[tp].w++; }
+    });
+    var el = function (id) { return document.getElementById(id); };
+    if (!el('ds_total')) return;
+    el('ds_total').textContent = t;
+    el('ds_done').textContent = r + w;
+    el('ds_right').textContent = r;
+    el('ds_wrong').textContent = w;
+    el('ds_acc').textContent = (r + w) ? Math.round(r / (r + w) * 100) + '%' : '—';
+    var order = ['1','2','3','4','5','6','7','8','ב','א'];
+    el('ds_topics').innerHTML = order.map(function (k) {
+      var d = byTopic[k]; if (!d) return '';
+      var pct = d.t ? Math.round((d.r + d.w) / d.t * 100) : 0;
+      var acc = (d.r + d.w) ? Math.round(d.r / (d.r + d.w) * 100) + '%' : '';
+      return '<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:12.5px">' +
+        '<span style="width:86px">' + TOPICS[k] + '</span>' +
+        '<div style="flex:1;height:8px;background:var(--bg3);border-radius:99px;overflow:hidden">' +
+        '<div style="height:100%;width:' + pct + '%;background:var(--accent)"></div></div>' +
+        '<span style="width:110px;opacity:.8">' + (d.r + d.w) + '/' + d.t +
+        (acc ? ' · דיוק ' + acc : '') + '</span></div>';
+    }).join('');
+  };
   apply();
+  window.updateD14Dash();
 })();
 
 /* --- נגני אנימציה לפרק פתרונות המבחנים --- */
@@ -10068,6 +10154,44 @@ window.jumpSol = function (sec, id) {
       cap: '<code>head→next = current;</code> — ‏C מצביע ל-B. <b>הרשימה הפוכה: C → B → A.</b> "מה עשתה הפונקציה?" — הפכה את הרשימה.' }
   ];
   mountPlayer('d17_p3', f3);
+})();
+
+/* --- נגני איטרציות בתוך המאגר (d14) --- */
+(function () {
+  if (!document.getElementById('d14_p1')) return;
+  function row(arr, marks) {
+    var list = arr.map(function (v, i) { return { v: v, c: (marks && marks[i]) || '' }; });
+    return '<div style="padding:6px 0">' + cells(list, { base: 0 }) + '</div>';
+  }
+  /* Radix — 2024/HW2 המערך המלא, מעבר לכל ספרה */
+  var f1 = [
+    { html: row([454,123,113,34,21,1261,879,8,234,103,108]),
+      cap: '<b>המערך ההתחלתי.</b> ‏Radix ממיין ספרה-ספרה, מהפחות משמעותית — וכל מעבר חייב להיות יציב.' },
+    { html: row([21,1261,123,113,103,454,34,234,8,108,879], {1:'b',4:'b'}),
+      cap: '<b>מעבר 1 — ספרת האחדות.</b> ‏21 ו-1261 (אחדות 1) ראשונים; ‏123,113,103 (אחדות 3) שומרים על סדרם המקורי — יציבות!' },
+    { html: row([103,8,108,113,21,123,34,234,454,1261,879], {1:'a'}),
+      cap: '<b>מעבר 2 — ספרת העשרות.</b> שים לב ל-8: אין לו ספרת עשרות ⟵ הוא נספר כ-0 ונכנס מוקדם.' },
+    { html: row([8,21,34,103,108,113,123,234,1261,454,879], {0:'a',8:'b'}),
+      cap: '<b>מעבר 3 — המאות.</b> ‏8, 21, 34 (מאות 0) בהתחלה. ‏1261 (מאות 2!) נכנס בין 234 ל-454 — עדיין לא ממוין סופית.' },
+    { html: row([8,21,34,103,108,113,123,234,454,879,1261], {10:'b'}),
+      cap: '<b>מעבר 4 — האלפים.</b> רק ל-1261 יש ספרת אלפים — הוא נודד לסוף. <b>ממוין!</b> ‏O(d·(n+k)) — ‏4 מעברים ליניאריים.' }
+  ];
+  mountPlayer('d14_p1', f1);
+
+  /* מיון בועות מוסווה — "omgicu" [2025·2] */
+  function srow(str, hot) {
+    var list = str.split('').map(function (ch, i) { return { v: ch, c: (hot && hot.indexOf(i) !== -1) ? 'a' : '' }; });
+    return '<div style="padding:6px 0" dir="ltr">' + cells(list, { base: 0 }) + '</div>';
+  }
+  var f2 = [
+    { html: srow('omgicu'), cap: '<b>"omgicu"</b> — כל קריאת rec עושה מעבר בועות אחד על n הראשונים, ואז יורדת ל-n−1.' },
+    { html: srow('mgicou', [4,5]), cap: '<b>מעבר 1 (n=6):</b> ‏o מבעבע ימינה עד שפוגש את u — ‏"mgicou". הגדול ביותר התיישב כמעט בסוף.' },
+    { html: srow('gicmou', [3]), cap: '<b>מעבר 2 (n=5):</b> ‏m מבעבע — ‏"gicmou".' },
+    { html: srow('gcimou', [2]), cap: '<b>מעבר 3 (n=4):</b> ‏i עוקף את c — ‏"gcimou".' },
+    { html: srow('cgimou', [1]), cap: '<b>מעבר 4 (n=3):</b> ‏g עוקף את c — ‏"cgimou".' },
+    { html: srow('cgimou'), cap: '<b>מעבר 5 (n=2):</b> ‏c&lt;g — אין החלפה. סיימנו: <b>"cgimou"</b> = ממוין לקסיקוגרפית. ‏T(n)=T(n−1)+O(n) ⟵ O(n²).' }
+  ];
+  mountPlayer('d14_p2', f2);
 })();
 </script>
 </body>
