@@ -56,7 +56,7 @@ td.c,th.c{ text-align:center }
 </table>
 <p><b>שיטת הגבול:</b> ‏lim f/g: ‏0 ⟵ o · קבוע ⟵ Θ · ‏∞ ⟵ ω.
 <b>במבחן: O הדוק</b> ("קצר ומדויק"), ברירת מחדל מקרה גרוע.</p>
-<p><b>סדר:</b> ‏1⊂loglog n⊂log n⊂√n⊂n⊂n·log n⊂n²⊂n³⊂2ⁿ⊂n!</p>
+<p><b>סדר:</b> <code>1 ⊂ loglog n ⊂ log n ⊂ √n ⊂ n ⊂ n·log n ⊂ n² ⊂ n³ ⊂ 2ⁿ ⊂ n!</code></p>
 <ul>
 <li>קבועים נזרקים: ‏O(n/2)=O(n·k)=O(n) · דומיננטי מנצח: ‏O(n²+n)=O(n²)</li>
 <li>לוג בלי בסיס — הכול שקול (בקורס log₂)</li>
@@ -71,7 +71,7 @@ td.c,th.c{ text-align:center }
 <tr><td>log(ab)=log a+log b · ‏log(a/b)=log a−log b</td><td>‏i&lt;n/2 ⟵ עדיין log n</td></tr>
 <tr><td>log(aᵏ)=k·log a</td><td>‏i&lt;n²;i*=2 ⟵ ‏2log n=<b>O(log n)</b></td></tr>
 <tr><td>log_b n=log₂n/log₂b (מכנה קבוע!)</td><td>‏i*=10 ⟵ עדיין O(log n)</td></tr>
-<tr><td>2^(log₂n)=n</td><td>נוסחת האב: ‏n^(log_b a)</td></tr>
+<tr><td><code>n = 2^(log₂n)</code></td><td>נוסחת האב: ‏n^(log_b a)</td></tr>
 <tr><td>log(n!)=Θ(n·log n)</td><td>חסם תחתון מיוני השוואות</td></tr>
 </table>
 <div class="warn"><b>log(n²)=2log n</b> אבל <b>log²n=(log n)²</b> — שונים!
@@ -90,19 +90,19 @@ td.c,th.c{ text-align:center }
 <h2>נוסחת האב — T(n)=a·T(n/b)+Θ(nᵏ)</h2>
 <table>
 <tr><th>השוואה</th><th>תוצאה</th><th>דוגמה</th></tr>
-<tr><td>a &gt; bᵏ</td><td><b>Θ(n^log_b a)</b></td><td>‏4T(n/2)+n ⟵ Θ(n²)</td></tr>
-<tr><td>a = bᵏ</td><td><b>Θ(nᵏ·log n)</b></td><td>‏2T(n/2)+n ⟵ Θ(n·log n)</td></tr>
-<tr><td>a &lt; bᵏ</td><td><b>Θ(nᵏ)</b></td><td>‏2T(n/2)+n² ⟵ Θ(n²)</td></tr>
+<tr><td>a &gt; bᵏ</td><td><b>Θ(n^log_b a)</b></td><td><code>4T(n/2)+n</code> ⟵ <code>Θ(n²)</code></td></tr>
+<tr><td>a = bᵏ</td><td><b>Θ(nᵏ·log n)</b></td><td><code>2T(n/2)+n</code> ⟵ <code>Θ(n·log n)</code></td></tr>
+<tr><td>a &lt; bᵏ</td><td><b>Θ(nᵏ)</b></td><td><code>2T(n/2)+n²</code> ⟵ <code>Θ(n²)</code></td></tr>
 </table>
 <table>
 <tr><th>נסיגה</th><th class="c">פתרון</th><th>מי</th></tr>
-<tr><td>T(n/2)+O(1)</td><td class="c">log n</td><td>חיפוש בינארי</td></tr>
-<tr><td>2T(n/2)+O(n)</td><td class="c">n·log n</td><td>Merge · Quick ממוצע</td></tr>
-<tr><td>2T(n/2)+O(1)</td><td class="c">n</td><td>סיור עץ [2024·1ג]</td></tr>
-<tr><td>3T(n/3)+O(n)</td><td class="c">n·log n</td><td>[2025·1א]</td></tr>
-<tr><td>T(n−1)+O(1)</td><td class="c">n</td><td>עצרת</td></tr>
-<tr><td>T(n−1)+O(n)</td><td class="c">n²</td><td>Quick גרוע · [2025·2]</td></tr>
-<tr><td>2T(n−1)+O(1)</td><td class="c">2ⁿ</td><td>האנוי</td></tr>
+<tr><td><code>T(n/2)+O(1)</code></td><td class="c">log n</td><td>חיפוש בינארי</td></tr>
+<tr><td><code>2T(n/2)+O(n)</code></td><td class="c">n·log n</td><td>Merge · Quick ממוצע</td></tr>
+<tr><td><code>2T(n/2)+O(1)</code></td><td class="c">n</td><td>סיור עץ [2024·1ג]</td></tr>
+<tr><td><code>3T(n/3)+O(n)</code></td><td class="c">n·log n</td><td>[2025·1א]</td></tr>
+<tr><td><code>T(n-1)+O(1)</code></td><td class="c">n</td><td>עצרת</td></tr>
+<tr><td><code>T(n-1)+O(n)</code></td><td class="c">n²</td><td>Quick גרוע · [2025·2]</td></tr>
+<tr><td><code>2T(n-1)+O(1)</code></td><td class="c">2ⁿ</td><td>האנוי</td></tr>
 </table>
 <div class="warn">חיסור T(n−1) ⟵ נוסחת האב <b>לא חלה</b>! רק חילוק.</div>
 </div>
@@ -133,11 +133,13 @@ while(i&gt;1){ i--;             // i=log(n): log n
 <div class="warn"><b>כלל הזהב:</b> פעולה <b>לפני</b> הקריאה = סדר רגיל;
 <b>אחרי</b> = סדר הפוך. מחסנית: pop⟵רק'⟵push <b>משמר</b> סדר.
 תור: deque⟵רק'⟵enque <b>הופך</b>! [2025·5]: ‏what החזירה מינימום
-והפכה את התור — ‏[4,50,1,22,−10,7]⟵[7,−10,22,1,50,4].</div>
+והפכה את התור — <code>[4,50,1,22,-10,7]</code> ⟵ <code>[7,-10,22,1,50,4]</code>.</div>
 <div class="ex"><div class="t">[2021·2] isSorted על מחסנית — "בלי לולאות" · 18 נק'</div>
 <pre>BOOL isSorted(STACK* s){
-  if (S_isEmpty(s))        return True;
-  if (S_pop(s) &gt; S_top(s)) return False;
+  if (S_isEmpty(s)) return True;
+  int x = S_pop(s);
+  if (S_isEmpty(s)) return True;   /* אחרון */
+  if (x &gt; S_top(s)) return False;
   return isSorted(s); }</pre>
 <p>pop מוציא ומחזיר ⟵ top מציץ בבא. הדפוס לכל "בלי לולאות/מבנה עזר" — כל שנה.</p></div>
 <div class="ex"><div class="t">[2023·2] even על תור — טריק הזקיף</div>
@@ -210,7 +212,8 @@ L_insert(pP,num);</pre>
 <p>סדר התנאי קריטי: קודם <code>next!=NULL</code>! מיזוג ממוינות
 [2019X·4]: שני מצביעים + זנב.</p></div>
 <div class="ex"><div class="t">[2019Y·3] מי המספר הגדול? רשימות ספרות (אחדות תחילה)</div>
-<pre>while(p1 &amp;&amp; p2){
+<pre>int res = 0;
+while(p1 &amp;&amp; p2){
   if (p1-&gt;key &gt; p2-&gt;key) res=1;
   else if (p1-&gt;key &lt; p2-&gt;key) res=-1;
   p1=p1-&gt;next; p2=p2-&gt;next; }
@@ -243,7 +246,7 @@ return res;</pre>
 בלבד = טעות (נכד מפר)</li>
 </ul>
 <div class="ex"><div class="t">[2019Y·2 · 2020X·1ו] תקינות מסלול חיפוש — שיטת החלון</div>
-<p>מחזיקים (min,max). ירידה שמאלה (צומת&gt;יעד) ⟵ ‏max=צומת · ימינה ⟵
+<p>מחזיקים (min,max). ירידה שמאלה (הצומת גדול מהיעד) ⟵ ‏max=צומת · ימינה ⟵
 ‏min=צומת. צומת מחוץ לחלון ⟵ פסול + הוא "המספר הבעייתי".</p>
 <pre>יעד 158: ‏100,300,190,130,200 ⟵ אחרי 190
 שמאלה: חלון (130,190) ⟵ 200 פסול!</pre></div>
@@ -306,7 +309,7 @@ O(n). שקיעה נמשכת כמה רמות — לרשום <b>כל</b> swap [202
 <ul>
 <li><b>ליניארית:</b> התא הבא, עם גלגול %m</li>
 <li><b>ערבול כפול:</b> קפיצות s(x). <b>חוקי רק אם s(x)≠0 וזר ל-m</b>
-(gcd=1). ‏m=8 ⟵ רק אי-זוגיים ⟵ לכן ‏2·(x%k)+1 [2025·7]</li>
+(gcd=1). ‏m=8 ⟵ רק אי-זוגיים ⟵ <code>s(x) = 2·(x%k)+1</code> ‏[2025·7]</li>
 <li><b>מחיקה = מצבה DELETED</b>, לא "ריק" — חיפוש ממשיך דרכה, הכנסה
 דורסת; עוצרים רק בתא שמעולם לא אוכלס</li>
 <li>מיקום ערך תלוי בהיסטוריה — הסרת ערך מהסיפור מזיזה את כל השרשרת
