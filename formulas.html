@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>דף נוסחאות 10804 — אלגוריתמים ומבני נתונים</title>
+<style>
+:root{ --ink:#111; --dim:#555; --line:#999; --bg:#fff; --hl:#efefef; }
+*{ box-sizing:border-box; margin:0; padding:0 }
+html,body{ background:#e8e8e8 }
+body{ font:8.1px/1.23 -apple-system,"Segoe UI","Noto Sans Hebrew","Arial Hebrew",Arial,sans-serif; color:var(--ink) }
+.page{ width:210mm; min-height:296mm; background:var(--bg); margin:8px auto; padding:5mm }
+.pghead{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1.4px solid var(--ink); padding-bottom:2px; margin-bottom:3px }
+.pghead b{ font-size:11px } .pghead span{ font-size:8px; color:var(--dim) }
+.cols{ font-size:0 }
+.col{ display:inline-block; vertical-align:top; width:32.4%; margin-inline-end:1.4%; font-size:8.1px }
+.col:last-child{ margin-inline-end:0 }
+h2{ font-size:9.2px; background:var(--ink); color:#fff; padding:1px 5px; margin:3px 0 1.5px; border-radius:2px }
+h2:first-child{ margin-top:0 }
+p{ margin:1px 0 }
+ul,ol{ padding-inline-start:11px; margin:1px 0 }
+b.r{ color:#8b1a00 }
+code,pre{ font:7.2px/1.2 "SF Mono",Menlo,Consolas,monospace; direction:ltr; unicode-bidi:isolate }
+pre{ background:var(--hl); border:.6px solid #ccc; border-radius:2px; padding:2px 4px; margin:1.5px 0; text-align:left; white-space:pre; overflow:hidden }
+table{ border-collapse:collapse; width:100%; margin:1.5px 0 }
+th,td{ border:.6px solid var(--line); padding:.6px 2px; font-size:7.6px; text-align:right; vertical-align:top }
+th{ background:var(--hl); font-weight:700 }
+td.c,th.c{ text-align:center }
+.ex{ border:1px solid var(--ink); border-radius:3px; padding:2px 3.5px; margin:2.5px 0; background:#fbfbf8 }
+.ex .t{ font-size:8px; font-weight:700; background:var(--hl); margin:-2px -3.5px 1.5px; padding:1px 4px; border-bottom:.6px solid var(--line) }
+.warn{ border-inline-start:2.5px solid #8b1a00; padding:1px 4px; margin:2px 0 }
+@media print{
+  html,body{ background:#fff }
+  .page{ margin:0; width:200mm; height:286mm; min-height:0; padding:0; overflow:hidden }
+  .pb{ page-break-after:always }
+  @page{ size:A4; margin:4mm }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= עמוד 1 ================= -->
+<div class="page pb">
+<div class="pghead"><b>דף נוסחאות 10804 · עמ' 1 — סיבוכיות · רקורסיה · מחסנית ותור · רשימות</b><span>‏[שנה·שאלה] = שאלת מבחן אמיתית עם קוד, תשובה והסבר</span></div>
+<div class="cols">
+
+<div class="col">
+<h2>סימונים אסימפטוטיים</h2>
+<table>
+<tr><th class="c">סימון</th><th>הגדרה</th><th>אינטואיציה</th></tr>
+<tr><td class="c"><b>O(g)</b></td><td>∃c,n₀: ‏f(n)≤c·g(n) ‏∀n≥n₀</td><td>חסם עליון ≤</td></tr>
+<tr><td class="c"><b>Ω(g)</b></td><td>∃c,n₀: ‏f(n)≥c·g(n)</td><td>חסם תחתון ≥</td></tr>
+<tr><td class="c"><b>Θ(g)</b></td><td>c₁g ≤ f ≤ c₂g</td><td>הדוק = (גם O וגם Ω)</td></tr>
+<tr><td class="c"><b>o(g)</b></td><td>∀c ∃n₀: ‏f&lt;c·g</td><td>קטן ממש · ‏f/g→0</td></tr>
+<tr><td class="c"><b>ω(g)</b></td><td>∀c ∃n₀: ‏f&gt;c·g</td><td>גדול ממש · ‏f/g→∞</td></tr>
+</table>
+<p><b>שיטת הגבול:</b> ‏lim f/g: ‏0 ⟵ o · קבוע ⟵ Θ · ‏∞ ⟵ ω.
+<b>במבחן: O הדוק</b> ("קצר ומדויק"), ברירת מחדל מקרה גרוע.</p>
+<p><b>סדר:</b> ‏1⊂loglog n⊂log n⊂√n⊂n⊂n·log n⊂n²⊂n³⊂2ⁿ⊂n!</p>
+<ul>
+<li>קבועים נזרקים: ‏O(n/2)=O(n·k)=O(n) · דומיננטי מנצח: ‏O(n²+n)=O(n²)</li>
+<li>לוג בלי בסיס — הכול שקול (בקורס log₂)</li>
+<li><b>שני משתנים ⟵ שניהם בתשובה:</b> ‏O(n·log m)‏ [2025·1ב]</li>
+<li>עוקבות⟵חיבור · מקוננות בלי תלות⟵כפל · עם תלות⟵סכום</li>
+</ul>
+
+<h2>לוגים</h2>
+<table>
+<tr><th>חוק</th><th>שימוש במבחן</th></tr>
+<tr><td>log₂n=k ⟺ 2ᵏ=n</td><td>‏i*=2 / ‏i/=2 ⟵ ‏log n צעדים</td></tr>
+<tr><td>log(ab)=log a+log b · ‏log(a/b)=log a−log b</td><td>‏i&lt;n/2 ⟵ עדיין log n</td></tr>
+<tr><td>log(aᵏ)=k·log a</td><td>‏i&lt;n²;i*=2 ⟵ ‏2log n=<b>O(log n)</b></td></tr>
+<tr><td>log_b n=log₂n/log₂b (מכנה קבוע!)</td><td>‏i*=10 ⟵ עדיין O(log n)</td></tr>
+<tr><td>2^(log₂n)=n</td><td>נוסחת האב: ‏n^(log_b a)</td></tr>
+<tr><td>log(n!)=Θ(n·log n)</td><td>חסם תחתון מיוני השוואות</td></tr>
+</table>
+<div class="warn"><b>log(n²)=2log n</b> אבל <b>log²n=(log n)²</b> — שונים!
+‏log²⁰n=o(√n).</div>
+
+<h2>סכומים</h2>
+<table>
+<tr><th>סכום</th><th class="c">שווה</th><th class="c">O</th></tr>
+<tr><td>1+2+…+n</td><td class="c">n(n+1)/2</td><td class="c">n²</td></tr>
+<tr><td>1²+…+n²</td><td class="c">n(n+1)(2n+1)/6</td><td class="c">n³</td></tr>
+<tr><td>1+2+4+…+2ᵏ</td><td class="c">2ᵏ⁺¹−1</td><td class="c">2ᵏ</td></tr>
+<tr><td><b>n+n/2+n/4+…</b></td><td class="c">≤2n</td><td class="c"><b>n</b> (לא n·log n!)</td></tr>
+<tr><td>1+½+…+1/n</td><td class="c">≈ln n</td><td class="c">log n</td></tr>
+</table>
+
+<h2>נוסחת האב — T(n)=a·T(n/b)+Θ(nᵏ)</h2>
+<table>
+<tr><th>השוואה</th><th>תוצאה</th><th>דוגמה</th></tr>
+<tr><td>a &gt; bᵏ</td><td><b>Θ(n^log_b a)</b></td><td>‏4T(n/2)+n ⟵ Θ(n²)</td></tr>
+<tr><td>a = bᵏ</td><td><b>Θ(nᵏ·log n)</b></td><td>‏2T(n/2)+n ⟵ Θ(n·log n)</td></tr>
+<tr><td>a &lt; bᵏ</td><td><b>Θ(nᵏ)</b></td><td>‏2T(n/2)+n² ⟵ Θ(n²)</td></tr>
+</table>
+<table>
+<tr><th>נסיגה</th><th class="c">פתרון</th><th>מי</th></tr>
+<tr><td>T(n/2)+O(1)</td><td class="c">log n</td><td>חיפוש בינארי</td></tr>
+<tr><td>2T(n/2)+O(n)</td><td class="c">n·log n</td><td>Merge · Quick ממוצע</td></tr>
+<tr><td>2T(n/2)+O(1)</td><td class="c">n</td><td>סיור עץ [2024·1ג]</td></tr>
+<tr><td>3T(n/3)+O(n)</td><td class="c">n·log n</td><td>[2025·1א]</td></tr>
+<tr><td>T(n−1)+O(1)</td><td class="c">n</td><td>עצרת</td></tr>
+<tr><td>T(n−1)+O(n)</td><td class="c">n²</td><td>Quick גרוע · [2025·2]</td></tr>
+<tr><td>2T(n−1)+O(1)</td><td class="c">2ⁿ</td><td>האנוי</td></tr>
+</table>
+<div class="warn">חיסור T(n−1) ⟵ נוסחת האב <b>לא חלה</b>! רק חילוק.</div>
+</div>
+
+<div class="col">
+<h2>לולאה ⟵ סיבוכיות (כל מה שהופיע במבחנים)</h2>
+<table>
+<tr><th>לולאה</th><th class="c">O</th><th>למה</th></tr>
+<tr><td><code>i=0;i&lt;n;i++</code> / <code>i+=c</code></td><td class="c">n</td><td>קבוע נבלע</td></tr>
+<tr><td><code>i=1;i&lt;n²;i++</code></td><td class="c">n²</td><td>הטווח n²</td></tr>
+<tr><td><code>i*=2</code> / <code>i/=2</code> (עד n או n²)</td><td class="c">log n</td><td>הכפלה</td></tr>
+<tr><td><code>i=2;i&lt;n;i=i*i</code> [2021·1]</td><td class="c"><b>loglog n</b></td><td>ריבוע: 2,4,16,256…</td></tr>
+<tr><td><code>i=1;i&lt;n;i=i*i</code></td><td class="c"><b>∞!</b></td><td>‏1·1=1 — לא זז</td></tr>
+<tr><td><code>i=n;i&gt;0;i-=n/3.0</code> [2022·1]</td><td class="c"><b>1</b></td><td>n בצעדי n/3 = ‏3 צעדים</td></tr>
+<tr><td><code>for(j=n/2;j&gt;=1;j/=2)</code> ואז <code>i=j-1</code> [2021·1]</td><td class="c">רץ פעם 1</td><td>‏j&lt;1 ⟵ ‏i≤0</td></tr>
+<tr><td><code>while(n&gt;0){עד n; n/=2}</code></td><td class="c"><b>n</b></td><td>סכום הנדסי</td></tr>
+<tr><td>פנימית עד i / עד i²</td><td class="c">n² / n³</td><td>Σi / Σi²</td></tr>
+</table>
+<div class="ex"><div class="t">[2023·1] לולאות על log n ⟵ O(log²n)</div>
+<pre>for(j=log(n); j&gt;2; j/=4)     // loglog n
+while(i&gt;1){ i--;             // i=log(n): log n
+  for(j=100;j&lt;n*n;j*=100) }  //   פנימית: log n</pre>
+<p>‏log n = "ה-n החדש" ⟵ ‏log n × log n = <b>log²n</b>.</p></div>
+
+<h2>רקורסיה</h2>
+<p><b>3 תנאים:</b> עצירה · התקדמות (בעיה קטנה יותר) · שילוב.
+עומק n ⟵ מחסנית קריאות O(n) זיכרון. בלי עצירה ⟵ stack overflow.</p>
+<div class="warn"><b>כלל הזהב:</b> פעולה <b>לפני</b> הקריאה = סדר רגיל;
+<b>אחרי</b> = סדר הפוך. מחסנית: pop⟵רק'⟵push <b>משמר</b> סדר.
+תור: deque⟵רק'⟵enque <b>הופך</b>! [2025·5]: ‏what החזירה מינימום
+והפכה את התור — ‏[4,50,1,22,−10,7]⟵[7,−10,22,1,50,4].</div>
+<div class="ex"><div class="t">[2021·2] isSorted על מחסנית — "בלי לולאות" · 18 נק'</div>
+<pre>BOOL isSorted(STACK* s){
+  if (S_isEmpty(s))        return True;
+  if (S_pop(s) &gt; S_top(s)) return False;
+  return isSorted(s); }</pre>
+<p>pop מוציא ומחזיר ⟵ top מציץ בבא. הדפוס לכל "בלי לולאות/מבנה עזר" — כל שנה.</p></div>
+<div class="ex"><div class="t">[2023·2] even על תור — טריק הזקיף</div>
+<pre>void even(QUEUE* q){ Q_enque(q,-1); rec(q); }
+void rec(QUEUE* q){
+  int x = Q_deque(q);
+  if (x != -1){
+    if (x%2==0) printf("%d, ",x);
+    Q_enque(q,x); rec(q); } }</pre>
+<p>זקיף ‎−1 = "סוף סיבוב" ⟵ התור חוזר לסדרו. (או: ערכים ייחודיים ⟵ שמור את הראשון וגלגל עד שחוזר.)</p></div>
+<div class="ex"><div class="t">[2025·5] what על תור — מה קורה באמת</div>
+<pre>int what(QUEUE* q){
+  int i=Q_deque(q), r=i;
+  if (!Q_isEmpty(q)){ int j=what(q);
+    if (r&gt;j) r=j; }
+  Q_enque(q,i); return r; }</pre>
+<p>מחזירה את <b>המינימום</b> — וה-enque בדרך חזרה <b>הופך את התור</b>:
+‏[4,50,1,22,−10,7] ⟵ מוחזר ‎−10, התור ‏[7,−10,22,1,50,4]. לצייר את
+שניהם בתשובה!</p></div>
+<div class="ex"><div class="t">שיטת המסגרות לשאלה 1 — סדר העבודה</div>
+<p>‏1) סיבוכיות של <b>כל מסגרת לבד</b> (בלי הפנימיות שלה). ‏2) תלות?
+מסגרת שמתאפסת בכל סיבוב ⟵ <b>כפל</b>; ‏j שממשיך מערך קודם ⟵ בדוק אם
+רץ בכלל [2018B·1: רץ פעם אחת]. ‏3) סה"כ = הגדול מבין הסכומים/מכפלות.
+‏4) רקורסיה בקוד ⟵ כתוב נסיגה ⟵ נוסחת האב (רק חילוק!).</p></div>
+<p><b>רקורסיה על ספרות [2024·2]:</b> ‏n%10=אחדות, ‏n/10=השאר.
+‏<code>return (n%10==d)+countDigit(n/10,d);</code> · הדפסה אחרי
+הקריאה = משמאל לימין.</p>
+
+</div>
+
+<div class="col">
+<h2>מחסנית ותור</h2>
+<p><b>מחסנית LIFO</b> (מחסנית רובה · צינור חסום): הכול על הראש, O(1).
+<b>תור FIFO</b> (2 פתחים): ‏Enque⟵<b>זנב</b> (הטרי) · ‏Deque/Head⟵<b>ראש</b>
+(הוותיק) · ‏O(1) בזכות מצביע tail.</p>
+<p><b>[2019Y·4] מחסנית מתור אחד:</b> ‏Push = Enque(x) ואז גלגל
+(‏Enque(Deque)) עד ש-x בראש — O(n) · ‏Pop=Deque, ‏Top=Head — O(1).</p>
+<p><b>מעבר עם שחזור:</b> רוקן למחסנית עזר ושפוך חזרה — שני היפוכים
+= הסדר המקורי.</p>
+
+<h2>רשימה מקושרת</h2>
+<pre>typedef struct node{ DATA key;
+  struct node* next; } NODE;
+typedef struct { NODE head; } LIST; /* כותר דמה */</pre>
+<ul>
+<li><b>L_insert(pN,v)</b> מכניסה <b>אחרי</b> pN · <b>L_delete(pN)</b> מוחקת
+את <b>שאחרי</b> pN! [2024·3]</li>
+<li>ראשון אמיתי: ‏<code>lst.head.next</code> · הכותר מבטל מקרי קצה</li>
+<li>לשמור מצביע <b>לקודם</b> · לבדוק <code>next!=NULL</code> לפני גישה</li>
+</ul>
+<div class="ex"><div class="t">[2021·4] גוף ההיפוך — לדעת בעל-פה</div>
+<pre>prev=NULL; cur=head;
+while (cur){ next=cur-&gt;next;
+  cur-&gt;next=prev;         /* היפוך החץ */
+  prev=cur; cur=next; }
+head=prev;</pre>
+<p>שלישיית prev/cur/head = היפוך. הופיע "פרום" ידנית — "הפכה את הרשימה".</p></div>
+<div class="ex"><div class="t">[2021Y·5] השלישי מהסוף — מרווח קבוע</div>
+<pre>t=head; for(i=0;i&lt;3;i++) head=head-&gt;next;
+while (head){ head=head-&gt;next; t=t-&gt;next; }
+return t-&gt;num;</pre>
+<p>מצביע מקדים k צעדים; כשנגמר — השני על התשובה.</p></div>
+<p><b>[2019Y·3] השוואת מספרים כרשימות ספרות</b> (אחדות תחילה, מעבר
+אחד): התקדם במקביל ושמור את <b>ההבדל האחרון</b> (res=±1) — הוא הספרה
+המשמעותית; נותרה שארית ⟵ הארוך גדול; אחרת res.</p>
+<div class="ex"><div class="t">[2022·3] הכנסה ממוינת — עצור על הקודם</div>
+<pre>while(pP-&gt;next &amp;&amp; pP-&gt;next-&gt;key &lt; num)
+  pP=pP-&gt;next;
+L_insert(pP,num);</pre>
+<p>סדר התנאי קריטי: קודם <code>next!=NULL</code>! מיזוג ממוינות
+[2019X·4]: שני מצביעים + זנב.</p></div>
+<div class="ex"><div class="t">[2019Y·3] מי המספר הגדול? רשימות ספרות (אחדות תחילה)</div>
+<pre>while(p1 &amp;&amp; p2){
+  if (p1-&gt;key &gt; p2-&gt;key) res=1;
+  else if (p1-&gt;key &lt; p2-&gt;key) res=-1;
+  p1=p1-&gt;next; p2=p2-&gt;next; }
+if (p1) return 1; if (p2) return -1;
+return res;</pre>
+<p><b>ההבדל האחרון מנצח</b> — הוא בספרה המשמעותית ביותר. נותרה שארית
+⟵ הארוך גדול. מעבר אחד, בלי מבנה עזר.</p></div>
+</div>
+
+</div>
+</div>
+
+<!-- ================= עמוד 2 ================= -->
+<div class="page">
+<div class="pghead"><b>דף נוסחאות 10804 · עמ' 2 — עצים · ערימה · ערבול · מיונים · AVL</b><span>‏[שנה·שאלה] = שאלת מבחן אמיתית</span></div>
+<div class="cols">
+
+<div class="col">
+<h2>עץ בינארי ו-BST</h2>
+<pre>typedef struct node2{ int key;
+  struct node2 *left,*right; } NODE2;</pre>
+<p><b>סיורים:</b> ‏Pre: שורש·שמ·ימ · ‏In: שמ·שורש·ימ · ‏Post: שמ·ימ·שורש.
+<b>InOrder על BST = סדר עולה!</b> [2021·5] · גובה: ריק ‎−1, עלה 0.</p>
+<ul>
+<li><b>הוספה:</b> יורדים כמו חיפוש; נכנס תמיד <b>כעלה</b>. O(h)</li>
+<li><b>מחיקה:</b> עלה⟵מחק · בן יחיד⟵עוקף · 2 בנים⟵החלף עם
+<b>העוקב=מינ' תת-עץ ימני</b> (ימינה ואז שמאלה עד הסוף — מוסכמת הקורס)</li>
+<li>סדר מחיקות משנה את העץ (לא קומוטטיבי) [2020X·1ד]</li>
+<li><b>האם BST?</b> גבולות מצטברים isBST(p,min,max) — בדיקת בנים ישירים
+בלבד = טעות (נכד מפר)</li>
+</ul>
+<div class="ex"><div class="t">[2019Y·2 · 2020X·1ו] תקינות מסלול חיפוש — שיטת החלון</div>
+<p>מחזיקים (min,max). ירידה שמאלה (צומת&gt;יעד) ⟵ ‏max=צומת · ימינה ⟵
+‏min=צומת. צומת מחוץ לחלון ⟵ פסול + הוא "המספר הבעייתי".</p>
+<pre>יעד 158: ‏100,300,190,130,200 ⟵ אחרי 190
+שמאלה: חלון (130,190) ⟵ 200 פסול!</pre></div>
+<div class="ex"><div class="t">[2020X·2 · 2019X·2] שחזור עץ מ-Pre+In</div>
+<p>‏1) ראשון ב-Pre = שורש. ‏2) ב-In: שמאלו=תת-עץ שמאלי, ימינו=ימני.
+‏3) רקורסיה עם הבא ב-Pre. <b>ב-BST מספיק Pre לבד</b> (ה-In הוא הממוין).</p></div>
+<div class="ex"><div class="t">[2025·4] תבנית "האם העץ מקיים תכונה" — isGoremTree</div>
+<pre>if (!p) return True;               /* ריק  */
+if (!p-&gt;l &amp;&amp; !p-&gt;r) return True;   /* עלה  */
+if (!p-&gt;l || !p-&gt;r) return False;  /* בן 1 */
+if (p-&gt;l-&gt;key * p-&gt;r-&gt;key != p-&gt;key)
+    return False;                  /* התכונה */
+return rec(p-&gt;l) &amp;&amp; rec(p-&gt;r);</pre>
+<p>אותו שלד לכל תכונה (isFull, מאוזן…): ריק✔ עלה✔ צורה✘ תכונה✘ AND על הבנים.</p></div>
+
+<h2>AVL</h2>
+<p>BST + |הפרש גבהים|≤1 בכל צומת · גובה O(log n) · צמתים מינ' לגובה h:
+‏N(h)=N(h−1)+N(h−2)+1 ⟵ ‏1,2,4,7,12,20…</p>
+<table>
+<tr><th class="c">מקרה</th><th>זיהוי המסלול</th><th>תיקון</th></tr>
+<tr><td class="c">LL / RR</td><td>ישר</td><td>רוטציה אחת</td></tr>
+<tr><td class="c">LR / RL</td><td>שבור</td><td>2 רוטציות (קודם על הבן)</td></tr>
+</table>
+<p>מתקנים את <b>הראשון</b> שיצא מאיזון (מהעלה למעלה) · תת-העץ הפנימי של
+הבן עובר צד · בדיקה: InOrder נשאר ממוין.</p>
+</div>
+
+<div class="col">
+<h2>ערימה (מערך, מאינדקס 1)</h2>
+<p><b>left=2i · right=2i+1 · parent=i/2</b> (שלם) · עץ <b>שלם</b> ⟵ צורה
+יחידה לכל n · מקס' בשורש O(1) · המינימום בערימת מקס' — תמיד <b>בעלה</b>.</p>
+<ul>
+<li><b>Insert:</b> לסוף ⟵ <b>צף</b> מול האבא. O(log n)</li>
+<li><b>Del_max:</b> אחרון⟵שורש ⟵ <b>שוקע</b>, תמיד מול <b>הגדול מבין
+שני הבנים</b>! O(log n)</li>
+<li><b>MakeHeap:</b> מהפנימי האחרון (i=n/2) אחורה לשורש, שקיעה לכל אחד.
+O(n). שקיעה נמשכת כמה רמות — לרשום <b>כל</b> swap [2024·6, 2018A·6]</li>
+</ul>
+<div class="ex"><div class="t">[2021·3 · 2023·3 · 2025·6] הנדסה לאחור — שיטת השלד</div>
+<p><b>"נתון סיור על ערימה":</b> ‏1) צייר שלד עץ שלם לפי n (צורה יחידה!).
+‏2) הרץ את הסיור על <b>השלד</b> ⟵ סדר אינדקסים. ‏3) שבץ ערכים לפי הסדר.</p>
+<pre>n=8, PostOrder על השלד: 8,4,5,2,6,7,3,1
+ערכים: 2,8,1,19,3,4,30,50
+⟵ idx8=2, idx4=8 … ⟵ [50,19,30,8,1,3,4,2]</pre>
+<p><b>"שחזר סדר הכנסה"</b> [2025·6]: בנה קדימה — אחרי <b>כל</b> הכנסה
+ערימה תקינה; חדש נכנס בסוף וצף. יש כמה תשובות נכונות.</p></div>
+<div class="ex"><div class="t">[2018A·6] MakeHeap — לרשום כל swap בנפרד</div>
+<pre>1,2,3,9,8,7,2,3            i=3: ‏3 מול 7
+1,2,7,9,8,3,2,3            i=2: ‏2 מול 9
+1,9,7,2,8,3,2,3               …ממשיך מול 3
+1,9,7,3,8,3,2,2            i=1: ‏1 מול 9
+9,1,7,3,8,3,2,2               …ממשיך מול 8
+9,8,7,3,1,3,2,2            ✔ ערימה</pre>
+<p>שקיעה = תהליך רב-שלבי; מי שרשם רק מצב סופי איבד את רוב הנקודות.
+תמיד מול <b>הגדול מבין שני הבנים</b>.</p></div>
+
+<h2>טבלת ערבול</h2>
+<p><b>h(x)=x%m</b> · עומס α=n/m · שרשור: רשימה בתא · מיעון פתוח: כלל
+חיפוש תא.</p>
+<ul>
+<li><b>ליניארית:</b> התא הבא, עם גלגול %m</li>
+<li><b>ערבול כפול:</b> קפיצות s(x). <b>חוקי רק אם s(x)≠0 וזר ל-m</b>
+(gcd=1). ‏m=8 ⟵ רק אי-זוגיים ⟵ לכן ‏2·(x%k)+1 [2025·7]</li>
+<li><b>מחיקה = מצבה DELETED</b>, לא "ריק" — חיפוש ממשיך דרכה, הכנסה
+דורסת; עוצרים רק בתא שמעולם לא אוכלס</li>
+<li>מיקום ערך תלוי בהיסטוריה — הסרת ערך מהסיפור מזיזה את כל השרשרת
+[2024·7ג]</li>
+<li><b>"קיים סדר הכנסה?"</b> [2018B·5, 2024·7א]: חשב תא-בית לכל ערך; מי
+שבביתו נכנס לפני מי שנדחף ממנו; אמת בסימולציה</li>
+</ul>
+<div class="ex"><div class="t">[2020X·5] ערבול כפול — לספור בלי לשכוח מודולו</div>
+<pre>m=11, h=x%11, s=x%5+1. ‏24: ‏h=2 תפוס ⟵
+s(24)=5: ‏7 תפוס ⟵ (7+5)%11=1 תפוס ⟵ 6 תפוס
+⟵ (6+5)%11=0 פנוי. ‏4 הפעלות של s.</pre>
+<p>הטעות הקבועה: לשכוח את ‎%m בגלגול. תמיד (תא+צעד)%m.</p></div>
+</div>
+
+<div class="col">
+<h2>מיונים</h2>
+<table>
+<tr><th>מיון</th><th class="c">טוב</th><th class="c">ממוצע</th><th class="c">גרוע</th><th class="c">מקום</th><th class="c">יציב</th></tr>
+<tr><td>בועות (דגל)</td><td class="c">n</td><td class="c">n²</td><td class="c">n²</td><td class="c">1</td><td class="c">✔</td></tr>
+<tr><td>הכנסה</td><td class="c"><b>n</b></td><td class="c">n²</td><td class="c">n²</td><td class="c">1</td><td class="c">✔</td></tr>
+<tr><td>בחירה</td><td class="c"><b>n²</b></td><td class="c">n²</td><td class="c">n²</td><td class="c">1</td><td class="c">✘</td></tr>
+<tr><td>מהיר (ציר=אחרון)</td><td class="c">n·log n</td><td class="c">n·log n</td><td class="c"><b>n²</b></td><td class="c">log n</td><td class="c">✘</td></tr>
+<tr><td>מיזוג</td><td class="c">n·log n</td><td class="c">n·log n</td><td class="c">n·log n</td><td class="c"><b>n</b></td><td class="c">✔</td></tr>
+<tr><td>ערימה</td><td class="c">n·log n</td><td class="c">n·log n</td><td class="c">n·log n</td><td class="c">1</td><td class="c">✘</td></tr>
+<tr><td>מנייה / בסיס</td><td class="c" colspan="3">n+k · ‏d(n+k)</td><td class="c">n+k</td><td class="c">✔</td></tr>
+</table>
+<ul>
+<li><b>קלט גרוע:</b> הכנסה/בועות ⟵ ממוין הפוך · מהיר(ציר אחרון) ⟵
+<b>ממוין</b> או הפוך! [2025·8]</li>
+<li><b>הכי מעט השוואות על כמעט-ממוין ⟵ הכנסה</b> (n−1 על ממוין) [2025·8]</li>
+<li>תמיד n·log n: מיזוג+ערימה · תמיד n²: בחירה · זיכרון עזר:
+מיזוג+מנייה+בסיס · בלי השוואות: מנייה+בסיס [2021·6, 2022·5]</li>
+<li>רשימה מקושרת ⟵ <b>מיזוג</b> (אין אינדקסים)</li>
+<li><b>פיבוט אחרי partition</b> [2020X·1ג]: הציר <b>במקומו הסופי</b> —
+משמאלו קטנים, מימינו גדולים. בדיקת מועמד ב-10 שניות</li>
+<li><b>מנייה</b> [2024·8]: ‏1) מנה הופעות ‏2) סכום מצטבר=מיקומי סוף
+‏3) מעבר <b>מהסוף</b> ⟵ יציב</li>
+<li><b>מיון מוסווה ברקורסיה</b> [2025·2]: מעבר החלפת-שכנים + rec(n−1) =
+<b>בועות</b>, ‏T(n)=T(n−1)+O(n) ⟵ O(n²). ‏"omgicu"⟵"cgimou"</li>
+</ul>
+
+<h2>חיפוש בינארי</h2>
+<pre>while (lo&lt;=hi){ mid=(lo+hi)/2;
+  if (a[mid]==x) return mid;
+  if (x&lt;a[mid]) hi=mid-1; else lo=mid+1; }
+return -1;            /* O(log n), רק ממוין */</pre>
+<p>עובד לכל "באיזה חצי התשובה?" ב-O(1) — גם מינימום במערך פרבולי
+[2018B·2]: אמצע קטן משכניו ⟵ מצאנו; אחרת המשך בצד היורד.</p>
+
+<h2>עיצוב מבנה נתונים (שאלות 30 נק' הישנות)</h2>
+<ul>
+<li><b>גישה לפי מפתח ב-O(1)</b> ⟵ טבלת ערבול שמצביעה <b>לתוך</b> מבנה
+הסדר. מרפאת VIP [2019X·5]: תור כרשימה דו-כיוונית + ערבול ID⟵צומת
+(מחיקת אמצע O(1) — לכן דו-כיוונית!)</li>
+<li><b>"האחרון שנכנס בקטגוריה"</b> ⟵ מערך של מחסניות [2018B·3]</li>
+<li><b>טווח לא ידוע + מינימום/סדר</b> ⟵ עץ (AVL); <b>קטגוריות ידועות</b>
+⟵ ערבול; כל צומת יכול להחזיק רשימה [2019Y·5]</li>
+<li><b>זוג שסכומו X מתחת ל-O(n²)</b> [2018A·2]: מיין ⟵ שני מצביעים
+מהקצוות: קטן⟵left++‏, גדול⟵right−− ⟵ O(n·log n)</li>
+</ul>
+<h2>ביום המבחן</h2>
+<ul>
+<li>‏≈20 דק' לשאלה; תקוע 25 ⟵ הלאה. קוד: NULL/ריק/בודד; אין זמן ⟵
+פסאודו-קוד מוער</li>
+<li>מעקבים: תקינות אחרי <b>כל</b> שלב + נימוק כתוב (אין התחשבות בטעות
+נגררת) · "N מילים" ⟵ לספור, לתאר <b>תוצאה</b></li>
+<li>‏i=i*i ⟵ loglog · צעד n/c ⟵ O(1) · תור ברקורסיה מתהפך ·
+‏L_delete מוחקת את הבא · שקיעה מול הבן הגדול</li>
+</ul>
+</div>
+
+</div>
+</div>
+</body>
+</html>
