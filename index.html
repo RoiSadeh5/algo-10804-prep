@@ -262,6 +262,16 @@ nav.tabs .th{margin-inline-start:auto;position:sticky;left:0}
 #wrongPanel a{cursor:pointer}
 a.golink{color:var(--accent);cursor:pointer;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 a.golink:hover{opacity:.8}
+/* --- רמות קושי + סינון --- */
+.diff{font:700 11px var(--sans);border-radius:99px;padding:1.5px 9px;margin-inline-start:8px;vertical-align:2px}
+.diff-e{background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent);border:1px solid var(--accent)}
+.diff-m{background:color-mix(in srgb, var(--amber) 16%, transparent);color:var(--amber);border:1px solid var(--amber)}
+.diff-h{background:color-mix(in srgb, var(--red) 16%, transparent);color:var(--red);border:1px solid var(--red)}
+.diffbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius)}
+.diffbar b{font-size:13.5px}
+.diffbar button{background:var(--bg2);border:1px solid var(--line);color:var(--fg2);border-radius:99px;padding:4px 14px;font:600 13px var(--sans);cursor:pointer}
+.diffbar button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg,#fff)}
+.q.diff-hidden{display:none}
 </style>
 </head>
 <body>
@@ -6019,6 +6029,14 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 כאן למטה. ~20 דקות למשבצת, כמו במבחן האמיתי.
 </div>
 
+<div class="diffbar"><b>סינון לפי רמה:</b>
+<button class="on" data-df="all">הכול</button>
+<button data-df="e">🟢 קל</button>
+<button data-df="m">🟡 בינוני</button>
+<button data-df="h">🔴 קשה</button>
+<span id="diffCount" style="font-size:12.5px;opacity:.75"></span>
+</div>
+
 <div class="warn" id="wrongPanel" style="display:none">
 <b>❌ הטעויות שלי</b> — שאלות שסימנת "טעיתי". חזור אליהן יומיים אחרי
 הסימון, ונקה את הסימון רק כשפתרת נכון בלי להציץ:
@@ -6027,7 +6045,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 
 <h2>משבצת 1 · סיבוכיות <span class="tag exam">16 נק' · תמיד שאלה 1</span></h2>
 
-<div class="q"><div class="qh"><b>1.1</b><span class="src">לולאה פנימית תלויה בחיצונית</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>1.1</b><span class="diff diff-m">בינוני</span><span class="src">לולאה פנימית תלויה בחיצונית</span></div>
 <pre class="c">for (i = 1; i &lt;= n; i++)
     for (j = 1; j &lt;= i * i; j++)
         cnt++;</pre>
@@ -6039,7 +6057,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 1+2+…+i הוא כבר יטעה אותך.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.2</b><span class="src">חלוקה בחוץ, ליניארי בפנים</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>1.2</b><span class="diff diff-e">קל</span><span class="src">חלוקה בחוץ, ליניארי בפנים</span></div>
 <pre class="c">for (i = n; i &gt; 1; i /= 2)
     for (j = 0; j &lt; n; j++)
         cnt++;</pre>
@@ -6048,7 +6066,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 והפנימית — n פעמים <b>קבועות</b>, בלי תלות ב-i. לכן מכפלה: n·log n.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.3</b><span class="src">רקורסיה + נוסחת האב</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>1.3</b><span class="diff diff-m">בינוני</span><span class="src">רקורסיה + נוסחת האב</span></div>
 <pre class="c">int f(int n)
 {
     if (n &lt;= 1) return 1;
@@ -6062,7 +6080,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <b>O(n^log₂4) = O(n²)</b>.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.4</b><span class="src">שני משתנים — n ו-m</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>1.4</b><span class="diff diff-m">בינוני</span><span class="src">שני משתנים — n ו-m</span></div>
 <pre class="c">for (i = 0; i &lt; n; i++)
     for (j = 1; j &lt; m; j *= 2)
         cnt++;</pre>
@@ -6071,7 +6089,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 לכתוב O(n·log n) זו טעות שעולה נקודות (זה בדיוק הדפוס של 2025 ש'1ב).</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.5</b><span class="src">הטריק הנדיר — חזרה על 2021</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>1.5</b><span class="diff diff-m">בינוני</span><span class="src">הטריק הנדיר — חזרה על 2021</span></div>
 <pre class="c">for (i = 2; i &lt; n; i = i * i)
     cnt++;</pre>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6079,7 +6097,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 2^(2^k) אחרי k צעדים. מגיעים ל-n כש-2^k ≈ log n, כלומר k ≈ log log n.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.6</b><span class="src">מלכודת הסכום ההנדסי</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>1.6</b><span class="diff diff-h">קשה</span><span class="src">מלכודת הסכום ההנדסי</span></div>
 <pre class="c">while (n &gt; 0)
 {
     for (j = 0; j &lt; n; j++)
@@ -6095,7 +6113,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 לזהות את ההבדל הזה = 4 נקודות.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.7</b><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 1 · 12 נק'</span></span></div>
+<div class="q" data-diff="m"><div class="qh"><b>1.7</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 1 · 12 נק'</span></span></div>
 <pre class="c">int f1(int arr[], int n, int x)
 {
     int idx, i, counter = 0;
@@ -6119,7 +6137,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <p><b>סה"כ: O(n)</b> — הגדול מבין השלושה.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.8</b><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 1 · 12 נק'</span></span></div>
+<div class="q" data-diff="h"><div class="qh"><b>1.8</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 1 · 12 נק'</span></span></div>
 <pre class="c">int f1(int arr[], int n)
 {
     int i = 0, j, counter = 0;
@@ -6143,7 +6161,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 ו"לולאה שרצה פעם אחת" (2018B, 2021X, 2021Y). המרצים ממחזרים.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>1.9</b><span class="src"><span class="tag exam">מבחן 2022 · שאלה 1 · 16 נק'</span> · הקשה מכולן</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>1.9</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2022 · שאלה 1 · 16 נק'</span> · הקשה מכולן</span></div>
 <pre class="c">int f1(int n)
 {
     int counter = 0;
@@ -6177,7 +6195,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 
 <h2>משבצת 2 · רקורסיה — מעקב + "8 מילים" <span class="tag exam">12 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>2.1</b><span class="src">מעקב + הסבר</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>2.1</b><span class="diff diff-e">קל</span><span class="src">מעקב + הסבר</span></div>
 <pre class="c">void mys(int n)
 {
     if (n == 0) return;
@@ -6196,7 +6214,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 מיקום הפעולה ביחס לקריאה הרקורסיבית קובע את הכיוון.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2.2</b><span class="src">מה מוחזר?</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>2.2</b><span class="diff diff-e">קל</span><span class="src">מה מוחזר?</span></div>
 <pre class="c">int f(int arr[], int n)
 {
     if (n == 0) return 0;
@@ -6210,7 +6228,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <p><b>ב-8 מילים:</b> "סופרת כמה מספרים זוגיים יש במערך".</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2.3</b><span class="src">כתיבה בלי לולאות</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>2.3</b><span class="diff diff-e">קל</span><span class="src">כתיבה בלי לולאות</span></div>
 <p>כתוב פונקציה רקורסיבית <code>int countDigit(int n, int d)</code>
 שמחזירה כמה פעמים הספרה d מופיעה במספר החיובי n. <b>בלי לולאות.</b></p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6223,7 +6241,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 בדיוק כמו <code>checkDigits</code> מ-2024.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2.4</b><span class="src"><span class="tag exam">מבחן 2022 · שאלה 2 · 14 נק'</span> · "מה עושה הפונקציה?"</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>2.4</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2022 · שאלה 2 · 14 נק'</span> · "מה עושה הפונקציה?"</span></div>
 <pre class="c">int func(NODE2* root1, NODE2* root2)
 {
     if (!root1 &amp;&amp; !root2)
@@ -6244,7 +6262,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 מלאה לחלקית.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>2.5</b><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה)</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>2.5</b><span class="diff diff-e">קל</span><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה)</span></div>
 <p>מה מדפיסה <code>mys(13)</code>? והסבר ב-≤8 מילים.</p>
 <pre class="c">void mys(int n)
 {
@@ -6261,7 +6279,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 
 <h2>משבצת 3 · רשימות מקושרות — קוד <span class="tag exam">12–14 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>3.1</b><span class="src">מחיקה לסירוגין</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>3.1</b><span class="diff diff-m">בינוני</span><span class="src">מחיקה לסירוגין</span></div>
 <p>כתוב <code>void deleteEverySecond(NODE* head)</code> שמוחקת את כל
 האיברים במקומות הזוגיים (השני, הרביעי…). <code>head</code> הוא הצומת הראשון.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6280,7 +6298,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 רק אז <code>free</code>. הפוך — ואיבדת את הרשימה.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.2</b><span class="src">בלי הקצאת זיכרון — בסגנון 2025 ש'3</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>3.2</b><span class="diff diff-h">קשה</span><span class="src">בלי הקצאת זיכרון — בסגנון 2025 ש'3</span></div>
 <p>כתוב <code>void moveMaxToEnd(LIST* pLst)</code> שמעבירה את הצומת עם
 הערך המקסימלי לסוף הרשימה. <b>בלי הקצאה או שחרור זיכרון</b> — רק הזזת
 מצביעים. (לרשימה head דמה כמו בקורס.)</p>
@@ -6314,7 +6332,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 על <code>p-&gt;next</code>), ותמיד לבדוק את מקרה הקצה "כבר בסוף".</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.3</b><span class="src">רקורסיה על רשימה</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>3.3</b><span class="diff diff-e">קל</span><span class="src">רקורסיה על רשימה</span></div>
 <p>כתוב <code>BOOL isSortedList(NODE* head)</code> שבודקת אם הרשימה ממוינת
 בסדר עולה. <b>בלי לולאות.</b></p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6331,7 +6349,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <p>אותו רעיון בדיוק כמו <code>isSorted</code> על מחסנית מ-2021 —
 רק שברשימה אפשר "להציץ" עם <code>head-&gt;next</code> בלי להרוס כלום.</p>
 </div></details></div>
-<div class="q"><div class="qh"><b>3.4</b><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 4 · 18 נק'</span> · רקורסיה על רשימה</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>3.4</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 4 · 18 נק'</span> · רקורסיה על רשימה</span></div>
 <p>כתוב פונקציה <b>רקורסיבית</b> <code>PrintEvenPlaces</code> שמקבלת את
 האיבר הראשון ברשימה ומדפיסה את הערכים במקומות ה<b>זוגיים</b> (2, 4, 6…).
 <br>לדוגמה: עבור <code>1,2,4,3,5,7,12,14,15</code> יודפס <code>2,3,7,14</code>.
@@ -6352,7 +6370,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 מסתיימת בלי איבר במקום זוגי — ובלי הבדיקה הכפולה תקרוס.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.5</b><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 4 · 18 נק'</span> · עם L_insert / L_delete</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>3.5</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 4 · 18 נק'</span> · עם L_insert / L_delete</span></div>
 <p>כתוב <code>void EvenOddList(LIST* pLst)</code> שמסדרת את הרשימה כך
 שכל הזוגיים לפני כל האי-זוגיים (הסדר הפנימי לא חשוב). בלי מבנה עזר.
 <br>לדוגמה: <code>1,2,4,3,5,7,12,14,15</code> →
@@ -6386,7 +6404,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 המוסכמה הקבועה של הקורס.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.6</b><span class="src"><span class="tag exam">מבחן 2022 · שאלה 3 · 16 נק'</span> · הכנסה לרשימה ממוינת</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>3.6</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2022 · שאלה 3 · 16 נק'</span> · הכנסה לרשימה ממוינת</span></div>
 <p>ממש <code>void insertNumToSortList(LIST* plst, int num)</code> —
 מכניסה את num לרשימה ממוינת בסדר עולה כך שהמיון נשמר.</p>
 <details class="sol"><summary>פתרון (בסגנון פתרונות הקורס)</summary><div class="body">
@@ -6406,7 +6424,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <b>בסדר הזה</b> — הפוך, ותקרוס על סוף הרשימה.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.7</b><span class="src"><span class="tag exam">מבחן 2019 שאלון X · שאלה 4 · 20 נק'</span> · מיזוג רשימות</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>3.7</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2019 שאלון X · שאלה 4 · 20 נק'</span> · מיזוג רשימות</span></div>
 <p>כתוב <code>BOOL MergeLists(LIST* L1, LIST* L2, LIST* L3)</code> —
 ממזגת שתי רשימות ממוינות בסדר עולה לרשימה L3 (ריקה ומאותחלת),
 כך ש-L3 ממוינת. מותר להשתמש בפונקציות הבסיסיות.</p>
@@ -6447,7 +6465,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <code>L_insert</code> מחזירה את הצומת החדש — וכך הזנב מתקדם.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>3.8</b><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · שני מצביעים</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>3.8</b><span class="diff diff-e">קל</span><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · שני מצביעים</span></div>
 <p>כתוב <code>int findMiddle(NODE* head)</code> שמחזירה את הערך באמצע
 הרשימה (בזוגית — השני מבין השניים), <b>במעבר אחד בלבד</b> על הרשימה.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6469,7 +6487,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 
 <h2>משבצת 4 · עצים — פונקציה רקורסיבית <span class="tag exam">12 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>4.1</b><span class="src">ספירה עם תנאי מבני</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>4.1</b><span class="diff diff-e">קל</span><span class="src">ספירה עם תנאי מבני</span></div>
 <p>כתוב <code>int countSingle(NODE2* p)</code> שמחזירה כמה צמתים בעץ
 יש להם <b>בן אחד בדיוק</b>.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6486,7 +6504,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 לא נספרים.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.2</b><span class="src">פרמטר נוסף שיורד עם העומק</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>4.2</b><span class="diff diff-m">בינוני</span><span class="src">פרמטר נוסף שיורד עם העומק</span></div>
 <p>כתוב <code>int sumAtDepth(NODE2* p, int k)</code> שמחזירה את סכום
 הערכים בעומק k בדיוק (השורש בעומק 0).</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6502,7 +6520,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 הגענו לעומק המבוקש.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.3</b><span class="src">שינוי העץ + "8 מילים"</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>4.3</b><span class="diff diff-e">קל</span><span class="src">שינוי העץ + "8 מילים"</span></div>
 <p>כתוב <code>void mirror(NODE2* p)</code> שהופכת את העץ לתמונת ראי
 (מחליפה שמאל וימין בכל צומת). והסבר ב-≤8 מילים מה קורה לסיור InOrder
 אחרי הפעולה.</p>
@@ -6521,7 +6539,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <p><b>ב-8 מילים:</b> "סיור InOrder יחזיר את הערכים בסדר הפוך".</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.4</b><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 5 · 18 נק'</span> · נכון/לא נכון</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>4.4</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 5 · 18 נק'</span> · נכון/לא נכון</span></div>
 <p>שלושה עצים בינאריים A, B, C, כל אחד מכיל את {1…n} ללא חזרות.
 סיור InOrder על A, סיור PostOrder על B וסיור PreOrder על C —
 <b>כולם</b> הדפיסו {1, 2, …, n} בסדר עולה. נכון או לא נכון:</p>
@@ -6552,7 +6570,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 או מוכחות באחד משניהם.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.5</b><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 6 · 18 נק'</span> · עם פונקציית עזר</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>4.5</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 6 · 18 נק'</span> · עם פונקציית עזר</span></div>
 <p>"עץ סימטרי" (מאוזן-גבהים): בכל צומת, הפרש הגבהים בין תת-העץ השמאלי
 לימני ≤ 1. כתוב פונקציה שבודקת אם עץ נתון סימטרי. מותר פונקציות עזר,
 אסור מבני עזר.</p>
@@ -6580,7 +6598,7 @@ BOOL CheckSymetric(NODE2 *v)
 הרקורסיביות בנוסף לבדיקת הגובה.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.6</b><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 2 · 20 נק'</span> · מסלולי חיפוש</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>4.6</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 2 · 20 נק'</span> · מסלולי חיפוש</span></div>
 <p>ב-BST מאוחסנים 1…1000 ומחפשים את <b>363</b>. עבור כל סדרה — האם היא
 יכולה להיות סדרת הצמתים שנבחנו? אם לא, מי המספר הראשון שמהווה בעיה?</p>
 <pre>1. 2, 252, 401, 398, 330, 344, 397, 363
@@ -6605,7 +6623,7 @@ BOOL CheckSymetric(NODE2 *v)
 וב-2021 Y ש'4 — שלוש הופעות. שיטת החלון פותרת את כולן ב-30 שניות.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>4.7</b><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · LCA</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>4.7</b><span class="diff diff-m">בינוני</span><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · LCA</span></div>
 <p>כתוב <code>NODE2* firstCommon(NODE2* root, int a, int b)</code>
 שמחזירה את הצומת המשותף הראשון בדרך משורש ה-BST אל a ואל b
 (האב הקדמון המשותף הנמוך ביותר). נתון ששניהם קיימים בעץ.</p>
@@ -6624,7 +6642,7 @@ BOOL CheckSymetric(NODE2 *v)
 
 <h2>משבצת 5 · מחסנית ותור <span class="tag exam">12 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>5.1</b><span class="src">מעקב — בסגנון 2025 ש'5 בדיוק</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>5.1</b><span class="diff diff-m">בינוני</span><span class="src">מעקב — בסגנון 2025 ש'5 בדיוק</span></div>
 <pre class="c">int what(QUEUE* q)
 {
     if (Q_isEmpty(q)) return 0;
@@ -6648,7 +6666,7 @@ BOOL CheckSymetric(NODE2 *v)
 לבדוק בדיוק את זה.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.2</b><span class="src">כתיבה — סינון</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>5.2</b><span class="diff diff-e">קל</span><span class="src">כתיבה — סינון</span></div>
 <p>כתוב <code>void removeAllX(STACK* s, int x)</code> שמסירה מהמחסנית את
 כל המופעים של x ומשאירה את שאר האיברים <b>בסדרם המקורי</b>.
 בלי לולאות, בלי מבני עזר.</p>
@@ -6666,7 +6684,7 @@ BOOL CheckSymetric(NODE2 *v)
 בדרך חזרה, מהתחתית לראש.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.3</b><span class="src">כתיבה — הקשה מהרגיל</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>5.3</b><span class="diff diff-h">קשה</span><span class="src">כתיבה — הקשה מהרגיל</span></div>
 <p>כתוב <code>void enqueueFront(QUEUE* q, int x)</code> שמכניסה את x
 <b>לראש</b> התור (במקום לסוף). מותר רק <code>Q_deque / Q_enque /
 Q_isEmpty</code>, בלי לולאות ובלי מבני עזר.</p>
@@ -6687,7 +6705,7 @@ Q_isEmpty</code>, בלי לולאות ובלי מבני עזר.</p>
 לתור הריק; ובדרך חזרה מחזירים את כולם אחריו, בסדרם המקורי.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.4</b><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 4 · 20 נק'</span> · מחסנית מתור אחד</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>5.4</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 4 · 20 נק'</span> · מחסנית מתור אחד</span></div>
 <p>ממש מחסנית בעזרת <b>תור אחד בלבד</b> Q (הערכים ייחודיים). תאר
 בפסאודו-קוד את Init, Push, Pop, Top, IsEmpty וציין סיבוכיות.</p>
 <details class="sol"><summary>הפתרון הרשמי</summary><div class="body">
@@ -6707,7 +6725,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 וה-Pop זול — כי שילמנו את מחיר הסידור מראש.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.5</b><span class="src"><span class="tag exam">מבחן 2022 · שאלה 4 · 18 נק'</span> · השלמת אלגוריתם</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>5.5</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2022 · שאלה 4 · 18 נק'</span> · השלמת אלגוריתם</span></div>
 <p><code>createQMissNum(Q1)</code> מקבלת תור ממוין בסדר עולה ממש ומחזירה
 תור Q2 עם כל המספרים <b>החסרים</b>; Q1 נשאר ללא שינוי.
 <br>לדוגמה: ‏Q1 = ‏2,4,5,9,12 → ‏Q2 = ‏3,6,7,8,10,11.
@@ -6728,7 +6746,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 כמו ב-2021 ש'2 של המעבדה) + מונה שרץ על <b>הערכים</b> ולא על האיברים.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.6</b><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 3 · 18 נק'</span> · אלגוריתם על תור</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>5.6</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 3 · 18 נק'</span> · אלגוריתם על תור</span></div>
 <p>שליחים ממתינים בתור לפי סדר הגעה; לכל שליח ת"ז ונפח מנוע. כתוב
 אלגוריתם שמקבל את התור ונפח נדרש, מדפיס את ת"ז השליח <b>הראשון</b>
 שנפח מנועו מספיק ומוציא אותו — סדר השאר נשמר. אם אין מתאים:
@@ -6749,7 +6767,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 איבד את "סדר שאר השליחים יישאר ללא שינוי".</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>5.7</b><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · מיון מחסנית</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>5.7</b><span class="diff diff-h">קשה</span><span class="src">מעובד ממאגרי תרגול באינטרנט (קלאסיקה) · מיון מחסנית</span></div>
 <p>כתוב אלגוריתם שממיין מחסנית S (הגדול בראש) בעזרת <b>מחסנית עזר
 אחת</b> T בלבד, בלי מערכים ובלי רקורסיה. מה הסיבוכיות?</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6766,7 +6784,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 
 <h2>משבצת 6 · ערימה <span class="tag exam">12 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>6.1</b><span class="src">מעקב הכנסות</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>6.1</b><span class="diff diff-e">קל</span><span class="src">מעקב הכנסות</span></div>
 <p>נתונה ערימת מקסימום: <code>[50, 30, 40, 10, 20, 35]</code> (מאינדקס 1).
 הכנס את 45 ואחריו את 60. כתוב את המערך אחרי כל הכנסה.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6780,7 +6798,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 לאינדקס 2 — כל מי שהוחלף <b>יורד רמה</b>.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>6.2</b><span class="src">Del_max פעמיים</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>6.2</b><span class="diff diff-m">בינוני</span><span class="src">Del_max פעמיים</span></div>
 <p>נתונה ערימת מקסימום: <code>[90, 70, 80, 30, 40, 60, 75, 10]</code>.
 בצע Del_max פעמיים וכתוב את המערך אחרי כל פעולה.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6794,7 +6812,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 <b>הגדול מבין שני הבנים</b> — לא עם הראשון שגדול מאיתנו.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>6.3</b><span class="src">הנדסה לאחור — בסגנון 2025 ש'6</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>6.3</b><span class="diff diff-h">קשה</span><span class="src">הנדסה לאחור — בסגנון 2025 ש'6</span></div>
 <p>הערימה הסופית: <code>[40, 35, 20, 10, 30]</code>. ידוע שהאיבר
 <b>הראשון</b> שהוכנס היה 10. מצא סדר הכנסה אפשרי.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6832,7 +6850,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 
 <h2>משבצת 7 · ערבול <span class="tag exam">12 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>7.1</b><span class="src">פונקציות צעד חוקיות — בסגנון 2025 ש'7א</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>7.1</b><span class="diff diff-m">בינוני</span><span class="src">פונקציות צעד חוקיות — בסגנון 2025 ש'7א</span></div>
 <p>טבלת ערבול כפול בגודל <b>m=8</b>. אילו מפונקציות הצעד הבאות חוקיות?</p>
 <p>א. <code>s(x) = x%4 + 1</code> · ב. <code>s(x) = 2·(x%4) + 1</code> ·
 ג. <code>s(x) = x%8</code></p>
@@ -6852,7 +6870,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 וזה בדיוק למה נהוג <code>2·(…)+1</code>.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>7.2</b><span class="src">סריקה ליניארית + מלכודת המחיקה</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>7.2</b><span class="diff diff-m">בינוני</span><span class="src">סריקה ליניארית + מלכודת המחיקה</span></div>
 <p>טבלה בגודל 7, <code>h(x)=x%7</code>, סריקה ליניארית. מכניסים:
 <code>15, 22, 8, 29</code> (15 ראשון).</p>
 <p>א. צייר את הטבלה וספור התנגשויות לכל איבר.
@@ -6900,7 +6918,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 
 <h2>משבצת 8 · מיונים <span class="tag exam">10 נק'</span></h2>
 
-<div class="q"><div class="qh"><b>8.1</b><span class="src">בסגנון 2025 ש'8 בדיוק</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>8.1</b><span class="diff diff-e">קל</span><span class="src">בסגנון 2025 ש'8 בדיוק</span></div>
 <p>נתון המערך <code>[1, 2, 3, 5, 4]</code>.</p>
 <p>א. איזה מיון יבצע עליו את <b>מספר ההשוואות הקטן ביותר</b>:
 בועות (עם דגל), הכנסה, בחירה, מהיר?
@@ -6914,7 +6932,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 המערך: 1+2+…+(n−1) = O(n²) השוואות והזזות.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>8.2</b><span class="src">שאלת התאמה</span></div>
+<div class="q" data-diff="e"><div class="qh"><b>8.2</b><span class="diff diff-e">קל</span><span class="src">שאלת התאמה</span></div>
 <p>נתונה <b>רשימה מקושרת</b> (לא מערך) עם n איברים. איזה מיון מהנלמדים
 הכי מתאים לה, ולמה דווקא הוא?</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -6930,7 +6948,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 ברשימה כל "קפיצה" כזאת היא O(n) והסיבוכיות מתפוצצת.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>8.3</b><span class="src"><span class="tag exam">מבחן 2022 · שאלה 5 · 18 נק'</span> · סיווג מלא</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>8.3</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2022 · שאלה 5 · 18 נק'</span> · סיווג מלא</span></div>
 <p>על המיונים: 1 מהיר · 2 הכנסה · 3 מיזוג · 4 בחירה · 5 ערימה · 6 בסיס.
 אילו מיונים (יכול להיות יותר מאחד):</p>
 <p>א. רצים מהר יותר מ-QuickSort במקרה הגרוע?
@@ -6961,7 +6979,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 <p>שאלות ה-30 נק' של הפורמט הישן (2018–2019). לא הופיעו מ-2020, אבל הן
 האימון הטוב ביותר לחשיבה משולבת — כל אחת מרכיבה 2–3 מבני נתונים.</p>
 
-<div class="q"><div class="qh"><b>ב.1</b><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 2 · 16 נק'</span> · אלגוריתם יעיל</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>ב.1</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון A · שאלה 2 · 16 נק'</span> · אלגוריתם יעיל</span></div>
 <p>מערך לא ממוין ומספר num. כתוב אלגוריתם <code>IsSumExist(Arr, size, num)</code>
 שבודק אם קיימים <b>זוג</b> איברים שסכומם num, בסיבוכיות
 <b>קטנה מ-O(n²)</b>. הסבר את הסיבוכיות.</p>
@@ -6979,7 +6997,7 @@ Init / IsEmpty: של התור                      O(1)</pre>
 לכן O(n) לשלב החיפוש.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>ב.2</b><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 3 · 18 נק'</span> · מערך של מחסניות</span></div>
+<div class="q" data-diff="m"><div class="qh"><b>ב.2</b><span class="diff diff-m">בינוני</span><span class="src"><span class="tag exam">מבחן 2018 שאלון B · שאלה 3 · 18 נק'</span> · מערך של מחסניות</span></div>
 <p>בחברה 9 תפקידים (קוד 1–9). כשמפטרים עובד בתפקיד מסוים — מפטרים את
 <b>האחרון שהגיע</b> באותו תפקיד. הצג מבנה נתונים שבו הוספה ופיטורים
 ב-O(1), וכתוב אלגוריתם שמפטר n עובדים מתפקיד נתון (עם הודעה אם אין
@@ -6999,7 +7017,7 @@ O(1) לפי קוד תפקיד.</p>
 בטווח קטן וידוע — מערך של המבנים. השילוב נותן O(1) לשתי הפעולות.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>ב.3</b><span class="src"><span class="tag exam">מבחן 2019 שאלון X · שאלה 5 · 30 נק'</span> · תור + ערבול</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>ב.3</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2019 שאלון X · שאלה 5 · 30 נק'</span> · תור + ערבול</span></div>
 <p>במרפאה מתקבלים חולים לפי סדר הגעה, אבל חולה VIP (לפי ID) חייב להישלף
 מיד. נדרש: אתחול O(1) · הוספה O(1) · הבא בתור O(1) · שליפת VIP לפי ID
 ב-O(1) ממוצע. הגדר מבנה ותאר כל פעולה.</p>
@@ -7019,7 +7037,7 @@ O(1) לפי קוד תפקיד.</p>
 מבנה סדר (רשימה/תור). שמור אותה בראש — היא פותרת גם את ב.4.</div>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>ב.4</b><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 5 · 30 נק'</span> · עץ + ערבול + רשימות</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>ב.4</b><span class="diff diff-h">קשה</span><span class="src"><span class="tag exam">מבחן 2019 שאלון Y · שאלה 5 · 30 נק'</span> · עץ + ערבול + רשימות</span></div>
 <p>מגרש רכבים: לכל רכב לוחית, סוג (מתוך קבוצה ידועה) ומחיר. נדרש:
 הוספה O(log n) · רשימת רכבים במחיר P ב-O(log n) · רשימת רכבים מסוג T
 ב-O(1) · המחיר הזול ביותר ב-O(log n). הגדר מבנה ותאר את הפעולות.</p>
@@ -7043,7 +7061,7 @@ O(log n) בעץ מאוזן.</li>
 כלל הזהב שלו: אם אינך יכול להסביר את הסיבוכיות, את האינווריאנט ואת
 מקרה הקצה — הנושא עדיין לא סגור.</p>
 
-<div class="q"><div class="qh"><b>א.1 · סיבוכיות משולבת</b><span class="src">רקורסיה + לולאה תלוית-i</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.1 · סיבוכיות משולבת</b><span class="diff diff-h">קשה</span><span class="src">רקורסיה + לולאה תלוית-i</span></div>
 <pre class="c">long f(int n)
 {
     long counter = 0;
@@ -7063,7 +7081,7 @@ O(log n) בעץ מאוזן.</li>
 <b>Θ(n·log n)</b>.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.2 · תור: הדפסה במקומות זוגיים + שחזור מלא</b><span class="src">כולל התיקון לבאג מ-HW3</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.2 · תור: הדפסה במקומות זוגיים + שחזור מלא</b><span class="diff diff-h">קשה</span><span class="src">כולל התיקון לבאג מ-HW3</span></div>
 <p>הדפס את האיברים במקומות הזוגיים מראש התור, בלי לולאות ובלי מבנה עזר —
 ובסוף התור חייב להישאר <b>ללא שינוי</b>.</p>
 <details class="sol"><summary>פתרון + הבאג שכדאי להכיר</summary><div class="body">
@@ -7087,7 +7105,7 @@ void printEvenPositions(QUEUE* q)
 הפוך והבדיקה ב-main נכשלת.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.3 · רשימה דו-כיוונית מעגלית — היסט בלי הקצאה</b><span class="src">הרחבה של 2025 ש'3</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.3 · רשימה דו-כיוונית מעגלית — היסט בלי הקצאה</b><span class="diff diff-h">קשה</span><span class="src">הרחבה של 2025 ש'3</span></div>
 <p>ברשימה דו-כיוונית <b>מעגלית</b> עם n צמתים, העבר את k האחרונים לראש
 בלי הקצאה. מה חייבים לבדוק לפני שנוגעים במצביע?</p>
 <details class="sol"><summary>פתרון ברמת אינווריאנט</summary><div class="body">
@@ -7104,7 +7122,7 @@ void printEvenPositions(QUEUE* q)
 הזזת נקודת מבט — לא ניתוח וחיבור.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.4 · עץ מאוזן-גודל במעבר אחד</b><span class="src">בלי לחשב גודל פעמיים</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.4 · עץ מאוזן-גודל במעבר אחד</b><span class="diff diff-h">קשה</span><span class="src">בלי לחשב גודל פעמיים</span></div>
 <p>עץ "מאוזן לפי גודל" אם בכל צומת הפרש <b>מספרי הצמתים</b> של תתי-העצים
 הוא לכל היותר 1. בדוק זאת ב-Θ(n).</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -7128,7 +7146,7 @@ BOOL isSizeBalanced(NODE2* root)
 זו הגרסה החכמה.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.5 · ערימה: הנדסה לאחור + Del_max</b><span class="src">וריאציה נוספת לתרגול</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.5 · ערימה: הנדסה לאחור + Del_max</b><span class="diff diff-h">קשה</span><span class="src">וריאציה נוספת לתרגול</span></div>
 <p>הערימה הסופית: <code>[50,40,35,10,30,20,25]</code>. הראשון שהוכנס:
 20, הרביעי: 30. תן סדר הכנסה אפשרי ובצע Del_max.</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -7139,7 +7157,7 @@ BOOL isSizeBalanced(NODE2* root)
 <pre>40  30  35  10  25  20</pre>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.6 · ערבול: צעד קבוע ומחיקה</b><span class="src">שאלת הבנה מהירה</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.6 · ערבול: צעד קבוע ומחיקה</b><span class="diff diff-h">קשה</span><span class="src">שאלת הבנה מהירה</span></div>
 <p>בטבלה בגודל 12 מציעים צעד <b>קבוע</b> 4 לערבול כפול. חוקי? ובחיפוש —
 עוצרים בתא "נמחק"?</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -7149,7 +7167,7 @@ BOOL isSizeBalanced(NODE2* root)
 עוצרים רק בתא שמעולם לא היה תפוס.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.7 · מי עושה הכי מעט השוואות על מערך ממוין?</b><span class="src">שאלת ניסוח-הנחות</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.7 · מי עושה הכי מעט השוואות על מערך ממוין?</b><span class="diff diff-h">קשה</span><span class="src">שאלת ניסוח-הנחות</span></div>
 <p>על מערך ממוין: ‏Insertion, ‏Selection ו-Bubble <b>עם דגל עצירה</b>.
 מי עושה הכי מעט השוואות?</p>
 <details class="sol"><summary>פתרון</summary><div class="body">
@@ -7160,7 +7178,7 @@ BOOL isSizeBalanced(NODE2* root)
 עם דגל עצירה…") — זה ההבדל בין תשובה מלאה לוויכוח עם בודק.</p>
 </div></details></div>
 
-<div class="q"><div class="qh"><b>א.8 · ביקורת קוד C — 4 באגים בפונקציה אחת</b><span class="src">לפני שמאבדים נקודות בשאלות 3–4</span></div>
+<div class="q" data-diff="h"><div class="qh"><b>א.8 · ביקורת קוד C — 4 באגים בפונקציה אחת</b><span class="diff diff-h">קשה</span><span class="src">לפני שמאבדים נקודות בשאלות 3–4</span></div>
 <pre class="c">NODE* cloneOne(const NODE* p)
 {
     NODE* q = malloc(sizeof(NODE*));
@@ -9238,6 +9256,29 @@ window.jumpSol = function (sec, id) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 80);
 };
+
+/* --- סינון שאלות לפי רמת קושי (מאגר d14) --- */
+(function () {
+  var bar = document.querySelector('.diffbar');
+  if (!bar) return;
+  var btns = [].slice.call(bar.querySelectorAll('button'));
+  var qs = [].slice.call(document.querySelectorAll('#d14 .q[data-diff]'));
+  var cnt = document.getElementById('diffCount');
+  function apply(df) {
+    var shown = 0;
+    qs.forEach(function (q) {
+      var show = (df === 'all' || q.getAttribute('data-diff') === df);
+      q.classList.toggle('diff-hidden', !show);
+      if (show) shown++;
+    });
+    btns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-df') === df); });
+    cnt.textContent = 'מוצגות ' + shown + ' מתוך ' + qs.length + ' שאלות';
+  }
+  btns.forEach(function (b) {
+    b.onclick = function () { apply(b.getAttribute('data-df')); };
+  });
+  apply('all');
+})();
 
 /* --- נגני אנימציה לפרק פתרונות המבחנים --- */
 (function () {
