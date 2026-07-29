@@ -4,6 +4,7 @@
 
   var data = window.CODEX_COMPLEXITY_DATA;
   var additions = window.CODEX_ADAPTIVE_QUESTIONS || [];
+  var bankQuestions = window.BANK_OPEN_QUESTIONS || [];
   var examSolutions = window.CODEX_EXAM_SOLUTIONS || {};
   if (!data || !Array.isArray(data.qs)) return;
 
@@ -37,7 +38,7 @@
         question.sourceHref = "/assets/exams/2021-y-questionnaire.pdf#page=2";
       }
     });
-    data.qs = data.qs.concat(additions);
+    data.qs = data.qs.concat(additions).concat(bankQuestions);
     data.qs = data.qs.map(normalizeQuestion);
     data.cats = unique(data.qs.map(function (question) { return question.cat; }));
     data.adaptiveQuestionsAdded = true;
@@ -165,6 +166,7 @@
         var haystack = [
           question.prompt,
           question.code,
+          question.html,
           question.rule,
           question.why,
           question.trap,
@@ -252,6 +254,7 @@
       if (question.origin === "recent") score += 90;
       if (question.origin === "official") score += 60;
       if (question.origin === "homework") score += 50;
+      if (question.origin === "bank") score += 45;
       score += question.difficulty * 14;
       if (keyOf(question) === model.lastQuestion) score -= 2000;
       return score;
@@ -617,16 +620,27 @@
       var question = visible[position];
       var answer = viewAnswers[keyOf(question)] || null;
       var record = recordOf(question);
-      var body = question.code
-        ? '<pre class="' + (question.kind === "math" ? "" : "c") +
-          '" dir="ltr">' + escapeCode(question.code) + "</pre>"
-        : "";
-      var options = question.opts.map(function (option, index) {
-        return '<button class="quiz-option' + optionClass(question, answer, index) +
-          '" data-choice="' + index + '"' + (answer ? " disabled" : "") + ">" +
-          '<span class="key">' + (index + 1) + "</span>" +
-          "<span" + (option.ltr ? ' dir="ltr"' : "") + ">" + option.h + "</span></button>";
-      }).join("");
+      var isOpen = question.kind === "open";
+      var body = "";
+      var options = "";
+      if (isOpen) {
+        body = '<div class="q bank-card">' + question.html + "</div>";
+        options = answer ? "" :
+          '<div class="quiz-selfgrade"><span class="selfgrade-hint">פתור על דף, פתח את ה"פתרון" בכרטיס, ואז סמן לעצמך:</span>' +
+          '<button class="quiz-option" data-self="1"><span class="key">✔</span><span>פתרתי נכון</span></button>' +
+          '<button class="quiz-option" data-self="0"><span class="key">✘</span><span>טעיתי</span></button></div>';
+      } else {
+        body = question.code
+          ? '<pre class="' + (question.kind === "math" ? "" : "c") +
+            '" dir="ltr">' + escapeCode(question.code) + "</pre>"
+          : "";
+        options = '<div class="quiz-options">' + question.opts.map(function (option, index) {
+          return '<button class="quiz-option' + optionClass(question, answer, index) +
+            '" data-choice="' + index + '"' + (answer ? " disabled" : "") + ">" +
+            '<span class="key">' + (index + 1) + "</span>" +
+            "<span" + (option.ltr ? ' dir="ltr"' : "") + ">" + option.h + "</span></button>";
+        }).join("") + "</div>";
+      }
       var explanation = "";
 
       if (answer) {
@@ -647,10 +661,12 @@
           '<div class="quiz-verdict ' + (answer.correct ? "good" : "bad") + '">' +
           (answer.correct
             ? "✓ נכון · התקדמת לרמת שליטה " + Number(record.mastery || 0) + "/3"
-            : "✗ לא בדיוק · התשובה הנכונה: " + question.opts[question.ans].h) +
+            : "✗ לא בדיוק · " + (isOpen
+                ? "השאלה נשמרה לחיזוק — עבור שוב על הפתרון בכרטיס"
+                : "התשובה הנכונה: " + question.opts[question.ans].h)) +
           "</div>" +
-          '<div class="quiz-rule"><b>כלל:</b> ' + question.rule + "</div>" +
-          "<p>" + question.why + "</p>" + examSolutionHtml(question) +
+          (question.rule ? '<div class="quiz-rule"><b>כלל:</b> ' + question.rule + "</div>" : "") +
+          (question.why ? "<p>" + question.why + "</p>" : "") + examSolutionHtml(question) +
           mistakeHelp + "</div>";
       }
 
@@ -660,13 +676,14 @@
         '<span class="tag">' + question.cat + "</span>" +
         '<span class="tag difficulty">קושי ' + question.difficulty + "/4</span>" +
         '<span class="tag mastery">' + masteryLabel(question) + "</span>" +
+        (isOpen ? '<span class="tag hot">שאלה פתוחה · סימון עצמי</span>' : "") +
         (question.examSolution
           ? '<span class="tag exam">פתרון מונפש · ' +
             question.examSolution.steps.length + " שלבים</span>"
           : "") + "</div>" +
         '<div class="quiz-body"><div class="source-proof">' + sourceProof(question) + "</div>" +
         '<div class="quiz-prompt">' + question.prompt + "</div>" + body +
-        '<div class="quiz-options">' + options + "</div></div>" + explanation +
+        options + "</div>" + explanation +
         '<div class="quiz-nav">' +
         '<button class="quiz-btn" data-nav="prev">הקודמת</button>' +
         '<button class="quiz-btn primary" data-nav="next">הבאה / מומלצת</button>' +
@@ -709,9 +726,18 @@
 
     function choose(index) {
       var question = visible[position];
-      if (!question || viewAnswers[keyOf(question)]) return;
+      if (!question || !question.opts || viewAnswers[keyOf(question)]) return;
+      applyAnswer(question, index, index === question.ans);
+    }
+
+    function chooseSelf(correct) {
+      var question = visible[position];
+      if (!question || question.kind !== "open" || viewAnswers[keyOf(question)]) return;
+      applyAnswer(question, null, correct);
+    }
+
+    function applyAnswer(question, index, correct) {
       var id = keyOf(question);
-      var correct = index === question.ans;
       var record = model.records[id] || {
         attempts: 0,
         correct: 0,
@@ -821,6 +847,11 @@
       var option = event.target.closest("[data-choice]");
       if (option) {
         choose(Number(option.getAttribute("data-choice")));
+        return;
+      }
+      var selfGrade = event.target.closest("[data-self]");
+      if (selfGrade) {
+        chooseSelf(selfGrade.getAttribute("data-self") === "1");
         return;
       }
       var nav = event.target.closest("[data-nav]");

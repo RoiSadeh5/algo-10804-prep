@@ -273,6 +273,12 @@ label.chk input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer
 .quiz-option.bad{border-color:var(--red);background:var(--red-bg)}
 .quiz-option.answer{box-shadow:inset 0 0 0 2px var(--accent)}
 .quiz-option:disabled{cursor:default;color:var(--fg)}
+/* --- שאלות פתוחות מהמאגר --- */
+.bank-card{margin-top:14px}
+.bank-card .qh{margin-bottom:8px}
+.quiz-selfgrade{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:15px}
+.quiz-selfgrade .selfgrade-hint{flex-basis:100%;font-size:13.5px;color:var(--fg2);font-weight:600}
+.quiz-selfgrade .quiz-option{flex:1;min-width:150px;justify-content:center}
 .quiz-explain{display:none;border-top:1px solid var(--line);background:var(--bg);padding:16px 18px}
 .quiz-explain.open{display:block}
 .quiz-verdict{font-weight:800;margin-bottom:8px}
@@ -463,9 +469,12 @@ nav.tabs{
 </div></header>
 <div class="wrap">
 <section class="pg on" id="training">
-<h1>מרכז תרגול Codex</h1>
-<p class="lead">150 שאלות תרגול: יסודות, מבחני 2023–2025, ארבע מטלות הקורס
-ושאלות Codex ברמת מבחן. לכל שאלת מבחן יש פתרון מלא, נוסחאות ואנימציה שלב-אחר-שלב.</p>
+<h1>מרכז התרגול</h1>
+<p class="lead"><b>261 שאלות במקום אחד:</b> 102 שאלות סיבוכיות אמריקאיות ·
+48 שאלות אמריקאיות ברמת מבחן ממבחני 2023–2025 ומהמטלות ·
+111 שאלות פתוחות ממאגר התרגול (מבחנים, מטלות, מצגות). לשאלות מבחן יש
+פתרון מלא, נוסחאות ואנימציה שלב-אחר-שלב; בשאלות הפתוחות פותרים על דף
+ומסמנים לעצמך — והכול מזין מאמן אישי אחד.</p>
 
 <div class="quiz-hero">
   <b>איך לעבוד נכון:</b> התחל ב“מאמן אישי”, פתור בלי להציץ וקרא את ההסבר גם כשצדקת.
@@ -475,7 +484,7 @@ nav.tabs{
     <div class="quiz-stat"><b id="quizAnswered">0</b><span>שאלות שנבדקו</span></div>
     <div class="quiz-stat"><b id="quizCorrect">0</b><span>ניסיונות נכונים</span></div>
     <div class="quiz-stat"><b id="quizAccuracy">—</b><span>דיוק</span></div>
-    <div class="quiz-stat"><b id="quizRemaining">150</b><span>טרם נבדקו</span></div>
+    <div class="quiz-stat"><b id="quizRemaining">261</b><span>טרם נבדקו</span></div>
     <div class="quiz-stat"><b id="quizDue">0</b><span>מוכנות לחזרה</span></div>
     <div class="quiz-stat"><b id="quizMastered">0</b><span>נשלטו</span></div>
   </div>
@@ -511,6 +520,7 @@ nav.tabs{
     <option value="official">מבחן מקורי שאומת</option>
     <option value="homework">מטלות HW1–HW4</option>
     <option value="generated">שאלות Codex — לא ממבחן</option>
+    <option value="bank">מאגר השאלות הפתוחות</option>
   </select>
   <button class="quiz-btn" id="quizRandom">שאלה אקראית</button>
   <button class="quiz-btn" id="quizRetry">נסה שוב את השאלה</button>
@@ -617,6 +627,7 @@ var CODEX_COMPLEXITY_DATA = {"qs": [{"n": 1, "id": "A1", "cat": "לולאות", 
 })();
 </script>
 <script src="exam-solutions.js"></script>
+<script src="bank-questions.js"></script>
 <script src="adaptive-quiz.js"></script>
 <script>
 (function () {
