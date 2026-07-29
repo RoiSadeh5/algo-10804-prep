@@ -188,6 +188,90 @@
     code: code, table: table, vars: vars, call: call, note: note
   };
 
+  /* ---- נגן שלבים גנרי ----
+   * משמש גם את פתרונות המבחנים וגם פתרונות מונפשים של שאלות המאגר.
+   * המצב נשמר ב-window.__stepAt כדי שכל צרכן לא ינהל מצב משלו.
+   */
+  window.__stepAt = {};
+
+  window.stepperIndex = function (id, total) {
+    var at = Number(window.__stepAt[id]) || 0;
+    return Math.max(0, Math.min(Math.max(0, total - 1), at));
+  };
+
+  window.renderStepper = function (id, steps, opts) {
+    steps = steps || [];
+    if (!steps.length) return "";
+    opts = opts || {};
+    var i = window.stepperIndex(id, steps.length);
+    var s = steps[i];
+    var visual = s.visual ? window.renderViz(s.visual) : "";
+    var dots = steps.map(function (_, k) {
+      return '<button class="solution-dot' + (k === i ? " on" : "") +
+        '" data-step-jump="' + k + '" data-step-id="' + id +
+        '" aria-label="שלב ' + (k + 1) + '"></button>';
+    }).join("");
+
+    return '<div class="stepper" data-stepper="' + id + '">' +
+      (opts.title ? '<div class="stepper-title">' + opts.title + "</div>" : "") +
+      '<div class="wt-stage"><div class="solution-step">' +
+      '<span class="solution-step-number">שלב ' + (i + 1) + " מתוך " + steps.length + "</span>" +
+      "<h4>" + (s.title || "") + "</h4><p>" + (s.text || "") + "</p>" +
+      (s.formula ? '<div class="solution-equation" dir="ltr">' + esc(s.formula) + "</div>" : "") +
+      (visual ? '<div class="wt-visual">' + visual + "</div>" : "") +
+      "</div></div>" +
+      '<div class="solution-controls">' +
+      '<button class="quiz-btn" data-step-act="prev" data-step-id="' + id + '"' +
+      (i === 0 ? " disabled" : "") + ">← הקודם</button>" +
+      '<div class="solution-dots">' + dots + "</div>" +
+      '<button class="quiz-btn" data-step-act="auto" data-step-id="' + id + '">▶ הרץ</button>' +
+      '<button class="quiz-btn primary" data-step-act="next" data-step-id="' + id + '"' +
+      (i === steps.length - 1 ? " disabled" : "") + ">הבא →</button></div></div>";
+  };
+
+  /* מטפל לחיצות אחד לכל הדף — כל נגן שלבים עונה לו */
+  var autoTimer = null;
+  function stopAuto() {
+    if (autoTimer) window.clearInterval(autoTimer);
+    autoTimer = null;
+  }
+
+  document.addEventListener("click", function (event) {
+    var el = event.target.closest("[data-step-jump],[data-step-act]");
+    if (!el) return;
+    var id = el.getAttribute("data-step-id");
+    var host = document.querySelector('[data-stepper="' + id + '"]');
+    if (!host) return;
+    var total = host.querySelectorAll("[data-step-jump]").length;
+
+    function repaint() {
+      if (typeof window.__stepperRepaint === "function") window.__stepperRepaint(id);
+    }
+
+    if (el.hasAttribute("data-step-jump")) {
+      stopAuto();
+      window.__stepAt[id] = Number(el.getAttribute("data-step-jump"));
+      repaint(); return;
+    }
+    var act = el.getAttribute("data-step-act");
+    if (act === "prev" || act === "next") {
+      stopAuto();
+      window.__stepAt[id] = window.stepperIndex(id, total) + (act === "next" ? 1 : -1);
+      repaint(); return;
+    }
+    if (act === "auto") {
+      if (autoTimer) { stopAuto(); return; }
+      if (window.stepperIndex(id, total) === total - 1) window.__stepAt[id] = 0;
+      repaint();
+      autoTimer = window.setInterval(function () {
+        var at = window.stepperIndex(id, total);
+        if (at >= total - 1) { stopAuto(); return; }
+        window.__stepAt[id] = at + 1;
+        repaint();
+      }, 2600);
+    }
+  });
+
   window.renderViz = function renderViz(spec) {
     if (!spec) return "";
     if (Array.isArray(spec)) return spec.map(window.renderViz).join("");

@@ -83,6 +83,17 @@
     return QTYPE_LABELS[question.qtype] || "שאלה פתוחה";
   };
 
+  /* ---- פתרון מונפש לשאלת מאגר, אם הוכן לה ---- */
+  window.bankStepperHtml = function (question) {
+    var bank = window.BANK_WALKTHROUGHS || {};
+    var entry = bank[String(question.id || question.n)];
+    if (!entry || !entry.steps || !entry.steps.length || !window.renderStepper) return "";
+    return window.renderStepper("bank-" + (question.id || question.n), entry.steps, {
+      title: "🎬 " + (entry.title || "הפתרון שלב-אחר-שלב") +
+        " — " + entry.steps.length + " שלבים"
+    });
+  };
+
   /* ---- עורך קוד לשאלות מימוש ---- */
   var EDITOR_KEY = "ds10804-code-drafts";
 
@@ -739,7 +750,8 @@
           (parts.rest ? '<div class="q-extra">' + parts.rest + "</div>" : "") +
           window.codeEditorHtml(question) +
           (revealed
-            ? '<div class="q-solution"><b>✅ הפתרון המלא</b>' + parts.solution + "</div>"
+            ? '<div class="q-solution"><b>✅ הפתרון המלא</b>' + parts.solution +
+              window.bankStepperHtml(question) + "</div>"
             : "");
         options = answer ? "" : (revealed
           ? '<div class="quiz-selfgrade"><span class="selfgrade-hint">השווה למה שכתבת וסמן — כדי שהמאמן ידע מה להחזיר אליך:</span>' +
@@ -1080,6 +1092,11 @@
       renderStats();
       renderCoach();
     }, 60000);
+
+    /* נגן השלבים הגנרי מבקש ציור מחדש אחרי מעבר שלב */
+    window.__stepperRepaint = function (id) {
+      if (String(id).indexOf("bank-") === 0) renderQuestion();
+    };
 
     renderAll(false);
   };
