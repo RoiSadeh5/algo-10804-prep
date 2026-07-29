@@ -69,6 +69,7 @@
     state = {
       picked: pickExam(),
       answers: {},
+      checked: {},
       startedAt: Date.now(),
       finished: false
     };
@@ -107,8 +108,12 @@
     }, 1000);
   }
 
+  function isEngaged(id) {
+    return !!(state.answers[id] || (state.checked && state.checked[id]));
+  }
+
   function answeredCount() {
-    return state.picked.filter(function (id) { return state.answers[id]; }).length;
+    return state.picked.filter(isEngaged).length;
   }
 
   function submitExam(auto) {
@@ -151,12 +156,19 @@
       }).join("") + "</div>";
   }
 
-  function questionBody(q, review) {
+  /* השאלה תמיד למעלה, הקוד מתחתיה, והפתרון רק כשמבקשים */
+  function questionBody(q, reveal) {
+    var head = '<div class="quiz-prompt">' + (q.prompt || q.cat) + "</div>";
     if (q.kind === "open") {
-      return '<div class="q bank-card' + (review ? " reveal" : " conceal") + '">' +
-        q.html + "</div>";
+      var parts = window.splitBankCard(q.html, String(q.id || q.n));
+      return head +
+        (parts.code ? '<div class="q-given"><b>נתון:</b></div>' + parts.code : "") +
+        (parts.rest ? '<div class="q-extra">' + parts.rest + "</div>" : "") +
+        (window.codeEditorHtml ? window.codeEditorHtml(q) : "") +
+        (reveal ? '<div class="q-solution"><b>✅ הפתרון המלא</b>' +
+          parts.solution + "</div>" : "");
     }
-    return '<div class="quiz-prompt">' + q.prompt + "</div>" +
+    return head +
       (q.code ? '<pre class="' + (q.kind === "math" ? "" : "c") + '" dir="ltr">' +
         escapeCode(q.code) + "</pre>" : "");
   }
@@ -168,24 +180,60 @@
     var slot = SLOTS[position] || { title: "שאלה " + (position + 1) };
 
     var pills = state.picked.map(function (pid, i) {
-      var cls = i === position ? " on" : (state.answers[pid] ? " done" : "");
+      var cls = i === position ? " on" : (isEngaged(pid) ? " done" : "");
       return '<button class="sim-pill' + cls + '" data-sim-jump="' + i + '">' +
         (i + 1) + "</button>";
     }).join("");
 
-    var answerArea;
+    var checked = !!(state.checked && state.checked[id]);
+    var answerArea, feedback = "";
+
     if (q.kind === "open") {
-      answerArea = '<div class="sim-open-note">שאלה פתוחה — פתור אותה במלואה על דף. ' +
-        "הפתרון מוסתר עד ההגשה; אחרי ההגשה תשווה ותסמן לעצמך.</div>" +
-        '<button class="quiz-btn' + (a ? " on" : "") + '" data-sim-mark>' +
-        (a ? "✓ סומן שפתרתי על דף — לחץ לביטול" : "סמן: פתרתי את השאלה על דף") + "</button>";
+      answerArea = checked ? "" :
+        '<div class="sim-open-note">פתור את השאלה במלואה' +
+        (q.qtype === "code" ? " — כתוב את הקוד בעורך שלמעלה או על דף" : " על דף") +
+        ". כשסיימת, לחץ <b>בדוק</b> כדי לראות את הפתרון המלא.</div>" +
+        '<div class="quiz-selfgrade">' +
+        '<button class="quiz-option primary-check" data-sim-check><span class="key">🔍</span>' +
+        "<span>בדוק — הצג את הפתרון</span></button></div>";
+      if (checked) {
+        var self = a ? a.self : undefined;
+        feedback = self === undefined
+          ? '<div class="quiz-selfgrade"><span class="selfgrade-hint">השווה למה שכתבת וסמן:</span>' +
+            '<button class="quiz-option" data-sim-self="1" data-sim-q="' + id + '"><span class="key">✔</span><span>פתרתי נכון</span></button>' +
+            '<button class="quiz-option" data-sim-self="0" data-sim-q="' + id + '"><span class="key">✘</span><span>טעיתי</span></button></div>'
+          : '<div class="quiz-verdict ' + (self ? "good" : "bad") + '">' +
+            (self ? "✓ סימנת: פתרתי נכון" : "✗ סימנת: טעיתי — השאלה תחזור אליך בתרגול") + "</div>";
+      }
     } else {
       answerArea = '<div class="quiz-options">' + q.opts.map(function (opt, i) {
-        return '<button class="quiz-option' +
-          (a && a.choice === i ? " answer" : "") + '" data-sim-choice="' + i + '">' +
+        var mark = "";
+        if (checked) {
+          if (i === q.ans) mark = " good";
+          else if (a && a.choice === i) mark = " bad";
+        } else if (a && a.choice === i) mark = " answer";
+        return '<button class="quiz-option' + mark + '" data-sim-choice="' + i + '"' +
+          (checked ? " disabled" : "") + ">" +
           '<span class="key">' + (i + 1) + "</span>" +
           "<span" + (opt.ltr ? ' dir="ltr"' : "") + ">" + opt.h + "</span></button>";
-      }).join("") + "</div>";
+      }).join("") + "</div>" +
+      (checked ? "" :
+        '<div class="quiz-selfgrade"><button class="quiz-option primary-check" data-sim-check>' +
+        '<span class="key">🔍</span><span>בדוק את התשובה</span></button></div>');
+      if (checked) {
+        var right = a && a.choice === q.ans;
+        feedback = '<div class="quiz-verdict ' + (right ? "good" : "bad") + '">' +
+          (right ? "✓ נכון" : a
+            ? "✗ ענית: " + q.opts[a.choice].h + " · הנכונה: " + q.opts[q.ans].h
+            : "לא נענתה · הנכונה: " + q.opts[q.ans].h) + "</div>" +
+          (q.rule ? '<div class="quiz-rule"><b>כלל:</b> ' + q.rule + "</div>" : "") +
+          (q.why ? "<p>" + q.why + "</p>" : "") + stepsHtml(q);
+      }
+    }
+
+    if (checked) {
+      feedback += '<div class="source-proof">' +
+        (window.topicLinkFor ? window.topicLinkFor(q) : "") + "</div>";
     }
 
     root.innerHTML =
@@ -193,17 +241,21 @@
       '<span class="sim-clock" id="simClock">' + fmtTime(remainingMs()) + "</span>" +
       '<span class="sim-progress">' + answeredCount() + "/8 נענו</span>" +
       '<button class="quiz-btn" data-sim-abort>ביטול המבחן</button>' +
-      '<button class="quiz-btn primary" data-sim-submit>הגש מבחן</button></div>' +
+      '<button class="quiz-btn primary" data-sim-submit>סיים והצג סיכום</button></div>' +
       '<div class="sim-pills">' + pills + "</div>" +
       '<div class="quiz-shell sim-running"><div class="quiz-head">' +
       '<span class="quiz-index">' + slot.title + "</span>" +
       '<span class="tag">' + q.cat + "</span>" +
-      (q.kind === "open" ? '<span class="tag hot">שאלה פתוחה — פתור על דף</span>' : "") +
-      "</div><div class=\"quiz-body\">" + questionBody(q, false) + answerArea + "</div>" +
+      (q.kind === "open" && window.qtypeLabel
+        ? '<span class="tag hot">' + window.qtypeLabel(q) + "</span>" : "") +
+      (checked ? '<span class="tag exam">נבדקה</span>' : "") +
+      "</div><div class=\"quiz-body\">" + questionBody(q, checked) + answerArea +
+      feedback + "</div>" +
       '<div class="quiz-nav">' +
       '<button class="quiz-btn" data-sim-nav="prev"' + (position === 0 ? " disabled" : "") + ">הקודמת</button>" +
       '<button class="quiz-btn primary" data-sim-nav="next"' +
-      (position === state.picked.length - 1 ? " disabled" : "") + ">הבאה</button>" +
+      (position === state.picked.length - 1 ? " disabled" : "") + ">" +
+      (checked ? "המשך לשאלה הבאה ←" : "הבאה") + "</button>" +
       '<span class="quiz-position">' + (position + 1) + " / " + state.picked.length + "</span></div></div>";
     startTimer();
     highlightCode();
@@ -271,8 +323,9 @@
       '<div class="sim-intro"><h2>⏱️ סימולטור מבחן מלא</h2>' +
       "<p>8 שאלות — אחת מכל משבצת של המבחן האמיתי (סיבוכיות, רקורסיה, רשימות, עצים, " +
       "מחסנית ותור, ערימה, ערבול, מיונים) — עם שעון של 180 דקות, בדיוק כמו במבחן.</p>" +
-      "<ul><li>שאלות אמריקאיות נבדקות אוטומטית; שאלות פתוחות פותרים על דף ומשווים לפתרון המלא בסוף.</li>" +
-      "<li>הפתרונות מוסתרים עד ההגשה — אין הצצות.</li>" +
+      "<ul><li><b>בדיקה אחרי כל שאלה:</b> פתרת? לחץ “בדוק” וקבל מיד את הפתרון המלא, " +
+      "ואז המשך הלאה. לא צריך לחכות לסוף המבחן.</li>" +
+      "<li>שאלות כתיבת קוד נפתחות עם עורך שאפשר להקליד בו את המימוש (הטיוטה נשמרת).</li>" +
       "<li>בסיום: ציון, פתרון מלא לכל שאלה, וקישור להרחבה על כל נושא שלא ישבת עליו.</li></ul>" +
       '<button class="quiz-btn primary big" data-sim-start>התחל מבחן (180 דק\')</button></div>';
   }
@@ -330,19 +383,26 @@
       state.answers[id] = { choice: Number(choice.getAttribute("data-sim-choice")) };
       save(); renderRunning(); return;
     }
-    var mark = t.closest("[data-sim-mark]");
-    if (mark && state && !state.finished) {
-      var mid = state.picked[position];
-      if (state.answers[mid]) delete state.answers[mid];
-      else state.answers[mid] = { solvedOnPaper: true };
+    if (t.closest("[data-sim-check]") && state && !state.finished) {
+      state.checked = state.checked || {};
+      state.checked[state.picked[position]] = true;
       save(); renderRunning(); return;
     }
     var self = t.closest("[data-sim-self]");
-    if (self && state && state.finished) {
+    if (self && state) {
       var sid = self.getAttribute("data-sim-q");
       state.answers[sid] = state.answers[sid] || {};
       state.answers[sid].self = self.getAttribute("data-sim-self") === "1";
-      save(); renderReview(); return;
+      save();
+      if (state.finished) renderReview(); else renderRunning();
+      return;
+    }
+  });
+
+  root.addEventListener("input", function (event) {
+    var box = event.target.closest("[data-code-for]");
+    if (box && window.codeDraft) {
+      window.codeDraft(box.getAttribute("data-code-for"), box.value);
     }
   });
 

@@ -39,6 +39,79 @@
       entry[1] + "</a>";
   };
 
+  /* ---- פירוק כרטיס מהמאגר לחלקיו: קוד, פתרון, ושאר התוכן ----
+   * כרטיסי המאגר הגיעו כ-HTML אחד שמכיל כותרת, קוד ופתרון מקופל.
+   * כדי להציג "קודם השאלה, אחר כך הקוד" צריך להפריד ביניהם.
+   */
+  var splitCache = {};
+
+  window.splitBankCard = function (html, cacheKey) {
+    if (cacheKey && splitCache[cacheKey]) return splitCache[cacheKey];
+    var host = document.createElement("div");
+    host.innerHTML = html || "";
+    /* הכותרת הפנימית מיותרת — כותרת השאלה מוצגת בנפרד */
+    var qh = host.querySelector(".qh");
+    if (qh) qh.remove();
+    var solutionEl = host.querySelector("details.sol");
+    var solution = "";
+    if (solutionEl) {
+      var body = solutionEl.querySelector(".body");
+      solution = body ? body.innerHTML : solutionEl.innerHTML;
+      solutionEl.remove();
+    }
+    var codeParts = [];
+    [].slice.call(host.querySelectorAll("pre")).forEach(function (pre) {
+      codeParts.push(pre.outerHTML);
+      pre.remove();
+    });
+    var result = {
+      code: codeParts.join(""),
+      solution: solution,
+      rest: host.innerHTML.trim()
+    };
+    if (cacheKey) splitCache[cacheKey] = result;
+    return result;
+  };
+
+  var QTYPE_LABELS = {
+    code: "✍️ כתיבת קוד",
+    trace: "🔍 מעקב אחרי ריצה",
+    analysis: "📐 ניתוח והוכחה",
+    design: "🏗️ עיצוב מבנה נתונים"
+  };
+
+  window.qtypeLabel = function (question) {
+    return QTYPE_LABELS[question.qtype] || "שאלה פתוחה";
+  };
+
+  /* ---- עורך קוד לשאלות מימוש ---- */
+  var EDITOR_KEY = "ds10804-code-drafts";
+
+  window.codeDraft = function (id, value) {
+    var all = {};
+    try { all = JSON.parse(localStorage.getItem(EDITOR_KEY) || "{}"); } catch (e) {}
+    if (value === undefined) return all[id] || "";
+    all[id] = value;
+    try { localStorage.setItem(EDITOR_KEY, JSON.stringify(all)); } catch (e) {}
+    return value;
+  };
+
+  window.codeEditorHtml = function (question) {
+    if (question.qtype !== "code") return "";
+    var id = String(question.id || question.n);
+    var sig = question.signature || "";
+    var draft = window.codeDraft(id);
+    return '<div class="code-editor">' +
+      '<div class="code-editor-head"><b>✍️ כתוב כאן את המימוש</b>' +
+      (sig ? '<code class="sig" dir="ltr">' + sig + "</code>" : "") + "</div>" +
+      '<textarea class="code-input" dir="ltr" spellcheck="false" ' +
+      'data-code-for="' + id + '" placeholder="' +
+      (sig ? sig.replace(/"/g, "&quot;") + " {\n    \n}" : "כתוב את הפונקציה כאן…") +
+      '">' + draft.replace(/</g, "&lt;") + "</textarea>" +
+      '<div class="code-editor-foot">הטיוטה נשמרת אוטומטית במכשיר. ' +
+      "כתוב קודם ביד על דף — המקלדת סלחנית מדי לעומת המבחן.</div></div>";
+  };
+
   function unique(values) {
     return values.filter(function (value, index) {
       return values.indexOf(value) === index;
@@ -92,6 +165,7 @@
     var visible = [];
     var position = 0;
     var viewAnswers = {};
+    var revealedSolutions = {};
     var solutionPositions = {};
     var solutionTimer = null;
 
@@ -655,11 +729,26 @@
       var body = "";
       var options = "";
       if (isOpen) {
-        body = '<div class="q bank-card">' + question.html + "</div>";
-        options = answer ? "" :
-          '<div class="quiz-selfgrade"><span class="selfgrade-hint">פתור על דף, פתח את ה"פתרון" בכרטיס, ואז סמן לעצמך:</span>' +
-          '<button class="quiz-option" data-self="1"><span class="key">✔</span><span>פתרתי נכון</span></button>' +
-          '<button class="quiz-option" data-self="0"><span class="key">✘</span><span>טעיתי</span></button></div>';
+        var parts = window.splitBankCard(question.html, keyOf(question));
+        var revealed = !!revealedSolutions[keyOf(question)] || !!answer;
+        body =
+          (question.hint
+            ? '<details class="q-hint"><summary>💡 רמז — בלי לפתור</summary><div>' +
+              question.hint + "</div></details>"
+            : "") +
+          (parts.code ? '<div class="q-given"><b>נתון:</b></div>' + parts.code : "") +
+          (parts.rest ? '<div class="q-extra">' + parts.rest + "</div>" : "") +
+          window.codeEditorHtml(question) +
+          (revealed
+            ? '<div class="q-solution"><b>✅ הפתרון המלא</b>' + parts.solution + "</div>"
+            : "");
+        options = answer ? "" : (revealed
+          ? '<div class="quiz-selfgrade"><span class="selfgrade-hint">השווה למה שכתבת וסמן — כדי שהמאמן ידע מה להחזיר אליך:</span>' +
+            '<button class="quiz-option" data-self="1"><span class="key">✔</span><span>פתרתי נכון</span></button>' +
+            '<button class="quiz-option" data-self="0"><span class="key">✘</span><span>טעיתי</span></button></div>'
+          : '<div class="quiz-selfgrade"><span class="selfgrade-hint">פתור קודם על דף. רק אחר כך:</span>' +
+            '<button class="quiz-option primary-check" data-reveal><span class="key">🔍</span>' +
+            "<span>בדוק — הצג את הפתרון</span></button></div>");
       } else {
         body = question.code
           ? '<pre class="' + (question.kind === "math" ? "" : "c") +
@@ -707,7 +796,7 @@
         '<span class="tag">' + question.cat + "</span>" +
         '<span class="tag difficulty">קושי ' + question.difficulty + "/4</span>" +
         '<span class="tag mastery">' + masteryLabel(question) + "</span>" +
-        (isOpen ? '<span class="tag hot">שאלה פתוחה · סימון עצמי</span>' : "") +
+        (isOpen ? '<span class="tag hot">' + window.qtypeLabel(question) + "</span>" : "") +
         (question.examSolution
           ? '<span class="tag exam">פתרון מונפש · ' +
             question.examSolution.steps.length + " שלבים</span>"
@@ -881,6 +970,14 @@
         choose(Number(option.getAttribute("data-choice")));
         return;
       }
+      if (event.target.closest("[data-reveal]")) {
+        var current = visible[position];
+        if (current) {
+          revealedSolutions[keyOf(current)] = true;
+          renderQuestion();
+        }
+        return;
+      }
       var selfGrade = event.target.closest("[data-self]");
       if (selfGrade) {
         chooseSelf(selfGrade.getAttribute("data-self") === "1");
@@ -900,6 +997,11 @@
       if (action === "prev") position = (position - 1 + visible.length) % visible.length;
       if (action === "next") position = (position + 1) % visible.length;
       renderQuestion();
+    });
+
+    shell.addEventListener("input", function (event) {
+      var box = event.target.closest("[data-code-for]");
+      if (box) window.codeDraft(box.getAttribute("data-code-for"), box.value);
     });
 
     document.getElementById("quizCategories").addEventListener("click", function (event) {
