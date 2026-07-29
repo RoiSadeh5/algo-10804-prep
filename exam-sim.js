@@ -343,23 +343,34 @@
     else renderRunning();
   }
 
-  function show(sim) {
-    root.style.display = sim ? "" : "none";
-    trainer.style.display = sim ? "none" : "";
-    btnSim.classList.toggle("on", sim);
-    btnSim.classList.toggle("primary", sim);
-    btnTrainer.classList.toggle("on", !sim);
-    btnTrainer.classList.toggle("primary", !sim);
-    if (sim) render(); else stopTimer();
+  /* מתג בין שלושת המצבים: תרגול חופשי · סימולטור · פתרונות מונפשים */
+  var MODES = ["trainer", "sim", "walk"];
+  var buttons = { trainer: btnTrainer, sim: btnSim, walk: document.getElementById("modeWalk") };
+
+  function show(mode) {
+    if (typeof mode === "boolean") mode = mode ? "sim" : "trainer";
+    if (MODES.indexOf(mode) < 0) mode = "trainer";
+    trainer.style.display = mode === "trainer" ? "" : "none";
+    root.style.display = mode === "sim" ? "" : "none";
+    if (window.showWalkthroughs) window.showWalkthroughs(mode === "walk");
+    MODES.forEach(function (m) {
+      var b = buttons[m];
+      if (!b) return;
+      b.classList.toggle("on", m === mode);
+      b.classList.toggle("primary", m === mode);
+    });
+    if (mode === "sim") render(); else stopTimer();
   }
 
-  btnTrainer.addEventListener("click", function () { show(false); });
-  btnSim.addEventListener("click", function () { show(true); });
+  window.setPracticeMode = show;
+  MODES.forEach(function (m) {
+    if (buttons[m]) buttons[m].addEventListener("click", function () { show(m); });
+  });
 
   root.addEventListener("click", function (event) {
     var t = event.target;
     if (t.closest("[data-sim-start]") || t.closest("[data-sim-new]")) { startExam(); return; }
-    if (t.closest("[data-sim-exit]")) { show(false); return; }
+    if (t.closest("[data-sim-exit]")) { show("trainer"); return; }
     if (t.closest("[data-sim-abort]")) {
       if (window.confirm("לבטל את המבחן הנוכחי? ההתקדמות תימחק.")) {
         state = null; stopTimer();
@@ -407,5 +418,5 @@
   });
 
   /* מבחן פתוח באמצע? חזור אליו אוטומטית */
-  if (state && !state.finished) show(true);
+  show(state && !state.finished ? "sim" : "trainer");
 })();
