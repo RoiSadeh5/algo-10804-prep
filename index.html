@@ -299,16 +299,335 @@ a.golink:hover{opacity:.8}
 .diffbar button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg,#fff)}
 .diff.srcb{background:color-mix(in srgb, var(--blue) 14%, transparent);color:var(--blue);border:1px solid var(--blue)}
 .q.diff-hidden{display:none}
+
+/* ===== מרכז התרגול — מוזג מהעמוד הנפרד ===== */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);
+  outline-offset:3px;
+}
+.quiz-hero{
+  background:linear-gradient(135deg,var(--accent2),var(--bg2));
+  border:1px solid var(--line2);border-radius:16px;padding:20px;margin:1.2em 0;
+}
+.quiz-stats{display:grid;grid-template-columns:repeat(6,minmax(100px,1fr));gap:10px;margin:14px 0}
+.quiz-stat{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.quiz-stat b{display:block;font-size:24px;line-height:1.15;color:var(--accent)}
+.quiz-stat span{font-size:12px;color:var(--fg2)}
+.quiz-progress{height:10px;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--bg3)}
+.quiz-progress>i{display:block;width:0;height:100%;background:var(--accent);transition:width .25s}
+.quiz-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.quiz-controls input,.quiz-controls select{
+  min-height:40px;border:1px solid var(--line2);border-radius:8px;background:var(--bg2);
+  color:var(--fg);font:inherit;padding:7px 10px;
+}
+.quiz-controls input{flex:1;min-width:220px}
+.quiz-btn{
+  min-height:40px;border:1px solid var(--line2);border-radius:8px;background:var(--bg2);
+  color:var(--fg2);font:600 13.5px var(--sans);padding:7px 12px;cursor:pointer;
+}
+.quiz-btn:hover,.quiz-btn.on{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+.quiz-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.quiz-pills{display:flex;gap:7px;overflow-x:auto;padding:4px 1px 10px;scrollbar-width:thin}
+.quiz-pills .quiz-btn{white-space:nowrap;min-height:34px;padding:5px 10px}
+.quiz-shell{border:1px solid var(--line2);border-radius:14px;background:var(--bg2);overflow:hidden;margin:1em 0}
+.quiz-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 15px;background:var(--bg3);border-bottom:1px solid var(--line)}
+.quiz-index{font:700 12px var(--mono);color:var(--fg3)}
+.quiz-body{padding:18px}
+.quiz-prompt{font-size:17px;font-weight:650;line-height:1.7}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.quiz-option{
+  display:flex;gap:10px;align-items:flex-start;text-align:right;border:1px solid var(--line2);
+  border-radius:9px;background:var(--bg2);color:var(--fg);padding:11px 12px;cursor:pointer;font:inherit;
+}
+.quiz-option:hover{border-color:var(--accent);background:var(--accent2)}
+.quiz-option .key{
+  display:flex;align-items:center;justify-content:center;flex:none;width:25px;height:25px;
+  border-radius:7px;background:var(--bg3);font:700 12px var(--mono);
+}
+.quiz-option.good{border-color:var(--accent);background:var(--accent2)}
+.quiz-option.bad{border-color:var(--red);background:var(--red-bg)}
+.quiz-option.answer{box-shadow:inset 0 0 0 2px var(--accent)}
+.quiz-option:disabled{cursor:default;color:var(--fg)}
+.bank-card{margin-top:14px}
+.bank-card .qh{margin-bottom:8px}
+.quiz-selfgrade{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:15px}
+.quiz-selfgrade .selfgrade-hint{flex-basis:100%;font-size:13.5px;color:var(--fg2);font-weight:600}
+.quiz-selfgrade .quiz-option{flex:1;min-width:150px;justify-content:center}
+.quiz-prompt{font-size:17px;font-weight:600;line-height:1.6;margin-bottom:4px}
+.q-given{font-size:13px;color:var(--fg2);font-weight:700;margin:14px 0 -4px}
+.q-extra{margin:10px 0}
+.q-hint{margin:10px 0;border:1px solid var(--amber);background:var(--amber-bg);
+  border-radius:var(--radius);padding:8px 13px;font-size:14px}
+.q-hint summary{cursor:pointer;font-weight:700;color:var(--amber)}
+.q-hint div{margin-top:7px}
+.q-solution{margin-top:16px;border:1px solid var(--accent);border-radius:var(--radius);
+  padding:13px 16px;background:var(--accent2)}
+.q-solution>b{display:block;margin-bottom:7px;color:var(--accent)}
+.quiz-option.primary-check{background:var(--accent);border-color:var(--accent);
+  color:var(--accent-fg);font-weight:700;justify-content:center;flex:1;min-width:220px}
+.quiz-option.primary-check:hover{opacity:.92;background:var(--accent)}
+.quiz-option.primary-check .key{background:transparent;border-color:currentColor}
+.code-editor{margin:15px 0;border:1px solid var(--line2);border-radius:var(--radius);
+  overflow:hidden;background:var(--bg2)}
+.code-editor-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:9px 13px;background:var(--bg3);border-bottom:1px solid var(--line);font-size:14px}
+.code-editor-head .sig{font-family:var(--mono);font-size:13px;background:var(--bg2);
+  border:1px solid var(--line);border-radius:5px;padding:2px 8px}
+textarea.code-input{width:100%;min-height:190px;border:0;resize:vertical;display:block;
+  font-family:var(--mono);font-size:13.5px;line-height:1.6;padding:13px 15px;
+  background:var(--code-bg);color:var(--code-fg);tab-size:4}
+textarea.code-input:focus{outline:2px solid var(--accent);outline-offset:-2px}
+.code-editor-foot{padding:8px 13px;font-size:12.5px;color:var(--fg3);
+  border-top:1px solid var(--line)}
+.v-rows{display:flex;flex-direction:column;gap:14px;align-items:center}
+.v-cap{font-size:12.5px;color:var(--fg2);margin-top:7px;text-align:center}
+.v-array,.v-queue,.v-tree{display:flex;flex-direction:column;align-items:center}
+.v-row,.v-ixrow,.v-labels{display:flex;gap:6px;justify-content:center}
+.v-ix{display:block;width:40px;text-align:center;font-size:11px;color:var(--fg3);
+  font-family:var(--mono)}
+.v-labels span{display:block;width:40px;text-align:center;font-size:11px;color:var(--fg2);
+  margin-top:4px}
+.v-cell{width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--line2);border-radius:7px;background:var(--bg2);
+  font-family:var(--mono);font-size:14px;font-weight:600;position:relative;flex:none}
+.v-cell.v-empty{border-style:dashed;color:var(--fg3);background:transparent}
+.v-brace{margin-top:6px;border-top:2px solid var(--accent);color:var(--accent);
+  font-size:11.5px;font-weight:700;text-align:center;padding-top:3px}
+.v-arrow{color:var(--fg3);align-self:center;font-size:13px}
+.v-tip{position:absolute;top:-16px;right:0;font-size:10px;color:var(--accent);
+  font-weight:700;white-space:nowrap}
+.v-tip.v-tail{right:auto;left:0;color:var(--blue)}
+.v-hot,.v-cell.v-hot,.v-slot.v-hot,.v-node.v-hot,.v-frame.v-hot,.v-var.v-hot,
+td.v-hot{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
+.v-good,.v-cell.v-good,.v-slot.v-good,.v-node.v-good,.v-frame.v-good,.v-var.v-good,
+td.v-good{background:var(--accent2);border-color:var(--accent);color:var(--accent)}
+.v-bad,.v-cell.v-bad,.v-slot.v-bad,.v-node.v-bad,.v-frame.v-bad,.v-var.v-bad,
+td.v-bad{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.v-info,.v-cell.v-info,.v-slot.v-info,.v-node.v-info,.v-frame.v-info,.v-var.v-info,
+td.v-info{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
+.v-dim,.v-cell.v-dim,.v-slot.v-dim,.v-node.v-dim{opacity:.4}
+.v-stack,.v-call{display:flex;flex-direction:column;gap:4px;align-items:stretch;
+  min-width:180px;max-width:340px;margin:0 auto}
+.v-slot,.v-frame{border:1.5px solid var(--line2);border-radius:7px;background:var(--bg2);
+  padding:8px 13px;font-family:var(--mono);font-size:13.5px;text-align:center;position:relative}
+.v-frame{font-size:13px}
+.v-slot .v-tip,.v-frame .v-tip{position:static;display:inline-block;
+  margin-inline-start:8px;font-size:10.5px}
+.v-base{border-top:3px solid var(--line2);padding-top:5px;text-align:center;
+  font-size:11.5px;color:var(--fg3);font-weight:700}
+.v-list{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center}
+.v-node{border:1.5px solid var(--line2);border-radius:7px;background:var(--bg2);
+  padding:8px 14px;font-family:var(--mono);font-size:14px;font-weight:600}
+.v-link{color:var(--fg3);font-size:15px}
+.v-null{font-family:var(--mono);font-size:12px;color:var(--fg3)}
+.v-head-tag,.v-cap-inline{font-size:11px;color:var(--accent);font-weight:700}
+.v-tree svg{max-width:100%;height:auto}
+.v-edge{stroke:var(--line2);stroke-width:1.6}
+.v-tnode circle{fill:var(--bg2);stroke:var(--line2);stroke-width:1.6}
+.v-tnode text{fill:var(--fg);font:600 13px var(--mono);text-anchor:middle}
+.v-tnode.v-hot circle{fill:var(--amber-bg);stroke:var(--amber);stroke-width:2.4}
+.v-tnode.v-good circle{fill:var(--accent2);stroke:var(--accent);stroke-width:2.4}
+.v-tnode.v-bad circle{fill:var(--red-bg);stroke:var(--red);stroke-width:2.4}
+.v-tnode.v-info circle{fill:var(--blue-bg);stroke:var(--blue);stroke-width:2.4}
+.v-tnode.v-dim circle{opacity:.4}
+.v-tnode.v-dim text{opacity:.4}
+.v-code{background:var(--code-bg);border:1px solid var(--line);border-radius:var(--radius);
+  padding:9px 0;font-family:var(--mono);font-size:13px;line-height:1.65;
+  overflow-x:auto;width:100%}
+.v-line{display:flex;gap:11px;padding:0 13px;white-space:pre}
+.v-line-on{background:var(--amber-bg);border-inline-start:3px solid var(--amber);
+  padding-inline-start:10px}
+.v-lineno{color:var(--fg3);min-width:18px;text-align:left;user-select:none}
+.v-linetext{color:var(--code-fg)}
+.v-table{width:100%;overflow-x:auto}
+.v-table table{font-size:13px;margin:0}
+.v-vars{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.v-var{display:flex;align-items:center;gap:7px;border:1.5px solid var(--line2);
+  border-radius:7px;background:var(--bg2);padding:5px 12px}
+.v-var .v-k{font-family:var(--mono);font-size:12.5px;color:var(--fg2)}
+.v-var .v-v{font-family:var(--mono);font-size:14px;font-weight:700}
+.v-note{border-inline-start:3px solid var(--accent);background:var(--accent2);
+  padding:9px 13px;border-radius:0 7px 7px 0;font-size:14px}
+.wt-intro{border:1px solid var(--accent);border-radius:var(--radius);padding:16px;
+  background:var(--bg2);margin-bottom:14px}
+.wt-intro h2{margin-top:0}
+.wt-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.wt-card{border:1px solid var(--line2);border-radius:var(--radius);background:var(--bg2);
+  margin-bottom:10px;overflow:hidden}
+.wt-card.open{border-color:var(--accent)}
+.wt-head{display:flex;align-items:center;gap:11px;width:100%;text-align:right;
+  background:transparent;border:0;cursor:pointer;padding:13px 16px;
+  font:600 15px var(--sans);color:var(--fg);flex-wrap:wrap}
+.wt-head:hover{background:var(--bg3)}
+.wt-card.open .wt-head{background:var(--accent2);border-bottom:1px solid var(--line)}
+.wt-num{font-weight:800;color:var(--accent)}
+.wt-topic{color:var(--fg2);font-size:14px}
+.wt-steps{margin-inline-start:auto;font-size:12.5px;color:var(--fg3)}
+.wt-body{padding:16px}
+.wt-idea{border-inline-start:3px solid var(--blue);background:var(--blue-bg);
+  padding:10px 14px;border-radius:0 8px 8px 0;margin:13px 0;font-size:14.5px}
+.wt-stage{border:1px solid var(--line);border-radius:var(--radius);padding:15px;
+  background:var(--bg);margin:13px 0;min-height:150px}
+.wt-visual{margin-top:15px;display:flex;justify-content:center}
+.wt-answer{border:1px solid var(--accent);background:var(--accent2);border-radius:var(--radius);
+  padding:11px 15px;margin-top:14px;font-size:15px}
+.wt-traps{border:1px solid var(--red);background:var(--red-bg);border-radius:var(--radius);
+  padding:11px 15px;margin-top:11px;font-size:14px}
+.wt-traps ul{margin:6px 0 0;padding-inline-start:20px}
+.topic-link{display:inline-block;margin-inline-start:10px;font-size:12.5px;font-weight:700;
+  color:var(--blue);text-decoration:none;border:1px solid var(--blue);border-radius:99px;
+  padding:2px 11px;background:var(--blue-bg)}
+.topic-link:hover{opacity:.85}
+.sim-switch{display:flex;gap:8px;margin:14px 0}
+.sim-switch .quiz-btn{font-size:15px;padding:10px 18px}
+.sim-intro{border:1px solid var(--accent);border-radius:var(--radius);padding:18px;background:var(--bg2)}
+.sim-intro h2{margin-top:0}
+.quiz-btn.big{font-size:16px;padding:12px 26px}
+.sim-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:40;
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);
+  padding:10px 14px;margin-bottom:10px}
+.sim-clock{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.sim-clock.danger{color:var(--red)}
+.sim-progress{font-size:13px;color:var(--fg2);margin-inline-start:auto}
+.sim-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.sim-pill{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);
+  background:var(--bg2);color:var(--fg2);font:700 14px var(--sans);cursor:pointer}
+.sim-pill.done{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+.sim-pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.bank-card.conceal details.sol{display:none}
+.sim-open-note{border:1px dashed var(--amber);border-radius:var(--radius);background:var(--amber-bg);
+  padding:10px 14px;margin:12px 0;font-size:14px}
+.sim-summary{border:1px solid var(--accent);border-radius:var(--radius);padding:16px;
+  background:var(--bg2);margin-bottom:16px}
+.sim-summary h2{margin-top:0}
+.sim-actions{display:flex;gap:8px;margin-top:12px}
+.sim-review-card{border:1px solid var(--line2);border-radius:var(--radius);padding:14px 16px;
+  background:var(--bg2);margin-bottom:14px}
+.sim-review-card h3{margin-top:0}
+.sim-steps{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.quiz-explain{display:none;border-top:1px solid var(--line);background:var(--bg);padding:16px 18px}
+.quiz-explain.open{display:block}
+.quiz-verdict{font-weight:800;margin-bottom:8px}
+.quiz-verdict.good{color:var(--accent)}
+.quiz-verdict.bad{color:var(--red)}
+.quiz-rule{border-right:4px solid var(--amber);background:var(--amber-bg);padding:10px 12px;border-radius:7px}
+.quiz-mistake{border-right:4px solid var(--red);background:var(--red-bg);padding:11px 13px;border-radius:7px;margin-top:11px}
+.quiz-similar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}
+.solution-lab{
+  margin:18px 0 4px;border:1px solid var(--accent);border-radius:14px;
+  background:var(--bg2);overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+.solution-lab-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:15px 16px;background:linear-gradient(135deg,var(--accent2),var(--bg2));
+  border-bottom:1px solid var(--line);
+}
+.solution-lab-head h3{margin:7px 0 3px;font-size:20px}
+.solution-lab-head p{margin:0;color:var(--fg2);font-size:13px}
+.formula-title{padding:12px 16px 5px;font-size:12px;font-weight:800;color:var(--fg2)}
+.formula-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:8px;padding:5px 16px 14px;
+}
+.formula-card{
+  min-width:0;border:1px solid var(--line2);border-radius:9px;background:var(--bg);
+  padding:9px 11px;text-align:center;
+}
+.formula-card small{display:block;color:var(--fg3);font-size:11px;margin-bottom:5px}
+.formula-card div{font:700 14px/1.5 var(--mono);unicode-bidi:isolate;overflow-wrap:anywhere}
+.solution-stage{min-height:220px;padding:0 16px 14px}
+.solution-step{
+  min-height:190px;border:1px solid var(--line2);border-radius:12px;background:var(--bg);
+  padding:17px;animation:solutionEnter .32s ease-out;
+}
+.solution-step-number{
+  display:inline-block;background:var(--accent);color:var(--accent-fg);
+  border-radius:99px;padding:3px 9px;font-size:11px;font-weight:800;
+}
+.solution-step h4{font-size:19px;margin:10px 0 6px}
+.solution-step p{font-size:15px;line-height:1.75;margin:0 0 12px}
+.solution-equation{
+  border:1px solid var(--line);border-radius:9px;background:var(--bg3);
+  padding:12px;text-align:center;font:750 16px/1.6 var(--mono);
+  unicode-bidi:isolate;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.solution-controls{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 16px;
+  border-top:1px solid var(--line);background:var(--bg3);
+}
+.solution-dots{display:flex;align-items:center;gap:6px;margin-inline:auto}
+.solution-dot{
+  width:11px;height:11px;padding:0;border-radius:99px;border:1px solid var(--line2);
+  background:var(--bg2);cursor:pointer;
+}
+.solution-dot.on{width:25px;background:var(--accent);border-color:var(--accent)}
+.solution-position{font-size:12px;font-weight:750;color:var(--fg2)}
+@keyframes solutionEnter{
+  from{opacity:.2;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.quiz-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:11px 14px;border-top:1px solid var(--line);background:var(--bg3)}
+.quiz-nav .quiz-position{margin-inline-start:auto;color:var(--fg2);font-size:13px;font-weight:700}
+.quiz-empty{padding:28px;text-align:center;color:var(--fg2)}
+.source-proof{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:9px 0 13px;font-size:13px}
+.source-proof a{color:var(--accent);font-weight:700;text-decoration:none}
+.source-proof a:hover{text-decoration:underline}
+.question-source{max-width:100%;white-space:normal;line-height:1.45;padding:6px 10px}
+.tag.difficulty{background:var(--amber-bg);color:var(--fg);border:1px solid var(--amber)}
+.tag.mastery{background:var(--accent2);color:var(--accent);border:1px solid var(--line2)}
+.tag.generated{background:var(--bg3);color:var(--fg2);border:1px solid var(--line2)}
+.adaptive-coach{
+  border:1px solid var(--accent);border-radius:16px;background:var(--bg2);
+  padding:18px;margin:16px 0;box-shadow:0 7px 24px rgba(0,0,0,.06);
+}
+.adaptive-coach-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.adaptive-coach h2{font-size:22px;margin:0}
+.adaptive-coach p{color:var(--fg2);margin:.35em 0 0}
+.coach-summary{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:12px;margin:13px 0}
+.coach-skills,.coach-next{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px}
+.coach-next{font-size:13px;color:var(--fg2)}
+.weakness-map{display:grid;gap:7px}
+.weakness-row{
+  display:grid;grid-template-columns:minmax(150px,1fr) minmax(120px,1.4fr) auto;
+  align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:7px;
+}
+.weakness-row:first-child{border-top:0}
+.weakness-row small{display:block;color:var(--fg3);font-size:11.5px}
+.weakness-bar{height:9px;border:1px solid var(--line);border-radius:99px;background:var(--bg3);overflow:hidden}
+.weakness-bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.mistake-book{border:1px solid var(--line2);border-radius:14px;background:var(--bg2);padding:17px;margin:18px 0}
+.mistake-book h2{margin-top:0;font-size:21px}
+.mistake-summary{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 13px}
+.mistake-list{display:grid;gap:8px}
+.mistake-row{display:grid;grid-template-columns:minmax(110px,.55fr) minmax(220px,1.7fr) auto;gap:10px;align-items:center;border-top:1px solid var(--line);padding:10px 0}
+.mistake-row:first-child{border-top:0}
+.mistake-row .rule{font-size:13px;color:var(--fg2)}
+.mistake-row.mastered{opacity:.68}
+.mistake-empty{color:var(--fg2);padding:8px 0}
+.today{box-shadow:inset 0 0 0 2px var(--accent);position:relative}
+.today::after{content:"היום";position:absolute;top:10px;left:12px;background:var(--accent);color:var(--accent-fg);border-radius:99px;padding:2px 9px;font-size:11px;font-weight:800}
+.ipad-ready{
+  display:flex;gap:12px;align-items:flex-start;justify-content:space-between;
+  border-right:4px solid var(--accent);background:var(--accent2);
+  padding:12px 15px;border-radius:9px;margin:1em 0 1.4em;
+}
+.ipad-ready .status{
+  flex:none;display:inline-flex;align-items:center;min-height:28px;padding:0 9px;
+  border:1px solid var(--line2);border-radius:99px;background:var(--bg2);
+  color:var(--fg2);font-size:12px;font-weight:700;white-space:nowrap;
+}
+.ipad-ready .status.offline{color:var(--amber);background:var(--amber-bg)}
 </style>
 </head>
 <body>
-<nav class="tabs"><button class="cta" onclick="window.open('practice.html','_blank')" title="261 שאלות במקום אחד — מאמן אדפטיבי, סימולטור מבחן ופתרונות מונפשים">🎯 מרכז התרגול</button><span class="grp">התחלה</span><button data-go="home">עמוד הבית</button><button data-go="map">מפת המבחן</button><button data-go="plan">תוכנית 7 ימים</button><span class="grp">8 נושאי המבחן — לפי סדר השאלות</span><button data-go="d01"><span class="qn">1</span>סיבוכיות</button><button data-go="d02"><span class="qn">2</span>רקורסיה</button><button data-go="d03"><span class="qn">3</span>רשימות מקושרות</button><button data-go="d04"><span class="qn">4</span>עצים ו-BST</button><button data-go="d07"><span class="qn">5</span>מחסנית ותור</button><button data-go="d05"><span class="qn">6</span>ערימה</button><button data-go="d06"><span class="qn">7</span>ערבול</button><button data-go="d08"><span class="qn">8</span>מיונים</button><span class="grp">תשתית ונושאי שוליים</span><button data-go="d09">שפת C ומצביעים</button><button data-go="d10">עצי AVL</button><button data-go="d11">גרפים</button><span class="grp">חומרי עזר</span><button data-go="d12">מעבדת קוד C</button><button data-go="d13">הסבר בקצרה</button><button data-go="d15">יסודות ונוסחאות</button><button data-go="d16">המילון הפיזי</button><button data-go="d17">פתרונות מבחנים</button><button class="th" onclick="toggleTheme()" title="מצב כהה / בהיר">◐</button></nav>
+<nav class="tabs"><button class="cta" data-go="practice" title="261 שאלות במקום אחד — מאמן אדפטיבי, סימולטור מבחן ופתרונות מונפשים">🎯 מרכז התרגול</button><span class="grp">התחלה</span><button data-go="home">עמוד הבית</button><button data-go="map">מפת המבחן</button><button data-go="plan">תוכנית 7 ימים</button><span class="grp">8 נושאי המבחן — לפי סדר השאלות</span><button data-go="d01"><span class="qn">1</span>סיבוכיות</button><button data-go="d02"><span class="qn">2</span>רקורסיה</button><button data-go="d03"><span class="qn">3</span>רשימות מקושרות</button><button data-go="d04"><span class="qn">4</span>עצים ו-BST</button><button data-go="d07"><span class="qn">5</span>מחסנית ותור</button><button data-go="d05"><span class="qn">6</span>ערימה</button><button data-go="d06"><span class="qn">7</span>ערבול</button><button data-go="d08"><span class="qn">8</span>מיונים</button><span class="grp">תשתית ונושאי שוליים</span><button data-go="d09">שפת C ומצביעים</button><button data-go="d10">עצי AVL</button><button data-go="d11">גרפים</button><span class="grp">חומרי עזר</span><button data-go="d12">מעבדת קוד C</button><button data-go="d13">הסבר בקצרה</button><button data-go="d15">יסודות ונוסחאות</button><button data-go="d16">המילון הפיזי</button><button data-go="d17">פתרונות מבחנים</button><button class="th" onclick="toggleTheme()" title="מצב כהה / בהיר">◐</button></nav>
 <div class="wrap"><section class="pg" id="home"><h1>הכנה למבחן 10804</h1>
 <p class="lead">אלגוריתמים ומבנה נתונים · אפקה · מבחן ב-04/08/2026 ·
 180 דקות · 90% מהציון</p>
 
 <div class="grid">
-  <a class="deck" href="practice.html" target="_blank" style="border-color:var(--accent);background:var(--accent2)">
+  <a class="deck" href="#practice" style="border-color:var(--accent);background:var(--accent2)">
     <div class="n">🎯 הכי חשוב</div>
     <div class="t">מרכז התרגול</div>
     <div class="d">261 שאלות במקום אחד עם מאמן אישי, סימולטור מבחן ופתרונות מונפשים. כאן מתאמנים.</div>
@@ -442,7 +761,7 @@ a.golink:hover{opacity:.8}
   <div class="m"><span class="tag hot">2025 · פעמיים</span></div>
 </a>
 
-<a class="deck" href="practice.html" target="_blank" style="border-color:var(--accent);background:var(--accent2)">
+<a class="deck" href="#practice" style="border-color:var(--accent);background:var(--accent2)">
   <div class="n">🎯</div>
   <div class="t">מרכז התרגול</div>
   <div class="d">‏261 שאלות במקום אחד — מאמן אישי, סימולטור מבחן של 180 דקות,
@@ -533,7 +852,96 @@ a.golink:hover{opacity:.8}
 הפתרונות הרשמיים של המרצה, ומה שאפשר — נבדק גם בהרצה. במקום אחד
 (<a href="#d01">2025 שאלה 1א</a>) הפתרון הרשמי נראה שגוי,
 וזה מסומן במפורש עם הסבר מה לעשות אם זה קורה לך במבחן.
-</div></section><section class="pg" id="map"><h1>מפת המבחן</h1>
+</div></section><section class="pg" id="practice">
+<h1>מרכז התרגול</h1>
+<p class="lead"><b>261 שאלות במקום אחד:</b> 102 שאלות סיבוכיות אמריקאיות ·
+48 שאלות אמריקאיות ברמת מבחן ממבחני 2023–2025 ומהמטלות ·
+111 שאלות פתוחות ממאגר התרגול (מבחנים, מטלות, מצגות). לשאלות מבחן יש
+פתרון מלא, נוסחאות ואנימציה שלב-אחר-שלב; בשאלות הפתוחות פותרים על דף
+ומסמנים לעצמך — והכול מזין מאמן אישי אחד.</p>
+
+<div class="sim-switch" role="tablist" aria-label="מצב תרגול">
+  <button class="quiz-btn primary on" id="modeTrainer">🎯 תרגול חופשי</button>
+  <button class="quiz-btn" id="modeSim">⏱️ סימולטור מבחן מלא</button>
+  <button class="quiz-btn" id="modeWalk">📚 פתרונות מבחנים מונפשים</button>
+</div>
+
+<section id="simulator" style="display:none" aria-label="סימולטור מבחן"></section>
+<section id="walkthroughs" style="display:none" aria-label="פתרונות מבחן מונפשים"></section>
+
+<div id="trainerParts">
+<div class="quiz-hero">
+  <b>איך לעבוד נכון:</b> התחל ב“מאמן אישי”, פתור בלי להציץ וקרא את ההסבר גם כשצדקת.
+  טעות חוזרת אוטומטית אחרי לפחות 3 שאלות אחרות; שלוש הצלחות בונות שליטה מלאה.
+  אחרי הבחירה, הפעל את הפתרון האוטומטי או התקדם ידנית בין השלבים. מקשי 1–4 בוחרים תשובה.
+  <div class="quiz-stats" aria-label="סטטיסטיקת תרגול">
+    <div class="quiz-stat"><b id="quizAnswered">0</b><span>שאלות שנבדקו</span></div>
+    <div class="quiz-stat"><b id="quizCorrect">0</b><span>ניסיונות נכונים</span></div>
+    <div class="quiz-stat"><b id="quizAccuracy">—</b><span>דיוק</span></div>
+    <div class="quiz-stat"><b id="quizRemaining">261</b><span>טרם נבדקו</span></div>
+    <div class="quiz-stat"><b id="quizDue">0</b><span>מוכנות לחזרה</span></div>
+    <div class="quiz-stat"><b id="quizMastered">0</b><span>נשלטו</span></div>
+  </div>
+  <div class="quiz-progress" aria-label="התקדמות"><i id="quizProgress"></i></div>
+</div>
+
+<section class="adaptive-coach" aria-labelledby="coachTitle">
+  <div class="adaptive-coach-head">
+    <div>
+      <h2 id="coachTitle">המאמן האישי</h2>
+      <p>בוחר את השאלה הבאה לפי טעויות, זמן חזרה, חולשות ורמת מבחני 2023–2025.</p>
+    </div>
+    <button class="quiz-btn primary" id="quizAdaptive">פתח את השאלה המומלצת</button>
+  </div>
+  <div class="coach-summary" id="coachSummary">מנתח את ההתקדמות…</div>
+  <div class="weakness-map" id="weaknessMap" aria-label="מפת חוזקות וחולשות"></div>
+</section>
+
+<div class="quiz-controls">
+  <input id="quizSearch" type="search" placeholder="חיפוש בשאלה, בקוד או בהסבר…" aria-label="חיפוש במאגר השאלות">
+  <select id="quizMode" aria-label="מצב תרגול">
+    <option value="adaptive">מאמן אישי — מומלץ</option>
+    <option value="due">מוכנות לחזרה</option>
+    <option value="all">כל השאלות</option>
+    <option value="unanswered">רק שאלות שלא נענו</option>
+    <option value="wrong">טעויות שעדיין לא נשלטו</option>
+    <option value="correct">התשובה האחרונה נכונה</option>
+    <option value="mastered">שאלות שנשלטו</option>
+  </select>
+  <select id="quizOrigin" aria-label="סינון לפי מקור השאלה">
+    <option value="all">כל המקורות</option>
+    <option value="recent">מבחני 2023–2025</option>
+    <option value="official">מבחן מקורי שאומת</option>
+    <option value="homework">מטלות HW1–HW4</option>
+    <option value="generated">שאלות Codex — לא ממבחן</option>
+    <option value="bank">מאגר השאלות הפתוחות</option>
+  </select>
+  <button class="quiz-btn" id="quizRandom">שאלה אקראית</button>
+  <button class="quiz-btn" id="quizRetry">נסה שוב את השאלה</button>
+  <button class="quiz-btn" id="quizReset">איפוס התרגול</button>
+</div>
+
+<div class="quiz-pills" id="quizCategories" aria-label="קטגוריות"></div>
+
+<div class="quiz-shell" id="quizShell" aria-live="polite">
+  <div class="quiz-empty">טוען את מאגר השאלות…</div>
+</div>
+
+<section class="mistake-book" aria-labelledby="mistakeTitle">
+  <h2 id="mistakeTitle">מחברת טעויות חכמה</h2>
+  <p>טעויות נשמרות גם אחרי תיקון. המאמן מחזיר אותן במרווחים,
+  מציע שאלות עם אותה מיומנות ומסמן שליטה רק לאחר שלוש הצלחות.</p>
+  <div id="mistakeNotebook" class="mistake-empty">עדיין אין טעויות שמורות.</div>
+</section>
+
+<div class="note">
+<b>שקיפות מקור:</b> לכל אחת מ-150 השאלות יש תווית קבועה וגלויה:
+מבחן ושנה/מועד, מספר מטלה, או <b>“שאלת Codex · לא ממבחן”</b>.
+“נוסח מותאם” פירושו שהרעיון הגיע מהמקור, אבל השאלה נוסחה מחדש לתרגול.
+ההתקדמות נשמרת מקומית במכשיר, ולכן לכל חבר שתשלח לו את הקישור תהיה התקדמות נפרדת.
+</div>
+</div>
+</section><section class="pg" id="map"><h1>מפת המבחן</h1>
 <p class="lead">מה באמת נשאל ב-10804, לפי קריאה בפועל של שאלוני העבר. זה המסמך
 שקובע איפה להשקיע את השבוע.</p>
 
@@ -845,7 +1253,7 @@ a.golink:hover{opacity:.8}
 אם תציץ בהם עכשיו, לא תוכל לבדוק את עצמך באמת.</li>
 <li><b>כל יום מסתיים בכתיבת קוד ביד.</b> לא בקריאה. שאלות 3+4 הן 26 נקודות
 של כתיבה בכתב יד, ואי אפשר להתכונן אליהן בקריאה.</li>
-<li><b>כל יום — 3–4 שאלות ב<a href="practice.html" target="_blank">מרכז התרגול</a></b>
+<li><b>כל יום — 3–4 שאלות ב<a href="#practice">מרכז התרגול</a></b>
 מהנושא שלמדת, בתנאי מבחן. המאמן בוחר לך אותן לפי הטעויות הקודמות, ולא
 שורף אף שאלון שמור.</li>
 </ol>
@@ -6058,7 +6466,7 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 <p style="font-size:17px;margin-top:0"><b>🎯 כל השאלות נמצאות עכשיו במקום אחד</b></p>
 <p>261 שאלות · מאמן שבוחר לך את הבאה בתור · סימולטור מבחן של 180 דקות ·
 בדיקה ופתרון מלא אחרי כל שאלה · עורך קוד לשאלות מימוש.</p>
-<p style="margin-bottom:0"><a href="practice.html" target="_blank"
+<p style="margin-bottom:0"><a href="#practice"
 style="display:inline-block;background:var(--accent);color:var(--accent-fg);
 text-decoration:none;font-weight:700;font-size:16px;border-radius:10px;
 padding:12px 28px">פתח את מרכז התרגול ←</a></p>
@@ -6264,7 +6672,7 @@ f = Θ(g). יצא <b>∞</b> → f = ω(g).</div>
 
 <div class="tip">
 <b>איפה לתרגל את כל זה:</b> <a href="#d01">דק הסיבוכיות</a> (20 כרטיסים
-מהמצגות) · <a href="practice.html" target="_blank">שאלות הסיבוכיות במרכז התרגול</a>
+מהמצגות) · <a href="#practice">שאלות הסיבוכיות במרכז התרגול</a>
 (סננו לפי נושא "סיבוכיות" — יותר מ-130 שאלות).
 </div>
 
@@ -6525,7 +6933,7 @@ O(n)</b> גם כשאין שום מערך בקוד.</p>
 </section><section class="pg" id="d17"><h1>פתרונות מלאים למבחני העבר</h1>
 <p class="lead">הפתרונות הרשמיים של המרצים הם לרוב שורה-שתיים בלי הסבר.
 כאן — פתרון מוסבר, שלב אחרי שלב, לכל שאלה בכל מבחן פתוח. לשאלות שכבר
-פתורות לעומק ב<a href="practice.html" target="_blank">מרכז התרגול</a> — מצוין המספר שם (למשל
+פתורות לעומק ב<a href="#practice">מרכז התרגול</a> — מצוין המספר שם (למשל
 "מאגר 3.4"), כדי לא לשכפל.</p>
 
 <div class="warn">
@@ -8278,5 +8686,26 @@ window.jumpSol = function (sec, id) {
   mountPlayer('d14_p2', f2);
 })();
 </script>
+
+<script src="complexity-data.js"></script>
+<script src="viz.js"></script>
+<script src="exam-solutions.js"></script>
+<script src="bank-questions.js"></script>
+<script src="adaptive-questions.js"></script>
+<script src="adaptive-quiz.js"></script>
+<script>
+(function () {
+  [CODEX_COMPLEXITY_DATA.qs, window.CODEX_ADAPTIVE_QUESTIONS || []].forEach(function (list) {
+    list.forEach(function (q) { delete q.sourceHref; });
+  });
+  window.mountCodexQuiz();
+})();
+</script>
+<script src="walkthrough-2022.js"></script>
+<script src="walkthrough-2023.js"></script>
+<script src="walkthrough-2024.js"></script>
+<script src="walkthrough-2025.js"></script>
+<script src="walkthrough-ui.js"></script>
+<script src="exam-sim.js"></script>
 </body>
 </html>

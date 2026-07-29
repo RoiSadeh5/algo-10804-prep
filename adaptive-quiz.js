@@ -34,9 +34,8 @@
   window.topicLinkFor = function (question) {
     var entry = TOPIC_PAGES[question.cat];
     if (!entry) return "";
-    return '<a class="topic-link" href="index.html#' + entry[0] +
-      '" target="_blank" rel="noopener">📖 לא בטוח בחומר? הרחבה: ' +
-      entry[1] + "</a>";
+    return '<a class="topic-link" href="#' + entry[0] +
+      '">📖 לא בטוח בחומר? הרחבה: ' + entry[1] + "</a>";
   };
 
   /* ---- פירוק כרטיס מהמאגר לחלקיו: קוד, פתרון, ושאר התוכן ----
@@ -1071,7 +1070,7 @@
     });
 
     document.addEventListener("keydown", function (event) {
-      var page = document.getElementById("training");
+      var page = document.getElementById("practice");
       if (!page || !page.classList.contains("on")) return;
       if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
       if (/^[1-4]$/.test(event.key)) choose(Number(event.key) - 1);
