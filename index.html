@@ -253,6 +253,9 @@ nav.tabs button{flex:none;width:100%;text-align:right;background:var(--bg2);
   border-radius:8px;padding:7px 12px;font:600 13.5px var(--sans);cursor:pointer;white-space:nowrap}
 nav.tabs button:hover{border-color:var(--accent);color:var(--accent)}
 nav.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+nav.tabs button.cta{background:var(--accent);border-color:var(--accent);color:var(--accent-fg);
+  font-size:14.5px;padding:10px 12px;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 35%,transparent)}
+nav.tabs button.cta:hover{opacity:.92;color:var(--accent-fg)}
 nav.tabs .th{margin-top:auto;position:sticky;bottom:0;text-align:center;background:var(--bg2)}
 body{padding-right:210px}
 /* --- במסכים צרים: חוזר לפס עליון נגלל --- */
@@ -294,12 +297,17 @@ a.golink:hover{opacity:.8}
 </style>
 </head>
 <body>
-<nav class="tabs"><span class="grp">התחלה</span><button data-go="home">עמוד הבית</button><button data-go="map">מפת המבחן</button><button data-go="plan">תוכנית 7 ימים</button><span class="grp">נושאי הלימוד</span><button data-go="d01">סיבוכיות</button><button data-go="d02">רקורסיה</button><button data-go="d03">רשימות מקושרות</button><button data-go="d04">עצים ו-BST</button><button data-go="d05">ערימה</button><button data-go="d06">ערבול</button><button data-go="d07">מחסנית ותור</button><button data-go="d08">מיונים</button><button data-go="d09">שפת C</button><button data-go="d10">AVL</button><button data-go="d11">גרפים</button><span class="grp">תרגול והעמקה</span><button data-go="d12">מעבדת קוד C</button><button data-go="d13">הסבר בקצרה</button><button data-go="d14">מאגר תרגול</button><button data-go="d15">יסודות ונוסחאות</button><button data-go="d16">המילון הפיזי</button><button data-go="d17">פתרונות מבחנים</button><span class="grp">עמודים נפרדים</span><button onclick="window.open('practice.html','_blank')" title="261 שאלות במקום אחד — אמריקאיות, פתוחות וסיבוכיות, עם מאמן אדפטיבי ופתרונות מונפשים">🎯 מרכז תרגול</button><button onclick="window.open('formulas.html','_blank')" title="נפתח בעמוד נפרד — נוח להדפסה">📄 דף נוסחאות</button><button onclick="window.open('complexity.html','_blank')" title="102 שאלות אמריקאיות עם הסברים">💯 סיבוכיות</button><button class="th" onclick="toggleTheme()" title="מצב כהה / בהיר">◐</button></nav>
+<nav class="tabs"><button class="cta" onclick="window.open('practice.html','_blank')" title="261 שאלות במקום אחד — מאמן אדפטיבי, סימולטור מבחן ופתרונות מונפשים">🎯 מרכז התרגול</button><span class="grp">התחלה</span><button data-go="home">עמוד הבית</button><button data-go="map">מפת המבחן</button><button data-go="plan">תוכנית 7 ימים</button><span class="grp">נושאי הלימוד</span><button data-go="d01">סיבוכיות</button><button data-go="d02">רקורסיה</button><button data-go="d03">רשימות מקושרות</button><button data-go="d04">עצים ו-BST</button><button data-go="d05">ערימה</button><button data-go="d06">ערבול</button><button data-go="d07">מחסנית ותור</button><button data-go="d08">מיונים</button><button data-go="d09">שפת C</button><button data-go="d10">AVL</button><button data-go="d11">גרפים</button><span class="grp">תרגול והעמקה</span><button data-go="d12">מעבדת קוד C</button><button data-go="d13">הסבר בקצרה</button><button data-go="d14">מאגר תרגול</button><button data-go="d15">יסודות ונוסחאות</button><button data-go="d16">המילון הפיזי</button><button data-go="d17">פתרונות מבחנים</button><button class="th" onclick="toggleTheme()" title="מצב כהה / בהיר">◐</button></nav>
 <div class="wrap"><section class="pg" id="home"><h1>הכנה למבחן 10804</h1>
 <p class="lead">אלגוריתמים ומבנה נתונים · אפקה · מבחן ב-04/08/2026 ·
 180 דקות · 90% מהציון</p>
 
 <div class="grid">
+  <a class="deck" href="practice.html" target="_blank" style="border-color:var(--accent);background:var(--accent2)">
+    <div class="n">🎯 הכי חשוב</div>
+    <div class="t">מרכז התרגול</div>
+    <div class="d">261 שאלות במקום אחד עם מאמן אישי, סימולטור מבחן ופתרונות מונפשים. כאן מתאמנים.</div>
+  </a>
   <a class="deck" href="#map" style="border-color:var(--accent)">
     <div class="n">התחל כאן</div>
     <div class="t">מפת המבחן</div>
@@ -308,7 +316,7 @@ a.golink:hover{opacity:.8}
   <a class="deck" href="#plan" style="border-color:var(--accent)">
     <div class="n">לוח זמנים</div>
     <div class="t">תוכנית 7 ימים</div>
-    <div class="d">חלוקה יומית לפי משקל הנושאים, עם שני מבחני הדמה בסוף.</div>
+    <div class="d">חלוקה יומית לפי תדירות ההופעה של כל נושא, עם שני מבחני הדמה בסוף.</div>
   </a>
 </div>
 
@@ -317,15 +325,17 @@ a.golink:hover{opacity:.8}
 <ol style="margin-bottom:0">
 <li>למבחן יש <b>שאלה אחת לכל נושא</b>, בסדר כמעט קבוע (2024 ו-2025: 8 שאלות).
 לא צריך לנחש — צריך לדעת לפתור שאלה אחת מכל סוג.</li>
-<li><b>רקורסיה נוגעת ב-4 שאלות שונות</b> — כ-42 נקודות. זה הנושא הכי משתלם.</li>
+<li><b>רקורסיה מופיעה ב-4 שאלות שונות בכל מבחן</b> — כשאלה בפני עצמה וגם בתוך
+עצים, רשימות ומחסנית. זה הנושא שחוזר הכי הרבה.</li>
 <li><b>AVL וגרפים לא הופיעו באף שאלון</b> שנבדק. גש אליהם אחרונים.</li>
 </ol>
 </div>
 
-<h2>הדקים</h2>
-<p><span class="dot p1"></span> עדיפות גבוהה &nbsp;·&nbsp;
-<span class="dot p2"></span> בינונית &nbsp;·&nbsp;
-<span class="dot p3"></span> נמוכה</p>
+<h2>נושאי הלימוד — לפי תדירות ההופעה במבחנים</h2>
+<p>העדיפות נקבעת לפי כמה פעמים הנושא הופיע ב-4 שאלוני העבר שנותחו:<br>
+<span class="dot p1"></span> מופיע בכל מבחן &nbsp;·&nbsp;
+<span class="dot p2"></span> מופיע ברוב המבחנים / כתשתית &nbsp;·&nbsp;
+<span class="dot p3"></span> לא הופיע אף פעם</p>
 
 <div class="decks">
 
@@ -333,28 +343,28 @@ a.golink:hover{opacity:.8}
   <div class="n">01</div>
   <div class="t">סיבוכיות + נוסחת האב</div>
   <div class="d">פירוק לולאות מקוננות, שני משתנים n/m, זיהוי a·b·k. 20 כרטיסים מהמצגות.</div>
-  <div class="m"><span class="dot p1"></span><span class="tag exam">16 נק' · שאלה 1</span></div>
+  <div class="m"><span class="dot p1"></span><span class="tag exam">בכל מבחן · שאלה 1</span></div>
 </a>
 
 <a class="deck" href="#d02">
   <div class="n">02</div>
   <div class="t">רקורסיה</div>
   <div class="d">עץ מעקב, כתיבה בלי לולאות, הטריק של מחסנית ותור, "הסבר ב-8 מילים".</div>
-  <div class="m"><span class="dot p1"></span><span class="tag hot">~42 נק'</span></div>
+  <div class="m"><span class="dot p1"></span><span class="tag hot">בכל מבחן · נוגעת ב-4 שאלות</span></div>
 </a>
 
 <a class="deck" href="#d03">
   <div class="n">03</div>
   <div class="t">רשימות מקושרות</div>
   <div class="d">חד/דו/מעגלית. שתי המלכודות של הקורס, ו-6 תבניות חוזרות.</div>
-  <div class="m"><span class="dot p1"></span><span class="tag hot">64 נק' מצטברים</span></div>
+  <div class="m"><span class="dot p1"></span><span class="tag hot">בכל מבחן · שאלה 3 · כתיבת קוד</span></div>
 </a>
 
 <a class="deck" href="#d04">
   <div class="n">04</div>
   <div class="t">עצים בינאריים ו-BST</div>
   <div class="d">סיורים, שחזור מ-PreOrder, שלושת מקרי המחיקה, פונקציות רקורסיביות.</div>
-  <div class="m"><span class="dot p1"></span><span class="tag hot">60 נק' מצטברים</span></div>
+  <div class="m"><span class="dot p1"></span><span class="tag hot">בכל מבחן · שאלה 4 · כתיבת קוד</span></div>
 </a>
 
 <a class="deck" href="#d05">
@@ -368,21 +378,21 @@ a.golink:hover{opacity:.8}
   <div class="n">06</div>
   <div class="t">טבלאות ערבול</div>
   <div class="d">מתי פונקציית צעד חוקית, ספירת התנגשויות, ומלכודת המחיקה.</div>
-  <div class="m"><span class="dot p1"></span><span class="tag">12 נק'</span></div>
+  <div class="m"><span class="dot p1"></span><span class="tag">בכל מבחן</span></div>
 </a>
 
 <a class="deck" href="#d07">
   <div class="n">07</div>
   <div class="t">מחסנית ותור</div>
   <div class="d">הטריק היחיד — רקורסיה. ולמה תור צריך שני מעברים ומחסנית אחד.</div>
-  <div class="m"><span class="dot p2"></span><span class="tag">12 נק'</span></div>
+  <div class="m"><span class="dot p2"></span><span class="tag">בכל מבחן</span></div>
 </a>
 
 <a class="deck" href="#d08">
   <div class="n">08</div>
   <div class="t">מיונים וחיפוש בינארי</div>
   <div class="d">הטבלה בעל פה, מקרים גרועים, ומיון מנייה עם המעקב הרשמי.</div>
-  <div class="m"><span class="dot p2"></span><span class="tag">10–12 נק'</span></div>
+  <div class="m"><span class="dot p2"></span><span class="tag">כמעט בכל מבחן</span></div>
 </a>
 
 <a class="deck" href="#d09">
@@ -396,14 +406,14 @@ a.golink:hover{opacity:.8}
   <div class="n">10</div>
   <div class="t">עצי AVL</div>
   <div class="d">ארבעת המקרים והרוטציות. בסילבוס — אבל לא הופיע באף שאלון.</div>
-  <div class="m"><span class="dot p3"></span><span class="tag">0 נק' במבחנים</span></div>
+  <div class="m"><span class="dot p3"></span><span class="tag">לא הופיע באף שאלון</span></div>
 </a>
 
 <a class="deck" href="#d11">
   <div class="n">11</div>
   <div class="t">גרפים</div>
   <div class="d">BFS, DFS, מיון טופולוגי. אין עליהם חומר בתיקייה ולא נשאלו מעולם.</div>
-  <div class="m"><span class="dot p3"></span><span class="tag">0 נק' במבחנים</span></div>
+  <div class="m"><span class="dot p3"></span><span class="tag">לא הופיע באף שאלון</span></div>
 </a>
 
 </div>
@@ -416,7 +426,7 @@ a.golink:hover{opacity:.8}
   <div class="t">מעבדת קוד C</div>
   <div class="d">16 פונקציות פתורות לשאלות 3 ו-4 — רשימות, עצים, מחסנית ותור.
   <b>לכתוב ביד, לא לקרוא.</b></div>
-  <div class="m"><span class="tag exam">26 נק' — החלק הגדול במבחן</span></div>
+  <div class="m"><span class="tag exam">שאלות 3–4 בכל מבחן — כתיבת קוד ביד</span></div>
 </a>
 
 <a class="deck" href="#d13" style="border-color:var(--amber)">
@@ -430,8 +440,9 @@ a.golink:hover{opacity:.8}
 <a class="deck" href="#d14" style="border-color:var(--amber)">
   <div class="n">14</div>
   <div class="t">מאגר תרגול 2024–2025</div>
-  <div class="d">‏111 שאלות ב-8 משבצות (מהן 60 שאלות מבחן אמיתיות!) + ‏102 בספריית הסיבוכיות — כל שאלה
-  מתויגת מקור (מבחן/מטלה/מצגת/מעבדה) ורמת קושי. <b>כסה, פתור ביד, השווה.</b></div>
+  <div class="d">‏111 שאלות ב-8 משבצות (מהן 60 שאלות מבחן אמיתיות!) — כל שאלה
+  מתויגת מקור ורמת קושי. כולן זמינות גם במרכז התרגול האינטראקטיבי.
+  <b>כסה, פתור ביד, השווה.</b></div>
   <div class="m"><span class="tag exam">הליבה של התרגול</span></div>
 </a>
 
@@ -868,7 +879,7 @@ a.golink:hover{opacity:.8}
 </div>
 
 <div class="card" data-day="3">
-<h3 style="margin-top:0">יום 3 · חמישי 30/07 — רשימות מקושרות <span class="tag hot">64 נק' מצטברים</span></h3>
+<h3 style="margin-top:0">יום 3 · חמישי 30/07 — רשימות מקושרות <span class="tag hot">בכל מבחן · שאלה 3 · כתיבת קוד</span></h3>
 <p>הנושא עם הכי הרבה נקודות במבחני העבר. מופיע בכל מבחן.</p>
 <div class="tw"><table>
 <thead><tr><th class="c">זמן</th><th>מה עושים</th></tr></thead>
@@ -882,7 +893,7 @@ a.golink:hover{opacity:.8}
 </div>
 
 <div class="card" data-day="4">
-<h3 style="margin-top:0">יום 4 · שישי 31/07 — עצים ו-BST <span class="tag hot">60 נק' מצטברים</span></h3>
+<h3 style="margin-top:0">יום 4 · שישי 31/07 — עצים ו-BST <span class="tag hot">בכל מבחן · שאלה 4 · כתיבת קוד</span></h3>
 <p>מופיע בשתי צורות: ציור/שחזור, וכתיבת פונקציה רקורסיבית.</p>
 <div class="tw"><table>
 <thead><tr><th class="c">זמן</th><th>מה עושים</th></tr></thead>
@@ -6050,12 +6061,6 @@ push בדרך חזרה. ה-push אחרי הקריאה הרקורסיבית מח�
 מרכז התרגול ←</b></a>
 <br><small>העמוד הזה נשאר כספריית עיון מסודרת לפי משבצות המבחן — התרגול
 עצמו עובר למרכז.</small>
-</div>
-
-<div class="ok">
-<b>ועוד 102 שאלות סיבוכיות אמריקאיות</b> — עם חיפוש, סינון ותרגול
-טעויות משלהן — ב<a href="complexity.html" target="_blank">ספריית
-הסיבוכיות</a> (כל שאלה שם מתויגת מקור). ביחד: ‏213 שאלות.
 </div>
 
 <div class="ok">

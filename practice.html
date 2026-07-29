@@ -279,6 +279,40 @@ label.chk input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer
 .quiz-selfgrade{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:15px}
 .quiz-selfgrade .selfgrade-hint{flex-basis:100%;font-size:13.5px;color:var(--fg2);font-weight:600}
 .quiz-selfgrade .quiz-option{flex:1;min-width:150px;justify-content:center}
+/* --- קישור הרחבה לנושא --- */
+.topic-link{display:inline-block;margin-inline-start:10px;font-size:12.5px;font-weight:700;
+  color:var(--blue);text-decoration:none;border:1px solid var(--blue);border-radius:99px;
+  padding:2px 11px;background:var(--blue-bg)}
+.topic-link:hover{opacity:.85}
+/* --- סימולטור מבחן --- */
+.sim-switch{display:flex;gap:8px;margin:14px 0}
+.sim-switch .quiz-btn{font-size:15px;padding:10px 18px}
+.sim-intro{border:1px solid var(--accent);border-radius:var(--radius);padding:18px;background:var(--bg2)}
+.sim-intro h2{margin-top:0}
+.quiz-btn.big{font-size:16px;padding:12px 26px}
+.sim-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:40;
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);
+  padding:10px 14px;margin-bottom:10px}
+.sim-clock{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.sim-clock.danger{color:var(--red)}
+.sim-progress{font-size:13px;color:var(--fg2);margin-inline-start:auto}
+.sim-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.sim-pill{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);
+  background:var(--bg2);color:var(--fg2);font:700 14px var(--sans);cursor:pointer}
+.sim-pill.done{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+.sim-pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.bank-card.conceal details.sol{display:none}
+.sim-open-note{border:1px dashed var(--amber);border-radius:var(--radius);background:var(--amber-bg);
+  padding:10px 14px;margin:12px 0;font-size:14px}
+.sim-summary{border:1px solid var(--accent);border-radius:var(--radius);padding:16px;
+  background:var(--bg2);margin-bottom:16px}
+.sim-summary h2{margin-top:0}
+.sim-actions{display:flex;gap:8px;margin-top:12px}
+.sim-review-card{border:1px solid var(--line2);border-radius:var(--radius);padding:14px 16px;
+  background:var(--bg2);margin-bottom:14px}
+.sim-review-card h3{margin-top:0}
+.sim-steps{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
 .quiz-explain{display:none;border-top:1px solid var(--line);background:var(--bg);padding:16px 18px}
 .quiz-explain.open{display:block}
 .quiz-verdict{font-weight:800;margin-bottom:8px}
@@ -476,6 +510,14 @@ nav.tabs{
 פתרון מלא, נוסחאות ואנימציה שלב-אחר-שלב; בשאלות הפתוחות פותרים על דף
 ומסמנים לעצמך — והכול מזין מאמן אישי אחד.</p>
 
+<div class="sim-switch" role="tablist" aria-label="מצב תרגול">
+  <button class="quiz-btn primary on" id="modeTrainer">🎯 תרגול חופשי</button>
+  <button class="quiz-btn" id="modeSim">⏱️ סימולטור מבחן מלא</button>
+</div>
+
+<section id="simulator" style="display:none" aria-label="סימולטור מבחן"></section>
+
+<div id="trainerParts">
 <div class="quiz-hero">
   <b>איך לעבוד נכון:</b> התחל ב“מאמן אישי”, פתור בלי להציץ וקרא את ההסבר גם כשצדקת.
   טעות חוזרת אוטומטית אחרי לפחות 3 שאלות אחרות; שלוש הצלחות בונות שליטה מלאה.
@@ -545,6 +587,7 @@ nav.tabs{
 מבחן ושנה/מועד, מספר מטלה, או <b>“שאלת Codex · לא ממבחן”</b>.
 “נוסח מותאם” פירושו שהרעיון הגיע מהמקור, אבל השאלה נוסחה מחדש לתרגול.
 ההתקדמות נשמרת מקומית במכשיר, ולכן לכל חבר שתשלח לו את הקישור תהיה התקדמות נפרדת.
+</div>
 </div>
 </section>
 </div>
@@ -638,5 +681,6 @@ var CODEX_COMPLEXITY_DATA = {"qs": [{"n": 1, "id": "A1", "cat": "לולאות", 
   window.mountCodexQuiz();
 })();
 </script>
+<script src="exam-sim.js"></script>
 </body>
 </html>

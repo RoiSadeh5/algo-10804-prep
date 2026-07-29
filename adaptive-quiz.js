@@ -8,6 +8,37 @@
   var examSolutions = window.CODEX_EXAM_SOLUTIONS || {};
   if (!data || !Array.isArray(data.qs)) return;
 
+  /* מיפוי קטגוריה → עמוד הנושא בקובץ ההכנה, ללומדים שרוצים להעמיק */
+  var TOPIC_PAGES = {
+    "לולאות": ["d01", "סיבוכיות"],
+    "לולאות מקוננות": ["d01", "סיבוכיות"],
+    "מלכודות מבחן": ["d01", "סיבוכיות"],
+    "נוסחאות נסיגה": ["d01", "סיבוכיות ונוסחת האב"],
+    "סיבוכיות": ["d01", "סיבוכיות"],
+    "אסימפטוטיקה": ["d15", "יסודות ונוסחאות"],
+    "קריאות ומיונים": ["d08", "מיונים"],
+    "מיונים": ["d08", "מיונים"],
+    "קוד רקורסיבי": ["d02", "רקורסיה"],
+    "רקורסיה": ["d02", "רקורסיה"],
+    "רשימות מקושרות": ["d03", "רשימות מקושרות"],
+    "עצים ו-BST": ["d04", "עצים ו-BST"],
+    "ערימה": ["d05", "ערימה"],
+    "ערבול": ["d06", "טבלאות ערבול"],
+    "מחסנית ותור": ["d07", "מחסנית ותור"],
+    "C ומצביעים": ["d09", "שפת C"],
+    "פעולות על מבני נתונים": ["d16", "המילון הפיזי"],
+    "עיצוב מבנה נתונים": ["d16", "המילון הפיזי"],
+    "אתגרי מבחן+": ["d17", "פתרונות מבחנים"]
+  };
+
+  window.topicLinkFor = function (question) {
+    var entry = TOPIC_PAGES[question.cat];
+    if (!entry) return "";
+    return '<a class="topic-link" href="index.html#' + entry[0] +
+      '" target="_blank" rel="noopener">📖 לא בטוח בחומר? הרחבה: ' +
+      entry[1] + "</a>";
+  };
+
   function unique(values) {
     return values.filter(function (value, index) {
       return values.indexOf(value) === index;
@@ -681,7 +712,8 @@
           ? '<span class="tag exam">פתרון מונפש · ' +
             question.examSolution.steps.length + " שלבים</span>"
           : "") + "</div>" +
-        '<div class="quiz-body"><div class="source-proof">' + sourceProof(question) + "</div>" +
+        '<div class="quiz-body"><div class="source-proof">' + sourceProof(question) +
+        window.topicLinkFor(question) + "</div>" +
         '<div class="quiz-prompt">' + question.prompt + "</div>" + body +
         options + "</div>" + explanation +
         '<div class="quiz-nav">' +
